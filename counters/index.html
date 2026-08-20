@@ -297,6 +297,216 @@
   }
 
   .score-item{ text-align:center; }
+  /* Game Type Switcher (Treino Livre vs Contra o Relógio) */
+  .game-type-bar{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .game-type-toggle{
+    display: inline-flex;
+    background: rgba(42,35,24,0.06);
+    border: 1px solid rgba(42,35,24,0.18);
+    border-radius: 10px;
+    padding: 3px;
+    gap: 4px;
+  }
+  .game-type-btn{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    background: transparent;
+    border: none;
+    color: var(--ink-soft);
+    padding: 8px 18px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all .15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .game-type-btn:hover{ color: var(--ink); }
+  .game-type-btn.active{
+    background: var(--hanko);
+    color: var(--paper);
+    box-shadow: 0 2px 8px rgba(179,57,44,0.3);
+  }
+
+  .score-item.points .num{ color: var(--gold); }
+  .score-item.combo .num{ color: var(--hanko); }
+  .score-item.best .num{ color: var(--ink); }
+
+  .ta-stop-btn{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.05em;
+    background: rgba(179,57,44,0.1);
+    border: 1px solid var(--hanko);
+    color: var(--hanko);
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .ta-stop-btn:hover{
+    background: var(--hanko);
+    color: var(--paper);
+  }
+
+  /* Timer Bar */
+  .timer-bar-wrap{
+    margin-bottom: 22px;
+    background: rgba(42,35,24,0.04);
+    border: 1px solid rgba(42,35,24,0.12);
+    border-radius: 10px;
+    padding: 10px 14px;
+  }
+  .timer-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 6px;
+  }
+  .timer-label{
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    font-weight: 700;
+  }
+  .timer-countdown{
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .timer-countdown.warning{
+    color: var(--gold);
+  }
+  .timer-countdown.critical{
+    color: var(--hanko);
+    animation: timerPulse .5s infinite alternate;
+  }
+  @keyframes timerPulse{
+    from { transform: scale(1); }
+    to { transform: scale(1.08); }
+  }
+  .timer-bar-track{
+    width: 100%;
+    height: 8px;
+    background: rgba(42,35,24,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .timer-bar-fill{
+    height: 100%;
+    width: 100%;
+    background: var(--ok);
+    border-radius: 4px;
+    transition: width .1s linear, background .3s ease;
+  }
+  .timer-bar-fill.warning{ background: var(--gold); }
+  .timer-bar-fill.critical{ background: var(--hanko); }
+
+  /* Results Modal */
+  .results-modal{
+    max-width: 480px;
+  }
+  .results-body{
+    padding: 24px 26px 28px;
+    text-align: center;
+  }
+  .results-hero{
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .results-score{
+    font-family: 'Shippori Mincho', serif;
+    font-size: 56px;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1;
+    text-shadow: 0 2px 0 rgba(0,0,0,0.1);
+  }
+  .results-score-lbl{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--ink-soft);
+    margin-top: 4px;
+  }
+  .results-new-record{
+    display: inline-block;
+    background: var(--gold);
+    color: var(--bg-indigo);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-top: 8px;
+    animation: bounceBadge .6s cubic-bezier(.17,.89,.32,1.28);
+  }
+  @keyframes bounceBadge{
+    0% { transform: scale(0); opacity: 0; }
+    70% { transform: scale(1.15); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .results-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    background: rgba(42,35,24,0.05);
+    border: 1px solid rgba(42,35,24,0.1);
+    border-radius: 10px;
+    padding: 14px 10px;
+    margin-bottom: 16px;
+  }
+  .results-item .num{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .results-item .lbl{
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+  .results-best-record{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-bottom: 22px;
+  }
+  .results-best-record strong{
+    color: var(--ink);
+  }
+  .results-actions{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .btn-secondary{
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-weight: 700;
+    font-size: 13.5px;
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--ink-soft);
+    padding: 11px 20px;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .btn-secondary:hover{
+    background: rgba(42,35,24,0.08);
+    color: var(--ink);
+  }
+
   .score-item .num{ font-size: 22px; font-weight: 700; }
   .score-item .lbl{ font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
   .score-item.correct .num{ color: var(--ok); }
@@ -781,7 +991,16 @@
 
     <main class="main">
 
-      <div class="scoreboard">
+      <!-- Seletor de Tipo de Jogo: Treino Livre vs Contra o Relógio -->
+      <div class="game-type-bar">
+        <div class="game-type-toggle">
+          <button type="button" class="game-type-btn active" id="type-free">🥋 Treino Livre</button>
+          <button type="button" class="game-type-btn" id="type-timeattack">⏱️ Desafio 60s</button>
+        </div>
+      </div>
+
+      <!-- Placar: Treino Livre -->
+      <div class="scoreboard" id="sb-free">
         <div class="score-pill">
           <div class="score-item correct">
             <div class="num" id="score-correct">0</div>
@@ -803,6 +1022,43 @@
             <button type="button" class="mode-btn" id="mode-choice" data-mode="choice" title="Modo múltipla escolha">🔘 Múltipla Escolha</button>
           </div>
           <button id="reset-btn" title="Zera o placar e recarrega a página">↺ Reiniciar sessão</button>
+        </div>
+      </div>
+
+      <!-- Placar: Contra o Relógio -->
+      <div class="scoreboard" id="sb-timeattack" style="display:none;">
+        <div class="score-pill">
+          <div class="score-item points">
+            <div class="num" id="ta-score">0</div>
+            <div class="lbl">Pontos</div>
+          </div>
+          <div class="score-item combo">
+            <div class="num" id="ta-combo">🔥 0</div>
+            <div class="lbl">Combo</div>
+          </div>
+          <div class="score-item best">
+            <div class="num" id="ta-best">0</div>
+            <div class="lbl">Recorde</div>
+          </div>
+        </div>
+
+        <div class="scoreboard-right">
+          <div class="mode-toggle">
+            <button type="button" class="mode-btn active" id="mode-ta-typing" data-mode="typing" title="Modo digitação">⌨️ Digitação</button>
+            <button type="button" class="mode-btn" id="mode-ta-choice" data-mode="choice" title="Modo múltipla escolha">🔘 Múltipla Escolha</button>
+          </div>
+          <button id="ta-stop-btn" class="ta-stop-btn" title="Encerrar o desafio">🛑 Parar</button>
+        </div>
+      </div>
+
+      <!-- Barra de Tempo: Desafio 60s -->
+      <div class="timer-bar-wrap" id="timer-bar-wrap" style="display:none;">
+        <div class="timer-info">
+          <span class="timer-label">⏱️ TEMPO RESTANTE</span>
+          <span class="timer-countdown" id="timer-countdown">60.0s</span>
+        </div>
+        <div class="timer-bar-track">
+          <div class="timer-bar-fill" id="timer-bar-fill" style="width:100%;"></div>
         </div>
       </div>
 
@@ -840,6 +1096,7 @@
   <footer>1〜100 · つ・個・冊・杯・日・枚・時・本・台・分・ヶ月・足・人・匹・年</footer>
 </div>
 
+<!-- Modal: Guia de Estudo -->
 <div class="modal-overlay" id="guide-overlay">
   <div class="modal">
     <div class="modal-head">
@@ -851,6 +1108,52 @@
       <button id="guide-close" class="guide-close" aria-label="Fechar guia">✕</button>
     </div>
     <div class="modal-body" id="guide-body"></div>
+  </div>
+</div>
+
+<!-- Modal: Resultados do Contra o Relógio -->
+<div class="modal-overlay" id="results-overlay">
+  <div class="modal results-modal">
+    <div class="modal-head">
+      <div>
+        <div class="eyebrow">time attack · タイムアタック</div>
+        <h2>Tempo Esgotado! · 終了</h2>
+        <p class="modal-sub">Confira seu desempenho na rodada de 60 segundos.</p>
+      </div>
+      <button id="results-close" class="guide-close" aria-label="Fechar resultados">✕</button>
+    </div>
+    <div class="results-body">
+      <div class="results-hero">
+        <div class="results-score" id="res-score">0</div>
+        <div class="results-score-lbl">PONTOS</div>
+        <div class="results-new-record" id="res-new-record" style="display:none;">🏆 NOVO RECORDE!</div>
+      </div>
+      <div class="results-grid">
+        <div class="results-item">
+          <div class="num" id="res-correct">0</div>
+          <div class="lbl">Acertos</div>
+        </div>
+        <div class="results-item">
+          <div class="num" id="res-wrong">0</div>
+          <div class="lbl">Erros</div>
+        </div>
+        <div class="results-item">
+          <div class="num" id="res-max-combo">0</div>
+          <div class="lbl">Maior Combo</div>
+        </div>
+        <div class="results-item">
+          <div class="num" id="res-accuracy">0%</div>
+          <div class="lbl">Precisão</div>
+        </div>
+      </div>
+      <div class="results-best-record">
+        Recorde Pessoal: <strong id="res-best-score">0</strong> pts
+      </div>
+      <div class="results-actions">
+        <button class="primary" id="res-replay-btn">⚡ Jogar Novamente (60s)</button>
+        <button class="btn-secondary" id="res-back-btn">🥋 Voltar ao Treino Livre</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1045,12 +1348,25 @@
     refreshAvailability();
   });
 
-  // ---------- Quiz state ----------
+  // ---------- Quiz & Time Attack state ----------
 
   let score = { correct: 0, wrong: 0 };
   let current = null;   // { counter, n, correctAnswer, answered }
   let currentChoices = [];
   let quizMode = localStorage.getItem('counter_quiz_mode') || 'typing';
+
+  let gameType = 'free'; // 'free' | 'timeattack'
+  const taDuration = 60;
+  let taRemaining = 60;
+  let taTimerId = null;
+  let taAutoAdvanceTimer = null;
+  let taScore = 0;
+  let taCombo = 0;
+  let taMaxCombo = 0;
+  let taCorrect = 0;
+  let taWrong = 0;
+  let taIsRunning = false;
+  let taBestScore = parseInt(localStorage.getItem('counter_ta_best') || '0', 10);
 
   const quizEmpty = document.getElementById('quiz-empty');
   const quizArea = document.getElementById('quiz-area');
@@ -1064,8 +1380,35 @@
   const actionBtn = document.getElementById('action-btn');
   const stampEl = document.getElementById('stamp');
   const stampChoice = document.getElementById('stamp-choice');
+
+  const typeFreeBtn = document.getElementById('type-free');
+  const typeTimeAttackBtn = document.getElementById('type-timeattack');
+  const sbFree = document.getElementById('sb-free');
+  const sbTimeAttack = document.getElementById('sb-timeattack');
+  const timerBarWrap = document.getElementById('timer-bar-wrap');
+  const timerCountdown = document.getElementById('timer-countdown');
+  const timerBarFill = document.getElementById('timer-bar-fill');
+  const taScoreEl = document.getElementById('ta-score');
+  const taComboEl = document.getElementById('ta-combo');
+  const taBestEl = document.getElementById('ta-best');
+  const taStopBtn = document.getElementById('ta-stop-btn');
+
   const modeTypingBtn = document.getElementById('mode-typing');
   const modeChoiceBtn = document.getElementById('mode-choice');
+  const modeTaTypingBtn = document.getElementById('mode-ta-typing');
+  const modeTaChoiceBtn = document.getElementById('mode-ta-choice');
+
+  const resultsOverlay = document.getElementById('results-overlay');
+  const resultsClose = document.getElementById('results-close');
+  const resScoreEl = document.getElementById('res-score');
+  const resNewRecordEl = document.getElementById('res-new-record');
+  const resCorrectEl = document.getElementById('res-correct');
+  const resWrongEl = document.getElementById('res-wrong');
+  const resMaxComboEl = document.getElementById('res-max-combo');
+  const resAccuracyEl = document.getElementById('res-accuracy');
+  const resBestScoreEl = document.getElementById('res-best-score');
+  const resReplayBtn = document.getElementById('res-replay-btn');
+  const resBackBtn = document.getElementById('res-back-btn');
 
   if(window.wanakana){
     wanakana.bind(answerInput, { IMEMode: 'toHiragana' });
@@ -1074,21 +1417,28 @@
   function setMode(mode){
     quizMode = mode;
     localStorage.setItem('counter_quiz_mode', mode);
-    if(mode === 'typing'){
-      modeTypingBtn.classList.add('active');
-      modeChoiceBtn.classList.remove('active');
+
+    const isTyping = mode === 'typing';
+    modeTypingBtn.classList.toggle('active', isTyping);
+    modeChoiceBtn.classList.toggle('active', !isTyping);
+    modeTaTypingBtn.classList.toggle('active', isTyping);
+    modeTaChoiceBtn.classList.toggle('active', !isTyping);
+
+    if(isTyping){
       typingRow.style.display = 'flex';
       choiceContainer.style.display = 'none';
-      questionHint.textContent = 'Digite em romaji (conversão automática) ou hiragana e pressione Enter';
+      questionHint.textContent = gameType === 'timeattack' 
+        ? 'Digite em romaji ou hiragana e dê Enter o mais rápido possível!' 
+        : 'Digite em romaji (conversão automática) ou hiragana e pressione Enter';
       if(current && !current.answered){
         answerInput.focus();
       }
     } else {
-      modeTypingBtn.classList.remove('active');
-      modeChoiceBtn.classList.add('active');
       typingRow.style.display = 'none';
       choiceContainer.style.display = 'block';
-      questionHint.textContent = 'Selecione uma opção ou tecle 1, 2, 3 ou 4';
+      questionHint.textContent = gameType === 'timeattack'
+        ? 'Selecione ou tecle 1, 2, 3 ou 4 velozmente!'
+        : 'Selecione uma opção ou tecle 1, 2, 3 ou 4';
       if(current && !current.answered && choiceGrid.children.length === 0){
         renderChoices();
       }
@@ -1097,6 +1447,146 @@
 
   modeTypingBtn.addEventListener('click', () => setMode('typing'));
   modeChoiceBtn.addEventListener('click', () => setMode('choice'));
+  modeTaTypingBtn.addEventListener('click', () => setMode('typing'));
+  modeTaChoiceBtn.addEventListener('click', () => setMode('choice'));
+
+  function setGameType(type){
+    gameType = type;
+    if(type === 'free'){
+      stopTimeAttack(false);
+      typeFreeBtn.classList.add('active');
+      typeTimeAttackBtn.classList.remove('active');
+      sbFree.style.display = 'flex';
+      sbTimeAttack.style.display = 'none';
+      timerBarWrap.style.display = 'none';
+      setMode(quizMode);
+      nextQuestion();
+    } else {
+      typeFreeBtn.classList.remove('active');
+      typeTimeAttackBtn.classList.add('active');
+      sbFree.style.display = 'none';
+      sbTimeAttack.style.display = 'flex';
+      timerBarWrap.style.display = 'block';
+      setMode(quizMode);
+      startTimeAttack();
+    }
+  }
+
+  typeFreeBtn.addEventListener('click', () => setGameType('free'));
+  typeTimeAttackBtn.addEventListener('click', () => setGameType('timeattack'));
+  taStopBtn.addEventListener('click', () => setGameType('free'));
+
+  function startTimeAttack(){
+    stopTimeAttack(false);
+    taScore = 0;
+    taCombo = 0;
+    taMaxCombo = 0;
+    taCorrect = 0;
+    taWrong = 0;
+    taRemaining = taDuration;
+    taIsRunning = true;
+    updateTAScoreboard();
+    updateTimerDisplay();
+
+    const totalMs = taDuration * 1000;
+    const startTime = Date.now();
+
+    taTimerId = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const leftMs = Math.max(0, totalMs - elapsed);
+      taRemaining = leftMs / 1000;
+      updateTimerDisplay();
+
+      if(leftMs <= 0){
+        clearInterval(taTimerId);
+        finishTimeAttack();
+      }
+    }, 100);
+
+    nextQuestion();
+  }
+
+  function stopTimeAttack(openResults = false){
+    taIsRunning = false;
+    clearInterval(taTimerId);
+    clearTimeout(taAutoAdvanceTimer);
+    taTimerId = null;
+    if(openResults){
+      finishTimeAttack();
+    }
+  }
+
+  function updateTimerDisplay(){
+    const secs = Math.max(0, taRemaining).toFixed(1);
+    timerCountdown.textContent = `${secs}s`;
+    const pct = Math.max(0, Math.min(100, (taRemaining / taDuration) * 100));
+    timerBarFill.style.width = `${pct}%`;
+
+    if(taRemaining <= 10){
+      timerCountdown.className = 'timer-countdown critical';
+      timerBarFill.className = 'timer-bar-fill critical';
+    } else if(taRemaining <= 20){
+      timerCountdown.className = 'timer-countdown warning';
+      timerBarFill.className = 'timer-bar-fill warning';
+    } else {
+      timerCountdown.className = 'timer-countdown';
+      timerBarFill.className = 'timer-bar-fill';
+    }
+  }
+
+  function updateTAScoreboard(){
+    taScoreEl.textContent = taScore.toLocaleString();
+    taComboEl.textContent = taCombo > 0 ? `🔥 ${taCombo}` : '0';
+    taBestEl.textContent = taBestScore.toLocaleString();
+  }
+
+  function calculateTAPoints(){
+    let mult = 1;
+    if(taCombo >= 12) mult = 4;
+    else if(taCombo >= 8) mult = 3;
+    else if(taCombo >= 5) mult = 2;
+    else if(taCombo >= 3) mult = 1.5;
+    return Math.round(100 * mult);
+  }
+
+  function finishTimeAttack(){
+    taIsRunning = false;
+    clearInterval(taTimerId);
+    clearTimeout(taAutoAdvanceTimer);
+    taTimerId = null;
+
+    answerInput.disabled = true;
+    choiceGrid.querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
+
+    const isNewRecord = taScore > taBestScore && taScore > 0;
+    if(isNewRecord){
+      taBestScore = taScore;
+      localStorage.setItem('counter_ta_best', taBestScore.toString());
+      updateTAScoreboard();
+    }
+
+    resScoreEl.textContent = taScore.toLocaleString();
+    resNewRecordEl.style.display = isNewRecord ? 'inline-block' : 'none';
+    resCorrectEl.textContent = taCorrect;
+    resWrongEl.textContent = taWrong;
+    resMaxComboEl.textContent = `🔥 ${taMaxCombo}`;
+    const total = taCorrect + taWrong;
+    const acc = total > 0 ? Math.round((taCorrect / total) * 100) : 0;
+    resAccuracyEl.textContent = `${acc}%`;
+    resBestScoreEl.textContent = taBestScore.toLocaleString();
+
+    resultsOverlay.classList.add('show');
+  }
+
+  resultsClose.addEventListener('click', () => resultsOverlay.classList.remove('show'));
+  resBackBtn.addEventListener('click', () => {
+    resultsOverlay.classList.remove('show');
+    setGameType('free');
+  });
+  resReplayBtn.addEventListener('click', () => {
+    resultsOverlay.classList.remove('show');
+    startTimeAttack();
+  });
 
   function refreshAvailability(){
     if(enabled.size === 0){
@@ -1242,7 +1732,6 @@
     if(!current || current.answered) return;
     const isCorrect = selectedChoice === current.correctAnswer;
     current.answered = true;
-    score.total = (score.correct + score.wrong);
 
     const counterNote = `<div class="counter-note">Contador ${current.counter.kanji ? current.counter.kanji + ' · ' : ''}${current.counter.hira} (${current.counter.romaji}) — ${current.counter.meaning}</div>`;
 
@@ -1255,24 +1744,49 @@
     });
 
     if(isCorrect){
-      score.correct++;
       if(selectedBtn) selectedBtn.classList.add('correct');
       feedback.className = 'feedback ok-text';
       feedback.innerHTML = `Isso mesmo!${counterNote}`;
       stampChoice.className = 'stamp stamp-choice ok show';
       stampChoice.textContent = '合';
+
+      if(gameType === 'timeattack'){
+        taCorrect++;
+        taCombo++;
+        if(taCombo > taMaxCombo) taMaxCombo = taCombo;
+        taScore += calculateTAPoints();
+        updateTAScoreboard();
+        clearTimeout(taAutoAdvanceTimer);
+        taAutoAdvanceTimer = setTimeout(() => {
+          if(taIsRunning) nextQuestion();
+        }, 350);
+      } else {
+        score.correct++;
+        updateScoreboard();
+      }
     } else {
-      score.wrong++;
       if(selectedBtn) selectedBtn.classList.add('incorrect');
       feedback.className = 'feedback';
       feedback.innerHTML = `Resposta certa: <span class="correct-answer">${current.correctAnswer}</span>
         ${counterNote}`;
       stampChoice.className = 'stamp stamp-choice ng show';
       stampChoice.textContent = '✕';
+
+      if(gameType === 'timeattack'){
+        taWrong++;
+        taCombo = 0;
+        updateTAScoreboard();
+        clearTimeout(taAutoAdvanceTimer);
+        taAutoAdvanceTimer = setTimeout(() => {
+          if(taIsRunning) nextQuestion();
+        }, 650);
+      } else {
+        score.wrong++;
+        updateScoreboard();
+      }
     }
 
     actionBtn.textContent = 'Próxima pergunta →';
-    updateScoreboard();
   }
 
   function submitAnswer(){
@@ -1286,30 +1800,54 @@
 
     const isCorrect = raw === current.correctAnswer;
     current.answered = true;
-    score.total = (score.correct + score.wrong);
 
     const counterNote = `<div class="counter-note">Contador ${current.counter.kanji ? current.counter.kanji + ' · ' : ''}${current.counter.hira} (${current.counter.romaji}) — ${current.counter.meaning}</div>`;
 
     if(isCorrect){
-      score.correct++;
       answerInput.className = 'correct';
       feedback.className = 'feedback ok-text';
       feedback.innerHTML = `Isso mesmo!${counterNote}`;
       stampEl.className = 'stamp ok show';
       stampEl.textContent = '合';
+
+      if(gameType === 'timeattack'){
+        taCorrect++;
+        taCombo++;
+        if(taCombo > taMaxCombo) taMaxCombo = taCombo;
+        taScore += calculateTAPoints();
+        updateTAScoreboard();
+        clearTimeout(taAutoAdvanceTimer);
+        taAutoAdvanceTimer = setTimeout(() => {
+          if(taIsRunning) nextQuestion();
+        }, 400);
+      } else {
+        score.correct++;
+        updateScoreboard();
+      }
     } else {
-      score.wrong++;
       answerInput.className = 'incorrect';
       feedback.className = 'feedback';
       feedback.innerHTML = `Resposta certa: <span class="correct-answer">${current.correctAnswer}</span>
         ${counterNote}`;
       stampEl.className = 'stamp ng show';
       stampEl.textContent = '✕';
+
+      if(gameType === 'timeattack'){
+        taWrong++;
+        taCombo = 0;
+        updateTAScoreboard();
+        clearTimeout(taAutoAdvanceTimer);
+        taAutoAdvanceTimer = setTimeout(() => {
+          if(taIsRunning) nextQuestion();
+        }, 700);
+      } else {
+        score.wrong++;
+        updateScoreboard();
+      }
     }
 
     answerInput.disabled = true;
     actionBtn.textContent = 'Próxima pergunta →';
-    updateScoreboard();
   }
 
   function updateScoreboard(){
@@ -1327,7 +1865,7 @@
   });
 
   document.addEventListener('keydown', (e) => {
-    if(guideOverlay.classList.contains('show')) return;
+    if(guideOverlay.classList.contains('show') || resultsOverlay.classList.contains('show')) return;
     if(!current) return;
 
     if(e.key === 'Enter'){
@@ -1404,8 +1942,12 @@
   document.getElementById('guide-btn').addEventListener('click', openGuide);
   document.getElementById('guide-close').addEventListener('click', closeGuide);
   guideOverlay.addEventListener('click', (e) => { if(e.target === guideOverlay) closeGuide(); });
+  resultsOverlay.addEventListener('click', (e) => { if(e.target === resultsOverlay) resultsOverlay.classList.remove('show'); });
   document.addEventListener('keydown', (e) => {
-    if(e.key === 'Escape' && guideOverlay.classList.contains('show')) closeGuide();
+    if(e.key === 'Escape'){
+      if(guideOverlay.classList.contains('show')) closeGuide();
+      if(resultsOverlay.classList.contains('show')) resultsOverlay.classList.remove('show');
+    }
   });
 
   // ---------- Init ----------
