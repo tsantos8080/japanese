@@ -669,10 +669,10 @@
       <div class="quiz-area" id="quiz-area">
         <div class="question-label">Como se diz em japonês?</div>
         <p class="question" id="question-text"></p>
-        <p class="question-hint">Digite a resposta completa em hiragana e pressione Enter</p>
+        <p class="question-hint">Digite em romaji (conversão automática) ou hiragana e pressione Enter</p>
 
         <div class="answer-row">
-          <input type="text" id="answer" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="ごひき">
+          <input type="text" id="answer" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="gohiki / ごひき">
           <div class="stamp" id="stamp"></div>
         </div>
 
@@ -703,6 +703,7 @@
   </div>
 </div>
 
+<script src="https://unpkg.com/wanakana"></script>
 <script>
 (function(){
 
@@ -902,6 +903,9 @@
   const quizArea = document.getElementById('quiz-area');
   const questionText = document.getElementById('question-text');
   const answerInput = document.getElementById('answer');
+  if(window.wanakana){
+    wanakana.bind(answerInput, { IMEMode: 'toHiragana' });
+  }
   const feedback = document.getElementById('feedback');
   const actionBtn = document.getElementById('action-btn');
   const stampEl = document.getElementById('stamp');
@@ -947,7 +951,11 @@
 
   function submitAnswer(){
     if(!current || current.answered) return;
-    const raw = answerInput.value.trim();
+    let raw = answerInput.value.trim();
+    if(window.wanakana){
+      raw = wanakana.toHiragana(raw);
+      answerInput.value = raw;
+    }
     if(raw === ''){ answerInput.focus(); return; }
 
     const isCorrect = raw === current.correctAnswer;
