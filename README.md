@@ -27,9 +27,19 @@ Exercício prático para treinar a digitação e memorização do Hiragana e Kat
 
 ---
 
+### 📅 日にちドリル (Treino de Dias do Mês)
+
+Ferramenta focada na prática de leitura dos dias do mês em japonês (1 a 31) em Hiragana com auxílio de calendário visual.
+
+* **Foco em exceções:** Permite filtrar o treino entre todos os dias (1–31) ou focar apenas nas leituras irregulares/exceções (1–10, 14, 20 e 24).
+* **Entrada inteligente:** Digitação em romaji com conversão automática via Wanakana, avanço fluido pelo teclado com a tecla Enter e suporte a dicas/guia de consulta.
+
+---
+
 ## 📝 Próximos passos
 
 * [x] Quiz de contadores (1 a 100) em hiragana
 * [x] Treino interativo de digitação em Kana (Hiragana / Katakana)
+* [x] Treino de leitura e exceções dos dias do mês com calendário (1 a 31)
 * [ ] Novas ferramentas e exercícios interativos conforme o progresso nos estudos
 

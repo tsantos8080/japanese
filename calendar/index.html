@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日にちドリル — Treino de Dias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-indigo:#171d34; --bg-indigo-2:#1f2846; --indigo-line:#3c4a73; --indigo-line-soft:#2a3459;
+  --paper:#efe7d6; --paper-2:#e6dcc6; --ink:#2a2318; --ink-soft:#5c5341;
+  --hanko:#b3392c; --hanko-dark:#8f2c22; --gold:#c89b3c; --gold-soft:#dcc27c; --ok:#4c6b3f;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+ margin:0; min-height:100vh; padding:32px 20px 60px; background:
+ radial-gradient(circle at 15% 10%,rgba(200,155,60,.08),transparent 45%),
+ radial-gradient(circle at 85% 90%,rgba(179,57,44,.10),transparent 45%),var(--bg-indigo);
+ background-attachment:fixed; font-family:'Zen Kaku Gothic New',sans-serif; color:var(--paper)
+}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.35;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.06'/></svg>");mix-blend-mode:overlay}
+.wrap{max-width:1080px;margin:0 auto;position:relative}
+header.top{text-align:center;margin-bottom:34px}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:10px}
+h1{font-family:'Shippori Mincho',serif;font-weight:800;font-size:clamp(34px,6vw,56px);margin:0 0 8px;letter-spacing:.04em;color:var(--paper);text-shadow:0 2px 0 rgba(0,0,0,.25)}
+h1 .accent{color:var(--gold)}
+.subtitle{font-size:15px;color:rgba(239,231,214,.72);max-width:600px;margin:0 auto;line-height:1.6}
+.header-actions{display:flex;justify-content:center;gap:12px;margin-top:16px;flex-wrap:wrap}
+.nav-btn,.guide-btn{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.04em;background:transparent;border:1px solid var(--gold-soft);color:var(--gold-soft);padding:10px 18px;border-radius:9px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:.15s}
+.nav-btn:hover,.guide-btn:hover{background:rgba(200,155,60,.12)}
+.layout{display:grid;grid-template-columns:300px 1fr;gap:24px;align-items:start}
+.sidebar{background:linear-gradient(180deg,var(--bg-indigo-2),#172041);border:1px solid var(--indigo-line);border-radius:14px;padding:18px 16px 20px;position:sticky;top:20px}
+.sidebar h2{font-family:'Shippori Mincho',serif;font-size:17px;margin:2px 4px 4px;color:var(--gold-soft);font-weight:700}
+.sidebar .hint{font-size:11.5px;color:rgba(239,231,214,.55);margin:0 4px 14px;line-height:1.5}
+.controls{display:flex;flex-direction:column;gap:8px;margin:0 4px}
+.mode-option{display:flex;align-items:flex-start;gap:10px;background:rgba(239,231,214,.04);border:1px solid var(--indigo-line-soft);border-radius:9px;padding:10px;cursor:pointer;color:rgba(239,231,214,.82);font-size:12px;line-height:1.4}
+.mode-option:hover{background:rgba(239,231,214,.08);border-color:var(--indigo-line)}
+.mode-option input{accent-color:var(--gold);margin-top:2px}
+.mode-option strong{color:var(--paper);display:block;font-size:12px}
+.main{background:var(--paper);background-image:radial-gradient(circle at 8% 15%,rgba(179,57,44,.05),transparent 30%),radial-gradient(circle at 92% 85%,rgba(60,74,115,.06),transparent 30%);border-radius:16px;padding:26px 26px 30px;color:var(--ink);box-shadow:0 20px 50px rgba(0,0,0,.35);position:relative;min-height:480px}
+.scoreboard{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding-bottom:16px;margin-bottom:24px;border-bottom:1px dashed var(--ink-soft)}
+.score-pill{display:flex;gap:14px;font-family:'JetBrains Mono',monospace}
+.score-item{text-align:center}
+.score-item .num{font-size:22px;font-weight:700}
+.score-item .lbl{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.score-item.correct .num{color:var(--ok)} .score-item.wrong .num{color:var(--hanko)}
+.scoreboard-right{display:flex;align-items:center;gap:10px}
+.mode-toggle{display:inline-flex;background:var(--paper-2);border:1px solid var(--ink-soft);border-radius:8px;padding:3px;gap:3px}
+.mode-btn{font-family:'JetBrains Mono',monospace;font-size:11px;background:transparent;border:none;color:var(--ink-soft);padding:6px 11px;border-radius:6px;cursor:pointer;font-weight:600}
+.mode-btn.active{background:var(--bg-indigo);color:var(--paper);box-shadow:0 2px 5px rgba(0,0,0,.2)}
+#reset-btn{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:var(--paper-2);border:1px solid var(--ink-soft);color:var(--ink);padding:9px 14px;border-radius:8px;cursor:pointer}
+.challenge{text-align:center;margin:16px auto 22px}
+.question-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
+.target{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(48px,9vw,76px);line-height:1.15;margin:0;color:var(--ink)}
+.target .n{color:var(--hanko)}
+.hint-text{font-size:13px;color:var(--ink-soft);min-height:24px;margin-top:7px}
+.calendar-wrap{max-width:520px;margin:0 auto 24px}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.cal-header{font-family:'JetBrains Mono',monospace;text-align:center;font-size:10px;letter-spacing:.08em;color:var(--ink-soft);padding:4px}
+.cal-day{background:#faf6ea;border:1px solid rgba(42,35,24,.18);border-radius:9px;display:flex;justify-content:center;align-items:center;aspect-ratio:1;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--ink-soft);transition:transform .12s,background .15s,border-color .15s,box-shadow .15s}
+.cal-day.active{background:var(--hanko);border-color:var(--hanko-dark);color:var(--paper);transform:scale(1.08);box-shadow:0 5px 14px rgba(179,57,44,.28);z-index:2}
+.cal-day.success{background:rgba(76,107,63,.16);border-color:var(--ok);color:var(--ok)}
+.cal-day.error{background:rgba(179,57,44,.12);border-color:var(--hanko);color:var(--hanko);animation:shake .4s}
+.input-area{display:flex;justify-content:center;gap:10px;max-width:480px;margin:0 auto}
+#answerInput{font-family:'Shippori Mincho',serif;font-size:23px;text-align:center;padding:13px 18px;width:min(330px,100%);border:2px solid var(--ink-soft);border-radius:10px;background:#faf6ea;color:var(--ink);outline:none;transition:border-color .15s,box-shadow .15s}
+#answerInput:focus{border-color:var(--hanko);box-shadow:0 0 0 3px rgba(179,57,44,.12)}
+#answerInput.correct{border-color:var(--ok)} #answerInput.incorrect{border-color:var(--hanko)}
+button.primary{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:14px;background:var(--hanko);color:var(--paper);border:none;padding:12px 24px;border-radius:9px;cursor:pointer}
+button.primary:hover{background:var(--hanko-dark)}
+.btn-secondary{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:13px;background:transparent;color:var(--ink-soft);border:1px solid var(--ink-soft);padding:11px 20px;border-radius:9px;cursor:pointer}
+.feedback{text-align:center;min-height:34px;font-size:14px;margin:16px 0 18px}
+.feedback .correct-answer{font-family:'Shippori Mincho',serif;font-weight:700;color:var(--hanko);font-size:17px}
+.feedback.ok-text{color:var(--ok)}
+.feedback .note{font-size:11.5px;color:var(--ink-soft);margin-top:5px}
+.actions{display:flex;justify-content:center;gap:10px}
+footer{text-align:center;margin-top:26px;font-size:11px;color:rgba(239,231,214,.35);font-family:'JetBrains Mono',monospace}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,13,26,.72);backdrop-filter:blur(2px);z-index:50;padding:24px 16px;overflow-y:auto}
+.modal-overlay.show{display:block}
+.modal{max-width:760px;margin:0 auto;background:var(--paper);color:var(--ink);border-radius:16px;box-shadow:0 30px 70px rgba(0,0,0,.5);overflow:hidden}
+.modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:24px 26px 18px;border-bottom:1px dashed var(--ink-soft);background:linear-gradient(180deg,rgba(179,57,44,.05),transparent)}
+.modal-head h2{font-family:'Shippori Mincho',serif;font-size:24px;margin:4px 0 8px}
+.modal-sub{font-size:12.5px;color:var(--ink-soft);max-width:560px;line-height:1.6;margin:0}
+.guide-close{background:var(--paper-2);border:1px solid var(--ink-soft);color:var(--ink);width:34px;height:34px;border-radius:50%;cursor:pointer}
+.modal-body{padding:20px 26px 28px}
+.guide-card{background:rgba(255,255,255,.4);border:1px solid rgba(42,35,24,.14);border-radius:12px;padding:16px}
+.guide-card h3{font-family:'Shippori Mincho',serif;margin:0 0 10px;font-size:20px}
+.guide-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.guide-item{padding:8px 5px;text-align:center;border:1px solid rgba(42,35,24,.12);border-radius:7px;background:rgba(255,255,255,.35)}
+.guide-item .d{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-soft)}
+.guide-item .r{font-family:'Shippori Mincho',serif;font-weight:700;margin-top:3px}
+@keyframes shake{0%{transform:translateX(0)}25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-5px)}100%{transform:translateX(0)}}
+@media(max-width:860px){.layout{grid-template-columns:1fr}.sidebar{position:static}}
+@media(max-width:560px){body{padding:20px 12px 40px}.main{padding:20px 14px 24px}.scoreboard-right{width:100%;justify-content:space-between}.calendar-grid{gap:5px}.guide-grid{grid-template-columns:repeat(3,1fr)}.input-area{flex-wrap:wrap}#answerInput{width:100%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">hinichi drill · カレンダー</div>
+  <h1>日にち<span class="accent">ドリル</span></h1>
+  <p class="subtitle">Treine a leitura dos dias do mês em japonês. O calendário funciona como apoio visual, enquanto você responde a leitura completa em hiragana.</p>
+  <div class="header-actions">
+    <a href="../" class="nav-btn">← Início</a>
+    <button id="guide-btn" class="guide-btn">📖 Guia de estudo</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h2>📅 カレンダー · Dias</h2>
+    <p class="hint">Escolha entre praticar todos os dias ou focar apenas nas leituras especiais.</p>
+    <div class="controls">
+      <label class="mode-option">
+        <input type="radio" name="mode" value="all" checked>
+        <span><strong>Todos os dias</strong>1 a 31</span>
+      </label>
+      <label class="mode-option">
+        <input type="radio" name="mode" value="exceptions">
+        <span><strong>Apenas exceções</strong>1–10, 14, 20 e 24</span>
+      </label>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="scoreboard">
+      <div class="score-pill">
+        <div class="score-item correct"><div class="num" id="score-correct">0</div><div class="lbl">Acertos</div></div>
+        <div class="score-item wrong"><div class="num" id="score-wrong">0</div><div class="lbl">Erros</div></div>
+        <div class="score-item"><div class="num" id="score-total">0</div><div class="lbl">Total</div></div>
+      </div>
+      <div class="scoreboard-right">
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="mode-typing">⌨️ Digitação</button>
+        </div>
+        <button id="reset-btn">↺ Reiniciar</button>
+      </div>
+    </div>
+
+    <div class="challenge">
+      <div class="question-label">Como se diz em japonês?</div>
+      <p class="target" id="targetDisplay">--<span class="n">日</span></p>
+      <div class="hint-text" id="hintDisplay">Digite em romaji ou hiragana e pressione Enter</div>
+    </div>
+
+    <div class="calendar-wrap">
+      <div class="calendar-grid" id="calendarGrid">
+        <div class="cal-header">日</div><div class="cal-header">月</div><div class="cal-header">火</div>
+        <div class="cal-header">水</div><div class="cal-header">木</div><div class="cal-header">金</div><div class="cal-header">土</div>
+      </div>
+    </div>
+
+    <div class="input-area">
+      <input type="text" id="answerInput" placeholder="tsuitachi / ついたち" autocomplete="off" autocapitalize="off" spellcheck="false">
+      <button class="primary" id="submitBtn">Verificar</button>
+      <button class="btn-secondary" id="hintBtn">?</button>
+    </div>
+    <div class="feedback" id="feedback"></div>
+    <div class="actions">
+      <button class="primary" id="nextBtn" style="display:none">Próxima pergunta →</button>
+    </div>
+  </main>
+</div>
+<footer>1〜31 · ついたち・ふつか・みっか・よっか・いつか・むいか・なのか・ようか・ここのか・とおか・はつか</footer>
+</div>
+
+<div class="modal-overlay" id="guide-overlay">
+  <div class="modal">
+    <div class="modal-head">
+      <div>
+        <div class="eyebrow">reference · 参考</div>
+        <h2>Guia de leitura dos dias</h2>
+        <p class="modal-sub">As leituras de 1 a 10 e de alguns dias específicos são irregulares. Use esta tabela como referência rápida.</p>
+      </div>
+      <button id="guide-close" class="guide-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="guide-card"><h3>1〜31 · 日</h3><div class="guide-grid" id="guide-grid"></div></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/wanakana"></script>
+<script>
+(function(){
+  const daysData = {
+      1: { hiragana: 'ついたち', romaji: ['tsuitachi'] },
+      2: { hiragana: 'ふつか', romaji: ['futsuka'] },
+      3: { hiragana: 'みっか', romaji: ['mikka'] },
+      4: { hiragana: 'よっか', romaji: ['yokka'] },
+      5: { hiragana: 'いつか', romaji: ['itsuka'] },
+      6: { hiragana: 'むいか', romaji: ['muika'] },
+      7: { hiragana: 'なのか', romaji: ['nanoka'] },
+      8: { hiragana: 'ようか', romaji: ['youka', 'yooka'] },
+      9: { hiragana: 'ここのか', romaji: ['kokonoka'] },
+      10: { hiragana: 'とおか', romaji: ['tooka', 'touka'] },
+      11: { hiragana: 'じゅういちにち', romaji: ['juuichinichi', 'juichinichi'] },
+      12: { hiragana: 'じゅうににち', romaji: ['juuninichi', 'juninichi'] },
+      13: { hiragana: 'じゅうさんにち', romaji: ['juusannichi', 'jusannichi'] },
+      14: { hiragana: 'じゅうよっか', romaji: ['juuyokka', 'juyokka'] },
+      15: { hiragana: 'じゅうごにち', romaji: ['juugonichi', 'jugonichi'] },
+      16: { hiragana: 'じゅうろくにち', romaji: ['juurokunichi', 'jurokunichi'] },
+      17: { hiragana: 'じゅうしちにち', romaji: ['juushichinichi', 'jushichinichi', 'juunananichi'] },
+      18: { hiragana: 'じゅうはちにち', romaji: ['juuhachinichi', 'juhachinichi'] },
+      19: { hiragana: 'じゅうくにち', romaji: ['juukunichi', 'jukunichi'] },
+      20: { hiragana: 'はつか', romaji: ['hatsuka'] },
+      21: { hiragana: 'にじゅういちにち', romaji: ['nijuuichinichi', 'nijuichinichi'] },
+      22: { hiragana: 'にじゅうににち', romaji: ['nijuuninichi', 'nijuninichi'] },
+      23: { hiragana: 'にじゅうさんにち', romaji: ['nijuusannichi', 'nijusannichi'] },
+      24: { hiragana: 'にじゅうよっか', romaji: ['nijuuyokka', 'nijuyokka'] },
+      25: { hiragana: 'にじゅうごにち', romaji: ['nijuugonichi', 'nijugonichi'] },
+      26: { hiragana: 'にじゅうろくにち', romaji: ['nijuurokunichi', 'nijurokunichi'] },
+      27: { hiragana: 'にじゅうしちにち', romaji: ['nijuushichinichi', 'nijushichinichi', 'nijuunananichi'] },
+      28: { hiragana: 'にじゅうはちにち', romaji: ['nijuuhachinichi', 'nijuhachinichi'] },
+      29: { hiragana: 'にじゅうくにち', romaji: ['nijuukunichi', 'nijukunichi'] },
+      30: { hiragana: 'さんじゅうにち', romaji: ['sanjuunichi', 'sanjunichi'] },
+      31: { hiragana: 'さんじゅういちにち', romaji: ['sanjuuichinichi', 'sanjuichinichi'] }
+  };
+  const exceptions = [1,2,3,4,5,6,7,8,9,10,14,20,24];
+
+  let currentDay = null;
+  let score = {correct:0, wrong:0};
+  let answered = false;
+
+  const grid = document.getElementById('calendarGrid');
+  const targetDisplay = document.getElementById('targetDisplay');
+  const hintDisplay = document.getElementById('hintDisplay');
+  const input = document.getElementById('answerInput');
+  const feedback = document.getElementById('feedback');
+  const submitBtn = document.getElementById('submitBtn');
+  const hintBtn = document.getElementById('hintBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  if(window.wanakana) wanakana.bind(input, { IMEMode:'toHiragana' });
+
+  function renderCalendar(){
+    for(let i=0;i<3;i++) grid.appendChild(document.createElement('div'));
+    for(let i=1;i<=31;i++){
+      const el=document.createElement('div');
+      el.className='cal-day';
+      el.id=`day-${i}`;
+      el.textContent=i;
+      grid.appendChild(el);
+    }
+  }
+
+  function pickNext(){
+    const mode=document.querySelector('input[name="mode"]:checked').value;
+    const pool=mode==='exceptions' ? exceptions : Array.from({length:31},(_,i)=>i+1);
+    let next;
+    do { next=pool[Math.floor(Math.random()*pool.length)]; }
+    while(next===currentDay && pool.length>1);
+    currentDay=next;
+    answered=false;
+
+    document.querySelectorAll('.cal-day').forEach(el=>el.classList.remove('active','success','error'));
+    document.getElementById(`day-${currentDay}`).classList.add('active');
+
+    targetDisplay.innerHTML=`<span class="n">${currentDay}</span> <span>日</span>`;
+    hintDisplay.textContent='Digite em romaji ou hiragana e pressione Enter';
+    feedback.innerHTML='';
+    feedback.className='feedback';
+    input.value='';
+    input.className='';
+    input.disabled=false;
+    submitBtn.disabled=false;
+    submitBtn.textContent='Verificar';
+    nextBtn.style.display='none';
+    input.focus();
+  }
+
+  function checkAnswer(){
+    if(answered) return;
+    let raw=input.value.trim().toLowerCase();
+    if(window.wanakana) {
+      raw=wanakana.toHiragana(raw);
+      input.value=raw;
+    }
+    if(!raw) return;
+
+    const data=daysData[currentDay];
+    const correct=raw===data.hiragana;
+    const el=document.getElementById(`day-${currentDay}`);
+
+    answered=true;
+    if(correct){
+      el.classList.add('success');
+      input.className='correct';
+      feedback.className='feedback ok-text';
+      feedback.innerHTML=`Isso mesmo!<div class="note">${data.hiragana}</div>`;
+      score.correct++;
+    } else {
+      el.classList.add('error');
+      input.className='incorrect';
+      feedback.className='feedback';
+      feedback.innerHTML=`Resposta certa: <span class="correct-answer">${data.hiragana}</span><div class="note">Você pode digitar em romaji; ele é convertido automaticamente.</div>`;
+      score.wrong++;
+      setTimeout(()=>el.classList.remove('error'),400);
+    }
+    updateScore();
+
+    submitBtn.textContent='Próxima pergunta →';
+  }
+
+  function updateScore(){
+    document.getElementById('score-correct').textContent=score.correct;
+    document.getElementById('score-wrong').textContent=score.wrong;
+    document.getElementById('score-total').textContent=score.correct+score.wrong;
+  }
+
+  function showHint(){
+    hintDisplay.textContent=daysData[currentDay].hiragana;
+    input.focus();
+  }
+
+  submitBtn.addEventListener('click',()=>answered ? pickNext() : checkAnswer());
+  nextBtn.addEventListener('click',pickNext);
+  hintBtn.addEventListener('click',showHint);
+  input.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){
+      e.preventDefault();
+      answered ? pickNext() : checkAnswer();
+    }
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape') {
+      document.getElementById('guide-overlay').classList.remove('show');
+    }
+  });
+  document.querySelectorAll('input[name="mode"]').forEach(r=>r.addEventListener('change',pickNext));
+  document.getElementById('reset-btn').addEventListener('click',()=>location.reload());
+
+  const guideGrid=document.getElementById('guide-grid');
+  Object.entries(daysData).forEach(([n,data])=>{
+    const item=document.createElement('div');
+    item.className='guide-item';
+    item.innerHTML=`<div class="d">${n}日</div><div class="r">${data.hiragana}</div>`;
+    guideGrid.appendChild(item);
+  });
+
+  const guideOverlay=document.getElementById('guide-overlay');
+  document.getElementById('guide-btn').addEventListener('click',()=>guideOverlay.classList.add('show'));
+  document.getElementById('guide-close').addEventListener('click',()=>guideOverlay.classList.remove('show'));
+  guideOverlay.addEventListener('click',e=>{if(e.target===guideOverlay) guideOverlay.classList.remove('show')});
+
+  renderCalendar();
+  pickNext();
+})();
+</script>
+</body>
+</html>
