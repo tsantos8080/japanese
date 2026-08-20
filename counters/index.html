@@ -302,6 +302,45 @@
   .score-item.correct .num{ color: var(--ok); }
   .score-item.wrong .num{ color: var(--hanko); }
 
+  .scoreboard-right{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .mode-toggle{
+    display: inline-flex;
+    background: var(--paper-2);
+    border: 1px solid var(--ink-soft);
+    border-radius: 8px;
+    padding: 3px;
+    gap: 3px;
+  }
+
+  .mode-btn{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    background: transparent;
+    border: none;
+    color: var(--ink-soft);
+    padding: 6px 11px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all .15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 600;
+  }
+  .mode-btn:hover{ color: var(--ink); }
+  .mode-btn.active{
+    background: var(--bg-indigo);
+    color: var(--paper);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+
   #reset-btn{
     font-family: 'JetBrains Mono', monospace;
     font-size: 11.5px;
@@ -315,6 +354,104 @@
     transition: background .15s ease;
   }
   #reset-btn:hover{ background: #dcd0b3; }
+
+  /* Choice Mode Grid */
+  .choice-container{
+    position: relative;
+    max-width: 480px;
+    margin: 0 auto 10px;
+  }
+  .choice-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+  @media (max-width: 520px){
+    .choice-grid{ grid-template-columns: 1fr; }
+  }
+  .choice-btn{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #faf6ea;
+    border: 2px solid var(--ink-soft);
+    border-radius: 10px;
+    padding: 12px 14px;
+    cursor: pointer;
+    text-align: left;
+    transition: transform .12s ease, border-color .15s ease, background .15s ease, box-shadow .15s ease;
+    position: relative;
+    user-select: none;
+    width: 100%;
+  }
+  .choice-btn:hover:not(:disabled){
+    border-color: var(--gold);
+    background: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .choice-btn:focus-visible{
+    outline: 2px solid var(--gold);
+  }
+  .choice-btn .choice-key{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 700;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: rgba(42,35,24,0.08);
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background .15s ease, color .15s ease;
+  }
+  .choice-btn .choice-text{
+    font-family: 'Shippori Mincho', serif;
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--ink);
+    flex-grow: 1;
+    line-height: 1.2;
+  }
+  .choice-btn.correct{
+    border-color: var(--ok);
+    background: rgba(76, 107, 63, 0.12);
+  }
+  .choice-btn.correct .choice-key{
+    background: var(--ok);
+    color: var(--paper);
+  }
+  .choice-btn.correct .choice-text{
+    color: var(--ok);
+  }
+  .choice-btn.incorrect{
+    border-color: var(--hanko);
+    background: rgba(179, 57, 44, 0.10);
+  }
+  .choice-btn.incorrect .choice-key{
+    background: var(--hanko);
+    color: var(--paper);
+  }
+  .choice-btn.incorrect .choice-text{
+    color: var(--hanko);
+  }
+  .choice-btn:disabled{
+    cursor: default;
+    opacity: 0.9;
+  }
+  .stamp-choice{
+    left: auto;
+    right: -72px;
+    top: 50%;
+    margin-top: -31px;
+  }
+  @media (max-width: 660px){
+    .stamp-choice{ display: none; }
+  }
 
   .quiz-empty{
     text-align:center;
@@ -659,7 +796,14 @@
             <div class="lbl">Total</div>
           </div>
         </div>
-        <button id="reset-btn" title="Zera o placar e recarrega a página">↺ Reiniciar sessão</button>
+
+        <div class="scoreboard-right">
+          <div class="mode-toggle">
+            <button type="button" class="mode-btn active" id="mode-typing" data-mode="typing" title="Modo digitação">⌨️ Digitação</button>
+            <button type="button" class="mode-btn" id="mode-choice" data-mode="choice" title="Modo múltipla escolha">🔘 Múltipla Escolha</button>
+          </div>
+          <button id="reset-btn" title="Zera o placar e recarrega a página">↺ Reiniciar sessão</button>
+        </div>
       </div>
 
       <div class="quiz-empty" id="quiz-empty">
@@ -669,11 +813,18 @@
       <div class="quiz-area" id="quiz-area">
         <div class="question-label">Como se diz em japonês?</div>
         <p class="question" id="question-text"></p>
-        <p class="question-hint">Digite em romaji (conversão automática) ou hiragana e pressione Enter</p>
+        <p class="question-hint" id="question-hint">Digite em romaji (conversão automática) ou hiragana e pressione Enter</p>
 
-        <div class="answer-row">
+        <!-- Modo Digitação -->
+        <div class="answer-row" id="typing-row">
           <input type="text" id="answer" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="gohiki / ごひき">
           <div class="stamp" id="stamp"></div>
+        </div>
+
+        <!-- Modo Múltipla Escolha -->
+        <div class="choice-container" id="choice-container" style="display:none;">
+          <div class="choice-grid" id="choice-grid"></div>
+          <div class="stamp stamp-choice" id="stamp-choice"></div>
         </div>
 
         <div class="feedback" id="feedback"></div>
@@ -898,17 +1049,54 @@
 
   let score = { correct: 0, wrong: 0 };
   let current = null;   // { counter, n, correctAnswer, answered }
+  let currentChoices = [];
+  let quizMode = localStorage.getItem('counter_quiz_mode') || 'typing';
 
   const quizEmpty = document.getElementById('quiz-empty');
   const quizArea = document.getElementById('quiz-area');
   const questionText = document.getElementById('question-text');
+  const questionHint = document.getElementById('question-hint');
+  const typingRow = document.getElementById('typing-row');
+  const choiceContainer = document.getElementById('choice-container');
+  const choiceGrid = document.getElementById('choice-grid');
   const answerInput = document.getElementById('answer');
-  if(window.wanakana){
-    wanakana.bind(answerInput, { IMEMode: 'toHiragana' });
-  }
   const feedback = document.getElementById('feedback');
   const actionBtn = document.getElementById('action-btn');
   const stampEl = document.getElementById('stamp');
+  const stampChoice = document.getElementById('stamp-choice');
+  const modeTypingBtn = document.getElementById('mode-typing');
+  const modeChoiceBtn = document.getElementById('mode-choice');
+
+  if(window.wanakana){
+    wanakana.bind(answerInput, { IMEMode: 'toHiragana' });
+  }
+
+  function setMode(mode){
+    quizMode = mode;
+    localStorage.setItem('counter_quiz_mode', mode);
+    if(mode === 'typing'){
+      modeTypingBtn.classList.add('active');
+      modeChoiceBtn.classList.remove('active');
+      typingRow.style.display = 'flex';
+      choiceContainer.style.display = 'none';
+      questionHint.textContent = 'Digite em romaji (conversão automática) ou hiragana e pressione Enter';
+      if(current && !current.answered){
+        answerInput.focus();
+      }
+    } else {
+      modeTypingBtn.classList.remove('active');
+      modeChoiceBtn.classList.add('active');
+      typingRow.style.display = 'none';
+      choiceContainer.style.display = 'block';
+      questionHint.textContent = 'Selecione uma opção ou tecle 1, 2, 3 ou 4';
+      if(current && !current.answered && choiceGrid.children.length === 0){
+        renderChoices();
+      }
+    }
+  }
+
+  modeTypingBtn.addEventListener('click', () => setMode('typing'));
+  modeChoiceBtn.addEventListener('click', () => setMode('choice'));
 
   function refreshAvailability(){
     if(enabled.size === 0){
@@ -923,6 +1111,99 @@
   }
 
   function pick(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+
+  // Generate plausible, clever distractors for Japanese counters
+  function generateChoices(counter, n, correctAnswer){
+    const pool = new Set();
+
+    // Specific phonological traps
+    if(counter.id === 'nin'){
+      if(n === 1) pool.add('いちにん');
+      if(n === 2) pool.add('ににん');
+      if(n === 4){ pool.add('よんにん'); pool.add('しにん'); }
+      if(n % 10 === 4 && n > 4) pool.add(correctAnswer.replace('よにん', 'よんにん'));
+      if(n % 10 === 7) pool.add(correctAnswer.replace('ななにん', 'しちにん'));
+    } else if(counter.id === 'nichi'){
+      if(n === 1){ pool.add('ついたち'); pool.add('いちにち'); }
+      if(n === 2){ pool.add('ににち'); pool.add('ふたか'); }
+      if(n === 3) pool.add('さんにち');
+      if(n === 4){ pool.add('よんにち'); pool.add('よんか'); }
+      if(n === 14){ pool.add('じゅうよんにち'); pool.add('じゅうよんか'); }
+      if(n === 20){ pool.add('にじゅうにち'); pool.add('にじゅうか'); }
+      if(n === 24){ pool.add('にじゅうよんにち'); pool.add('にじゅうよんか'); }
+      if(n <= 10) pool.add(['','いち','に','さん','よん','ご','ろく','なな','はち','きゅう','じゅう'][n] + 'にち');
+    } else if(counter.id === 'ji'){
+      if(n === 4 || n === 14 || n === 24){ pool.add(correctAnswer.replace('よじ', 'よんじ')); pool.add(correctAnswer.replace('よじ', 'しじ')); }
+      if(n === 7 || n === 17) pool.add(correctAnswer.replace('しちじ', 'ななじ'));
+      if(n === 9 || n === 19) pool.add(correctAnswer.replace('くじ', 'きゅうじ'));
+    } else if(counter.id === 'tsu'){
+      const d = {1:'いっつ',2:'につ',3:'さんつ',4:'よんつ',5:'ごつ',6:'ろくつ',7:'しちつ',8:'はちつ',9:'きゅうつ',10:'じゅうつ'};
+      if(d[n]) pool.add(d[n]);
+    }
+
+    // Gemination (small tsu vs full digit)
+    if(correctAnswer.includes('いっ')) pool.add(correctAnswer.replace('いっ', 'いち'));
+    if(correctAnswer.includes('ろっ')) pool.add(correctAnswer.replace('ろっ', 'ろく'));
+    if(correctAnswer.includes('はっ')) pool.add(correctAnswer.replace('はっ', 'はち'));
+    if(correctAnswer.includes('じゅっ')) pool.add(correctAnswer.replace('じゅっ', 'じゅう'));
+    if(correctAnswer.includes('ひゃっ')) pool.add(correctAnswer.replace('ひゃっ', 'ひゃく'));
+
+    // Rendaku / Voicing mutations
+    if(correctAnswer.includes('ぽん')){ pool.add(correctAnswer.replace('ぽん', 'ほん')); pool.add(correctAnswer.replace('ぽん', 'ぼん')); }
+    if(correctAnswer.includes('ぼん')){ pool.add(correctAnswer.replace('ぼん', 'ほん')); pool.add(correctAnswer.replace('ぼん', 'ぽん')); }
+    if(correctAnswer.includes('ぴき')){ pool.add(correctAnswer.replace('ぴき', 'ひき')); pool.add(correctAnswer.replace('ぴき', 'びき')); }
+    if(correctAnswer.includes('びき')){ pool.add(correctAnswer.replace('びき', 'ひき')); pool.add(correctAnswer.replace('びき', 'ぴき')); }
+    if(correctAnswer.includes('ぱい')){ pool.add(correctAnswer.replace('ぱい', 'はい')); pool.add(correctAnswer.replace('ぱい', 'ばい')); }
+    if(correctAnswer.includes('ばい')){ pool.add(correctAnswer.replace('ばい', 'はい')); pool.add(correctAnswer.replace('ばい', 'ぱい')); }
+    if(correctAnswer.includes('ぷん')) pool.add(correctAnswer.replace('ぷん', 'ふん'));
+    if(correctAnswer.includes('ぞく')) pool.add(correctAnswer.replace('ぞく', 'そく'));
+
+    // Neighboring numbers
+    const deltas = [-1, 1, -2, 2, -10, 10, -5, 5];
+    for(const d of deltas){
+      const targetN = n + d;
+      if(targetN >= counter.min && targetN <= counter.max){
+        pool.add(counter.reading(targetN));
+      }
+    }
+
+    // Random fill if needed
+    let attempts = 0;
+    while(pool.size < 6 && attempts < 50){
+      attempts++;
+      const randN = counter.min + Math.floor(Math.random() * (counter.max - counter.min + 1));
+      pool.add(counter.reading(randN));
+    }
+
+    pool.delete(correctAnswer);
+
+    const distractors = Array.from(pool).slice(0, 3);
+    const choices = [correctAnswer, ...distractors];
+
+    // Fisher-Yates shuffle
+    for(let i = choices.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [choices[i], choices[j]] = [choices[j], choices[i]];
+    }
+
+    return choices;
+  }
+
+  function renderChoices(){
+    choiceGrid.innerHTML = '';
+    currentChoices.forEach((choice, index) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'choice-btn';
+      btn.dataset.choice = choice;
+      btn.dataset.index = index + 1;
+      btn.innerHTML = `<span class="choice-key">${index + 1}</span><span class="choice-text">${choice}</span>`;
+      btn.addEventListener('click', () => {
+        submitChoice(choice, btn);
+      });
+      choiceGrid.appendChild(btn);
+    });
+  }
 
   function nextQuestion(){
     const pool = counters.filter(c => enabled.has(c.id));
@@ -944,9 +1225,54 @@
     answerInput.disabled = false;
     stampEl.className = 'stamp';
     stampEl.textContent = '';
+    stampChoice.className = 'stamp stamp-choice';
+    stampChoice.textContent = '';
     actionBtn.textContent = 'Verificar';
     actionBtn.disabled = false;
-    answerInput.focus();
+
+    currentChoices = generateChoices(counter, n, correctAnswer);
+    renderChoices();
+
+    if(quizMode === 'typing'){
+      answerInput.focus();
+    }
+  }
+
+  function submitChoice(selectedChoice, selectedBtn){
+    if(!current || current.answered) return;
+    const isCorrect = selectedChoice === current.correctAnswer;
+    current.answered = true;
+    score.total = (score.correct + score.wrong);
+
+    const counterNote = `<div class="counter-note">Contador ${current.counter.kanji ? current.counter.kanji + ' · ' : ''}${current.counter.hira} (${current.counter.romaji}) — ${current.counter.meaning}</div>`;
+
+    const allBtns = choiceGrid.querySelectorAll('.choice-btn');
+    allBtns.forEach(b => {
+      b.disabled = true;
+      if(b.dataset.choice === current.correctAnswer){
+        b.classList.add('correct');
+      }
+    });
+
+    if(isCorrect){
+      score.correct++;
+      if(selectedBtn) selectedBtn.classList.add('correct');
+      feedback.className = 'feedback ok-text';
+      feedback.innerHTML = `Isso mesmo!${counterNote}`;
+      stampChoice.className = 'stamp stamp-choice ok show';
+      stampChoice.textContent = '合';
+    } else {
+      score.wrong++;
+      if(selectedBtn) selectedBtn.classList.add('incorrect');
+      feedback.className = 'feedback';
+      feedback.innerHTML = `Resposta certa: <span class="correct-answer">${current.correctAnswer}</span>
+        ${counterNote}`;
+      stampChoice.className = 'stamp stamp-choice ng show';
+      stampChoice.textContent = '✕';
+    }
+
+    actionBtn.textContent = 'Próxima pergunta →';
+    updateScoreboard();
   }
 
   function submitAnswer(){
@@ -993,17 +1319,36 @@
   }
 
   actionBtn.addEventListener('click', () => {
-    if(current && current.answered){ nextQuestion(); }
-    else { submitAnswer(); }
+    if(current && current.answered){
+      nextQuestion();
+    } else if(quizMode === 'typing'){
+      submitAnswer();
+    }
   });
 
   document.addEventListener('keydown', (e) => {
-    if(e.key !== 'Enter') return;
-    if(!current) return;
     if(guideOverlay.classList.contains('show')) return;
-    e.preventDefault();
-    if(current.answered){ nextQuestion(); }
-    else { submitAnswer(); }
+    if(!current) return;
+
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      if(current.answered){
+        nextQuestion();
+      } else if(quizMode === 'typing'){
+        submitAnswer();
+      }
+      return;
+    }
+
+    // Number shortcuts 1, 2, 3, 4 for multiple choice mode
+    if(quizMode === 'choice' && !current.answered){
+      const keyNum = parseInt(e.key, 10);
+      if(keyNum >= 1 && keyNum <= 4 && currentChoices[keyNum - 1]){
+        e.preventDefault();
+        const targetBtn = choiceGrid.children[keyNum - 1];
+        submitChoice(currentChoices[keyNum - 1], targetBtn);
+      }
+    }
   });
 
   document.getElementById('reset-btn').addEventListener('click', () => {
@@ -1064,6 +1409,7 @@
   });
 
   // ---------- Init ----------
+  setMode(quizMode);
   refreshAvailability();
 
 })();
