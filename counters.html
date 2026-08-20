@@ -954,11 +954,13 @@
     current.answered = true;
     score.total = (score.correct + score.wrong);
 
+    const counterNote = `<div class="counter-note">Contador ${current.counter.kanji ? current.counter.kanji + ' · ' : ''}${current.counter.hira} (${current.counter.romaji}) — ${current.counter.meaning}</div>`;
+
     if(isCorrect){
       score.correct++;
       answerInput.className = 'correct';
       feedback.className = 'feedback ok-text';
-      feedback.textContent = 'Isso mesmo!';
+      feedback.innerHTML = `Isso mesmo!${counterNote}`;
       stampEl.className = 'stamp ok show';
       stampEl.textContent = '合';
     } else {
@@ -966,7 +968,7 @@
       answerInput.className = 'incorrect';
       feedback.className = 'feedback';
       feedback.innerHTML = `Resposta certa: <span class="correct-answer">${current.correctAnswer}</span>
-        <div class="counter-note">Contador ${current.counter.kanji ? current.counter.kanji + ' · ' : ''}${current.counter.hira} (${current.counter.romaji}) — ${current.counter.meaning}</div>`;
+        ${counterNote}`;
       stampEl.className = 'stamp ng show';
       stampEl.textContent = '✕';
     }
