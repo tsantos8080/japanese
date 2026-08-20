@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rastro de Leitura — Speed Reader de Kana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-indigo: #171d34;
+    --bg-indigo-2: #1f2846;
+    --indigo-line: #3c4a73;
+    --indigo-line-soft: #2a3459;
+    --paper: #efe7d6;
+    --paper-2: #e6dcc6;
+    --ink: #2a2318;
+    --ink-soft: #5c5341;
+    --ink-muted: #8b806d;
+    --hanko: #b3392c;
+    --hanko-dark: #8f2c22;
+    --gold: #c89b3c;
+    --gold-soft: #dcc27c;
+    --ok: #4c6b3f;
+    --ok-light: #5f874e;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{ height: 100%; }
+
+  body{
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(200,155,60,0.08), transparent 45%),
+      radial-gradient(circle at 85% 90%, rgba(179,57,44,0.10), transparent 45%),
+      var(--bg-indigo);
+    background-attachment: fixed;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    color: var(--paper);
+    padding: 32px 20px 60px;
+  }
+
+  body::before{
+    content:"";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.06'/></svg>");
+    mix-blend-mode: overlay;
+  }
+
+  .speed-reader-wrap{
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* Header */
+  header.speed-reader-top{
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .speed-reader-eyebrow{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    margin-bottom: 10px;
+  }
+
+  h1.speed-reader-title{
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 800;
+    font-size: clamp(34px, 5.5vw, 54px);
+    margin: 0 0 8px;
+    letter-spacing: 0.04em;
+    color: var(--paper);
+    text-shadow: 0 2px 0 rgba(0,0,0,0.25);
+  }
+
+  h1.speed-reader-title .accent{ color: var(--gold); }
+
+  .speed-reader-subtitle{
+    font-size: 15px;
+    color: rgba(239,231,214,0.72);
+    max-width: 580px;
+    margin: 0 auto 16px;
+    line-height: 1.6;
+  }
+
+  .speed-reader-header-actions{
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .speed-reader-nav-btn{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    background: transparent;
+    border: 1px solid var(--gold-soft);
+    color: var(--gold-soft);
+    padding: 9px 16px;
+    border-radius: 9px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background .15s ease, color .15s ease;
+  }
+  .speed-reader-nav-btn:hover{ background: rgba(200,155,60,0.12); }
+
+  /* Main Card */
+  .speed-reader-card{
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 10% 15%, rgba(179,57,44,0.04), transparent 35%),
+      radial-gradient(circle at 90% 85%, rgba(60,74,115,0.05), transparent 35%);
+    border-radius: 18px;
+    padding: 28px 32px 34px;
+    color: var(--ink);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    position: relative;
+    outline: none;
+  }
+
+  @media (max-width: 600px){
+    .speed-reader-card{ padding: 20px 18px 24px; }
+  }
+
+  /* Mode Switcher */
+  .speed-reader-mode-bar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding-bottom: 18px;
+    margin-bottom: 24px;
+    border-bottom: 1px dashed var(--ink-soft);
+  }
+
+  .speed-reader-mode-group{
+    display: inline-flex;
+    background: rgba(42,35,24,0.06);
+    border: 1px solid rgba(42,35,24,0.15);
+    border-radius: 10px;
+    padding: 3px;
+    gap: 4px;
+  }
+
+  .speed-reader-mode-btn{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    background: transparent;
+    border: none;
+    color: var(--ink-soft);
+    padding: 7px 14px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all .15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    user-select: none;
+  }
+  .speed-reader-mode-btn:hover{ color: var(--ink); }
+  .speed-reader-mode-btn.active{
+    background: var(--bg-indigo);
+    color: var(--paper);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+
+  /* Live HUD Metrics */
+  .speed-reader-hud{
+    display: flex;
+    gap: 18px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .speed-reader-hud-item{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .speed-reader-hud-item .num{
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  .speed-reader-hud-item .lbl{
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+  .speed-reader-hud-item.accent .num{ color: var(--gold); }
+  .speed-reader-hud-item.cpm .num{ color: var(--ok); }
+
+  /* Interactive Typing Display Area */
+  .speed-reader-typing-area{
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: text;
+    user-select: none;
+    padding: 18px 10px;
+    border-radius: 12px;
+    transition: background .15s ease;
+  }
+  .speed-reader-typing-area:focus-within{
+    background: rgba(200,155,60,0.03);
+  }
+
+  /* Hidden Input (captures typing seamlessly) */
+  .speed-reader-hidden-input{
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0; height: 0;
+    border: none;
+    outline: none;
+  }
+
+  /* Phrase Container */
+  .speed-reader-phrase{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 6px 14px;
+    margin-bottom: 26px;
+    max-width: 820px;
+    line-height: 1.4;
+  }
+
+  /* Chunk element (Kana + Romaji Guide) */
+  .speed-reader-chunk{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 4px 3px;
+    border-radius: 6px;
+    transition: color .12s ease, transform .12s ease;
+  }
+
+  .speed-reader-chunk .kana-char{
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(34px, 5.5vw, 52px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--ink-muted);
+    transition: color .12s ease, transform .1s ease, text-shadow .15s ease;
+  }
+
+  .speed-reader-chunk .romaji-guide{
+    display: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: rgba(92,83,65,0.45);
+    margin-top: 4px;
+    transition: color .12s ease;
+  }
+
+  /* Chunk States */
+  .speed-reader-chunk.correct .kana-char{
+    color: var(--ok);
+    text-shadow: 0 0 1px rgba(76,107,63,0.3);
+  }
+  .speed-reader-chunk.correct .romaji-guide{
+    color: var(--ok);
+    opacity: 0.85;
+  }
+
+  .speed-reader-chunk.current{
+    position: relative;
+  }
+  .speed-reader-chunk.current .kana-char{
+    color: var(--ink);
+  }
+  .speed-reader-chunk.current .romaji-guide{
+    color: var(--hanko);
+    font-weight: 700;
+  }
+  .speed-reader-chunk.current::after{
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 2px;
+    right: 2px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+    animation: pulseCaret .8s infinite alternate;
+  }
+  @keyframes pulseCaret{
+    0%{ opacity: 0.3; transform: scaleX(0.85); }
+    100%{ opacity: 1; transform: scaleX(1); }
+  }
+
+  .speed-reader-chunk.error .kana-char{
+    color: var(--hanko);
+    animation: chunkShake .24s cubic-bezier(.36,.07,.19,.97) both;
+  }
+  .speed-reader-chunk.error .romaji-guide{
+    color: var(--hanko);
+    font-weight: 700;
+  }
+  @keyframes chunkShake{
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
+    40%, 60% { transform: translate3d(3px, 0, 0); }
+  }
+
+  /* Meaning / Translation Box */
+  .speed-reader-meaning{
+    text-align: center;
+    font-size: 15px;
+    color: var(--ink-soft);
+    background: rgba(42,35,24,0.04);
+    border: 1px dashed rgba(42,35,24,0.15);
+    border-radius: 10px;
+    padding: 10px 20px;
+    max-width: 620px;
+    line-height: 1.5;
+  }
+
+  /* Action Buttons & Shortcuts */
+  .speed-reader-controls{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+    border-top: 1px dashed rgba(42,35,24,0.15);
+    padding-top: 18px;
+  }
+
+  .speed-reader-shortcuts{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+  }
+  .speed-reader-shortcuts kbd{
+    background: rgba(42,35,24,0.08);
+    border: 1px solid rgba(42,35,24,0.2);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .speed-reader-btn-group{
+    display: flex;
+    gap: 10px;
+  }
+
+  .speed-reader-btn{
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-weight: 700;
+    font-size: 13.5px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all .15s ease;
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .speed-reader-btn.primary{
+    background: var(--hanko);
+    color: var(--paper);
+  }
+  .speed-reader-btn.primary:hover{ background: var(--hanko-dark); }
+  .speed-reader-btn.secondary{
+    background: var(--paper-2);
+    border-color: var(--ink-soft);
+    color: var(--ink);
+  }
+  .speed-reader-btn.secondary:hover{ background: #dcd0b3; }
+
+  /* Results Overlay */
+  .speed-reader-modal-overlay{
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,13,26,0.75);
+    backdrop-filter: blur(3px);
+    z-index: 50;
+    padding: 24px 16px;
+    overflow-y: auto;
+    align-items: center;
+    justify-content: center;
+  }
+  .speed-reader-modal-overlay.show{ display: flex; }
+
+  .speed-reader-results-card{
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 16px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.5);
+    overflow: hidden;
+    animation: modalPop .3s cubic-bezier(.17,.89,.32,1.25);
+  }
+  @keyframes modalPop{
+    0% { transform: scale(0.92); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .speed-reader-results-head{
+    padding: 22px 24px 16px;
+    border-bottom: 1px dashed var(--ink-soft);
+    background: linear-gradient(180deg, rgba(76,107,63,0.06), transparent);
+    text-align: center;
+  }
+  .speed-reader-results-head h2{
+    font-family: 'Shippori Mincho', serif;
+    font-size: 26px;
+    margin: 4px 0 2px;
+    color: var(--ink);
+  }
+
+  .speed-reader-results-body{
+    padding: 24px 26px 28px;
+    text-align: center;
+  }
+
+  .speed-reader-cpm-hero{
+    margin-bottom: 20px;
+  }
+  .speed-reader-cpm-num{
+    font-family: 'Shippori Mincho', serif;
+    font-size: 64px;
+    font-weight: 800;
+    color: var(--ok);
+    line-height: 1;
+    text-shadow: 0 2px 0 rgba(0,0,0,0.08);
+  }
+  .speed-reader-cpm-lbl{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .speed-reader-badge-record{
+    display: inline-block;
+    background: var(--gold);
+    color: var(--bg-indigo);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-top: 8px;
+  }
+
+  .speed-reader-stats-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    background: rgba(42,35,24,0.05);
+    border: 1px solid rgba(42,35,24,0.12);
+    border-radius: 10px;
+    padding: 14px 8px;
+    margin-bottom: 20px;
+  }
+  .speed-reader-stat-item .val{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .speed-reader-stat-item .lbl{
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+
+  .speed-reader-results-actions{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  footer.speed-reader-footer{
+    text-align: center;
+    margin-top: 36px;
+    font-size: 11px;
+    color: rgba(239,231,214,0.35);
+    font-family: 'JetBrains Mono', monospace;
+  }
+</style>
+</head>
+<body>
+
+<div class="speed-reader-wrap">
+
+  <header class="speed-reader-top">
+    <div class="speed-reader-eyebrow">speed reader · 速読ドリル</div>
+    <h1 class="speed-reader-title">Rastro de <span class="accent">Leitura</span></h1>
+    <p class="speed-reader-subtitle">Treine a leitura ágil e sem pausas de frases em Hiragana e Katakana digitando em Romaji. Acompanhe seu CPM e acurácia em tempo real.</p>
+    
+    <div class="speed-reader-header-actions">
+      <a href="../" class="speed-reader-nav-btn">← Início</a>
+    </div>
+  </header>
+
+  <main class="speed-reader-card" id="speed-reader-card" tabindex="0">
+
+    <!-- Top Bar: Mode Switcher & Live HUD -->
+    <div class="speed-reader-mode-bar">
+      <div class="speed-reader-mode-group">
+        <button type="button" class="speed-reader-mode-btn active" data-mode="all">あ/ア Misto</button>
+        <button type="button" class="speed-reader-mode-btn" data-mode="hiragana">あ Hiragana</button>
+        <button type="button" class="speed-reader-mode-btn" data-mode="katakana">ア Katakana</button>
+      </div>
+
+      <div class="speed-reader-hud">
+        <div class="speed-reader-hud-item cpm">
+          <div class="num" id="hud-cpm">0</div>
+          <div class="lbl">CPM</div>
+        </div>
+        <div class="speed-reader-hud-item accent">
+          <div class="num" id="hud-acc">100%</div>
+          <div class="lbl">Acurácia</div>
+        </div>
+        <div class="speed-reader-hud-item">
+          <div class="num" id="hud-time">0.0s</div>
+          <div class="lbl">Tempo</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Monkeytype Typing Area -->
+    <div class="speed-reader-typing-area" id="speed-reader-area">
+      <input type="text" id="speed-reader-input" class="speed-reader-hidden-input" autocomplete="off" autocapitalize="off" spellcheck="false">
+
+      <div class="speed-reader-phrase" id="speed-reader-phrase">
+        <!-- Chunks injected via JS -->
+      </div>
+
+      <div class="speed-reader-meaning" id="speed-reader-meaning">
+        Carregando frase...
+      </div>
+    </div>
+
+    <!-- Controls & Shortcuts -->
+    <div class="speed-reader-controls">
+      <div class="speed-reader-shortcuts">
+        Atalhos: <kbd>Tab</kbd> reiniciar frase · <kbd>Enter</kbd> próxima
+      </div>
+      <div class="speed-reader-btn-group">
+        <button type="button" class="speed-reader-btn secondary" id="btn-restart">↺ Reiniciar</button>
+        <button type="button" class="speed-reader-btn primary" id="btn-next">Próxima Frase →</button>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="speed-reader-footer">日本語ラボ · Rastro de Leitura · Speed Reader em Kana</footer>
+
+</div>
+
+<!-- Results Modal -->
+<div class="speed-reader-modal-overlay" id="results-modal">
+  <div class="speed-reader-results-card">
+    <div class="speed-reader-results-head">
+      <div class="speed-reader-eyebrow">resultado · 完了</div>
+      <h2>Excelente Leitura!</h2>
+    </div>
+    <div class="speed-reader-results-body">
+      <div class="speed-reader-cpm-hero">
+        <div class="speed-reader-cpm-num" id="res-cpm">0</div>
+        <div class="speed-reader-cpm-lbl">Caracteres Por Minuto (CPM)</div>
+        <div class="speed-reader-badge-record" id="res-record" style="display:none;">🏆 Novo Recorde!</div>
+      </div>
+
+      <div class="speed-reader-stats-grid">
+        <div class="speed-reader-stat-item">
+          <div class="val" id="res-acc">0%</div>
+          <div class="lbl">Acurácia</div>
+        </div>
+        <div class="speed-reader-stat-item">
+          <div class="val" id="res-time">0.0s</div>
+          <div class="lbl">Tempo Total</div>
+        </div>
+        <div class="speed-reader-stat-item">
+          <div class="val" id="res-errors">0</div>
+          <div class="lbl">Erros</div>
+        </div>
+      </div>
+
+      <div class="speed-reader-results-actions">
+        <button type="button" class="speed-reader-btn primary" id="res-btn-next">Próxima Frase → (Enter)</button>
+        <button type="button" class="speed-reader-btn secondary" id="res-btn-retry">↺ Repetir Frase (Tab)</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+
+  // ---------- Kana & Romaji Mapping Table ----------
+
+  const KANA_MAP = {
+    // Digraphs (Youon Hiragana)
+    "きゃ": ["kya","kilya","kixya"], "きゅ": ["kyu","kilyu","kixyu"], "きょ": ["kyo","kilyo","kixyo"],
+    "しゃ": ["sha","sya"], "しゅ": ["shu","syu"], "しょ": ["sho","syo"],
+    "ちゃ": ["cha","tya","cya"], "ちゅ": ["chu","tyu","cyu"], "ちょ": ["cho","tyo","cyo"],
+    "にゃ": ["nya"], "にゅ": ["nyu"], "にょ": ["nyo"],
+    "ひゃ": ["hya"], "ひゅ": ["hyu"], "ひょ": ["hyo"],
+    "みゃ": ["mya"], "みゅ": ["myu"], "みょ": ["myo"],
+    "りゃ": ["rya"], "りゅ": ["ryu"], "りょ": ["ryo"],
+    "ぎゃ": ["gya"], "ぎゅ": ["gyu"], "ぎょ": ["gyo"],
+    "じゃ": ["ja","zya","jya"], "じゅ": ["ju","zyu","jyu"], "じょ": ["jo","zyo","jyo"],
+    "びゃ": ["bya"], "びゅ": ["byu"], "びょ": ["byo"],
+    "ぴゃ": ["pya"], "ぴゅ": ["pyu"], "ぴょ": ["pyo"],
+
+    // Digraphs (Youon Katakana)
+    "キャ": ["kya"], "キュ": ["kyu"], "キョ": ["kyo"],
+    "シャ": ["sha","sya"], "シュ": ["shu","syu"], "ショ": ["sho","syo"],
+    "チャ": ["cha","tya"], "チュ": ["chu","tyu"], "チョ": ["cho","tyo"],
+    "ニャ": ["nya"], "ニュ": ["nyu"], "ニョ": ["nyo"],
+    "ヒャ": ["hya"], "ヒュ": ["hyu"], "ヒョ": ["hyo"],
+    "ミャ": ["mya"], "ミュ": ["myu"], "ミョ": ["myo"],
+    "リャ": ["rya"], "リュ": ["ryu"], "リョ": ["ryo"],
+    "ギャ": ["gya"], "ギュ": ["gyu"], "ギョ": ["gyo"],
+    "ジャ": ["ja","zya","jya"], "ジュ": ["ju","zyu","jyu"], "ジョ": ["jo","zyo","jyo"],
+    "ビャ": ["bya"], "ビュ": ["byu"], "ビョ": ["byo"],
+    "ピャ": ["pya"], "ピュ": ["pyu"], "ピョ": ["pyo"],
+    "ティ": ["ti","thi"], "ディ": ["di","dhi"],
+    "ファ": ["fa"], "フィ": ["fi"], "フェ": ["fe"], "フォ": ["fo"],
+
+    // Hiragana Singles
+    "あ": ["a"], "い": ["i","yi"], "う": ["u","wu"], "え": ["e"], "お": ["o"],
+    "か": ["ka","ca"], "き": ["ki"], "く": ["ku","cu","qu"], "け": ["ke"], "こ": ["ko","co"],
+    "さ": ["sa"], "し": ["shi","si","ci"], "す": ["su"], "せ": ["se","ce"], "そ": ["so"],
+    "た": ["ta"], "ち": ["chi","ti"], "つ": ["tsu","tu"], "て": ["te"], "と": ["to"],
+    "な": ["na"], "に": ["ni"], "ぬ": ["nu"], "ね": ["ne"], "の": ["no"],
+    "は": ["ha","wa"], "ひ": ["hi"], "ふ": ["fu","hu"], "へ": ["he","e"], "ほ": ["ho"],
+    "ま": ["ma"], "み": ["mi"], "む": ["mu"], "め": ["me"], "も": ["mo"],
+    "や": ["ya"], "ゆ": ["yu"], "よ": ["yo"],
+    "ら": ["ra"], "り": ["ri"], "る": ["ru"], "れ": ["re"], "ろ": ["ro"],
+    "わ": ["wa"], "を": ["wo","o"], "ん": ["n","nn","xn"],
+    "が": ["ga"], "ぎ": ["gi"], "ぐ": ["gu"], "げ": ["ge"], "ご": ["go"],
+    "ざ": ["za"], "じ": ["ji","zi"], "ず": ["zu"], "ぜ": ["ze"], "ぞ": ["zo"],
+    "だ": ["da"], "ぢ": ["di","ji"], "づ": ["du","zu"], "で": ["de"], "ど": ["do"],
+    "ば": ["ba"], "び": ["bi"], "ぶ": ["bu"], "べ": ["be"], "ぼ": ["bo"],
+    "ぱ": ["pa"], "ぴ": ["pi"], "ぷ": ["pu"], "ぺ": ["pe"], "ぽ": ["po"],
+
+    // Katakana Singles
+    "ア": ["a"], "イ": ["i"], "ウ": ["u"], "エ": ["e"], "オ": ["o"],
+    "カ": ["ka"], "キ": ["ki"], "ク": ["ku"], "ケ": ["ke"], "コ": ["ko"],
+    "サ": ["sa"], "シ": ["shi","si"], "ス": ["su"], "セ": ["se"], "ソ": ["so"],
+    "タ": ["ta"], "チ": ["chi","ti"], "ツ": ["tsu","tu"], "テ": ["te"], "ト": ["to"],
+    "ナ": ["na"], "ニ": ["ni"], "ヌ": ["nu"], "ネ": ["ne"], "ノ": ["no"],
+    "ハ": ["ha","wa"], "ヒ": ["hi"], "フ": ["fu","hu"], "ヘ": ["he","e"], "ホ": ["ho"],
+    "マ": ["ma"], "ミ": ["mi"], "ム": ["mu"], "メ": ["me"], "モ": ["mo"],
+    "ヤ": ["ya"], "ユ": ["yu"], "ヨ": ["yo"],
+    "ラ": ["ra"], "リ": ["ri"], "ル": ["ru"], "レ": ["re"], "ロ": ["ro"],
+    "ワ": ["wa"], "ヲ": ["wo","o"], "ン": ["n","nn","xn"],
+    "ガ": ["ga"], "ギ": ["gi"], "グ": ["gu"], "ゲ": ["ge"], "ゴ": ["go"],
+    "ザ": ["za"], "ジ": ["ji","zi"], "ず": ["zu"], "ぜ": ["ze"], "ゾ": ["zo"],
+    "ダ": ["da"], "ヂ": ["di","ji"], "ヅ": ["du","zu"], "デ": ["de"], "ド": ["do"],
+    "バ": ["ba"], "ビ": ["bi"], "ブ": ["bu"], "ベ": ["be"], "ボ": ["bo"],
+    "パ": ["pa"], "ピ": ["pi"], "プ": ["pu"], "ペ": ["pe"], "ポ": ["po"],
+    "ー": ["-","^"],
+    "、": [","], "。": ["."], "！": ["!"], "？": ["?"], " ": [" "], "　": [" "]
+  };
+
+  // Parses a full Kana sentence into syllabic chunks with valid romaji options
+  function parseKanaSentence(sentence){
+    const chunks = [];
+    let i = 0;
+    while(i < sentence.length){
+      // Sokuon (small tsu / っ / ッ)
+      if(sentence[i] === 'っ' || sentence[i] === 'ッ'){
+        const nextPair = sentence.slice(i+1, i+3);
+        const nextSingle = sentence[i+1];
+        const nextRomajiList = KANA_MAP[nextPair] || KANA_MAP[nextSingle] || ['t'];
+        const sokuonChar = nextRomajiList[0] ? nextRomajiList[0][0] : 't';
+        chunks.push({
+          kana: sentence[i],
+          romaji: [sokuonChar, 'xtsu', 'ltsu', 'xtu', 'ltu']
+        });
+        i++;
+        continue;
+      }
+
+      // Digraph (youon 2 chars)
+      const pair = sentence.slice(i, i+2);
+      if(KANA_MAP[pair]){
+        chunks.push({
+          kana: pair,
+          romaji: KANA_MAP[pair]
+        });
+        i += 2;
+        continue;
+      }
+
+      // Single character
+      const single = sentence[i];
+      chunks.push({
+        kana: single,
+        romaji: KANA_MAP[single] || [single]
+      });
+      i++;
+    }
+    return chunks;
+  }
+
+  // ---------- Phrase Database (Mock) ----------
+
+  const PHRASES = [
+    // Hiragana
+    {
+      id: 1,
+      type: "hiragana",
+      kana: "きょうはいいてんきですね",
+      meaning: "Hoje o tempo está bom, né?"
+    },
+    {
+      id: 2,
+      type: "hiragana",
+      kana: "はじめまして、よろしくおねがいします",
+      meaning: "Muito prazer em conhecê-lo."
+    },
+    {
+      id: 3,
+      type: "hiragana",
+      kana: "あしたはともだちにあいます",
+      meaning: "Amanhã vou encontrar um amigo."
+    },
+    {
+      id: 4,
+      type: "hiragana",
+      kana: "にほんごのべんきょうはたのしいです",
+      meaning: "Estudar japonês é muito divertido."
+    },
+    {
+      id: 5,
+      type: "hiragana",
+      kana: "すみません、いまなんじですか",
+      meaning: "Com licença, que horas são agora?"
+    },
+    {
+      id: 6,
+      type: "hiragana",
+      kana: "まいあさしちじにおきます",
+      meaning: "Acordo todos os dias às sete horas."
+    },
+    {
+      id: 7,
+      type: "hiragana",
+      kana: "がっこうへあるいていきます",
+      meaning: "Vou a pé para a escola."
+    },
+
+    // Katakana
+    {
+      id: 8,
+      type: "katakana",
+      kana: "コーヒーをのみます",
+      meaning: "Bebo café."
+    },
+    {
+      id: 9,
+      type: "katakana",
+      kana: "アイスクリームがおいしいです",
+      meaning: "O sorvete está uma delícia."
+    },
+    {
+      id: 10,
+      type: "katakana",
+      kana: "レストランでピザをたべました",
+      meaning: "Comi pizza no restaurante."
+    },
+    {
+      id: 11,
+      type: "katakana",
+      kana: "スーパーでパンをかいます",
+      meaning: "Compro pão no supermercado."
+    },
+    {
+      id: 12,
+      type: "katakana",
+      kana: "ホテルはどこにありますか",
+      meaning: "Onde fica o hotel?"
+    },
+    {
+      id: 13,
+      type: "katakana",
+      kana: "ノートパソコンをつかいます",
+      meaning: "Uso o computador portátil."
+    },
+    {
+      id: 14,
+      type: "katakana",
+      kana: "タクシーでいきます",
+      meaning: "Vou de táxi."
+    },
+
+    // Mixed
+    {
+      id: 15,
+      type: "mixed",
+      kana: "デパートでシャツをかいました",
+      meaning: "Comprei uma camisa na loja de departamentos."
+    },
+    {
+      id: 16,
+      type: "mixed",
+      kana: "スマホでしゃしんをとります",
+      meaning: "Tiro fotos com o smartphone."
+    },
+    {
+      id: 17,
+      type: "mixed",
+      kana: "テレビでアニメをみました",
+      meaning: "Assisti anime na televisão."
+    },
+    {
+      id: 18,
+      type: "mixed",
+      kana: "コンビニでおにぎりをかいます",
+      meaning: "Compro onigiri na loja de conveniência."
+    },
+    {
+      id: 19,
+      type: "mixed",
+      kana: "バスでがっこうへいきます",
+      meaning: "Vou para a escola de ônibus."
+    },
+    {
+      id: 20,
+      type: "mixed",
+      kana: "カフェでジュースをのみました",
+      meaning: "Bebi suco na cafeteria."
+    }
+  ];
+
+  // ---------- Application State ----------
+
+  let currentMode = 'all'; // 'all' | 'hiragana' | 'katakana'
+  let currentPhrase = null;
+  let phraseChunks = [];
+  let currentChunkIndex = 0;
+  let currentTypedLetters = '';
+
+  let isTyping = false;
+  let startTime = null;
+  let timerInterval = null;
+  let totalKeystrokes = 0;
+  let errorCount = 0;
+  let totalKanaCount = 0;
+
+  let bestCPM = parseInt(localStorage.getItem('speed_reader_best_cpm') || '0', 10);
+
+  // DOM Elements
+  const phraseEl = document.getElementById('speed-reader-phrase');
+  const meaningEl = document.getElementById('speed-reader-meaning');
+  const typingAreaEl = document.getElementById('speed-reader-area');
+  const hiddenInput = document.getElementById('speed-reader-input');
+
+  const hudCPM = document.getElementById('hud-cpm');
+  const hudAcc = document.getElementById('hud-acc');
+  const hudTime = document.getElementById('hud-time');
+
+  const btnNext = document.getElementById('btn-next');
+  const btnRestart = document.getElementById('btn-restart');
+  const modeBtns = document.querySelectorAll('.speed-reader-mode-btn');
+
+  const resultsModal = document.getElementById('results-modal');
+  const resCPM = document.getElementById('res-cpm');
+  const resAcc = document.getElementById('res-acc');
+  const resTime = document.getElementById('res-time');
+  const resErrors = document.getElementById('res-errors');
+  const resRecordBadge = document.getElementById('res-record');
+  const resBtnNext = document.getElementById('res-btn-next');
+  const resBtnRetry = document.getElementById('res-btn-retry');
+
+  // ---------- Core Typing Engine ----------
+
+  function pickRandomPhrase(){
+    let pool = PHRASES;
+    if(currentMode === 'hiragana') pool = PHRASES.filter(p => p.type === 'hiragana');
+    else if(currentMode === 'katakana') pool = PHRASES.filter(p => p.type === 'katakana');
+
+    // Avoid picking same phrase consecutively if multiple exist
+    const available = pool.filter(p => !currentPhrase || p.id !== currentPhrase.id);
+    return available.length > 0
+      ? available[Math.floor(Math.random() * available.length)]
+      : pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  function loadPhrase(phrase){
+    currentPhrase = phrase;
+    phraseChunks = parseKanaSentence(phrase.kana);
+    totalKanaCount = phrase.kana.replace(/[、。！？\s]/g, '').length;
+    resetMetrics();
+
+    // Render DOM chunks
+    phraseEl.innerHTML = '';
+    phraseChunks.forEach((chunk, idx) => {
+      const span = document.createElement('span');
+      span.className = 'speed-reader-chunk' + (idx === 0 ? ' current' : '');
+      span.id = `chunk-${idx}`;
+      span.innerHTML = `
+        <span class="kana-char">${chunk.kana}</span>
+        <span class="romaji-guide">${chunk.romaji[0]}</span>
+      `;
+      phraseEl.appendChild(span);
+    });
+
+    meaningEl.textContent = phrase.meaning;
+    focusInput();
+  }
+
+  function resetMetrics(){
+    clearInterval(timerInterval);
+    timerInterval = null;
+    isTyping = false;
+    startTime = null;
+    currentChunkIndex = 0;
+    currentTypedLetters = '';
+    totalKeystrokes = 0;
+    errorCount = 0;
+
+    hudCPM.textContent = '0';
+    hudAcc.textContent = '100%';
+    hudTime.textContent = '0.0s';
+  }
+
+  function startTimerIfNeeded(){
+    if(!isTyping){
+      isTyping = true;
+      startTime = Date.now();
+      timerInterval = setInterval(updateLiveHUD, 100);
+    }
+  }
+
+  function updateLiveHUD(){
+    if(!startTime) return;
+    const elapsedSec = (Date.now() - startTime) / 1000;
+    hudTime.textContent = elapsedSec.toFixed(1) + 's';
+
+    // CPM calculation: (completed kana count / elapsedSec) * 60
+    let completedKana = 0;
+    for(let i = 0; i < currentChunkIndex; i++){
+      completedKana += phraseChunks[i].kana.length;
+    }
+    const cpm = elapsedSec > 0 ? Math.round((completedKana / elapsedSec) * 60) : 0;
+    hudCPM.textContent = cpm.toString();
+
+    // Accuracy: ((totalKeystrokes - errorCount) / totalKeystrokes) * 100
+    const correctKeystrokes = Math.max(0, totalKeystrokes - errorCount);
+    const acc = totalKeystrokes > 0 ? Math.round((correctKeystrokes / totalKeystrokes) * 100) : 100;
+    hudAcc.textContent = `${acc}%`;
+  }
+
+  function handleKeyPress(char){
+    if(currentChunkIndex >= phraseChunks.length) return;
+    startTimerIfNeeded();
+    totalKeystrokes++;
+
+    const chunk = phraseChunks[currentChunkIndex];
+    const chunkEl = document.getElementById(`chunk-${currentChunkIndex}`);
+    const nextTyped = currentTypedLetters + char.toLowerCase();
+
+    // Find any valid candidate romaji for this chunk that starts with nextTyped
+    const matchingOptions = chunk.romaji.filter(opt => opt.startsWith(nextTyped));
+
+    if(matchingOptions.length > 0){
+      // Valid progressive stroke
+      currentTypedLetters = nextTyped;
+      chunkEl.classList.remove('error');
+
+      // Update the romaji guide display for the remaining untyped letters
+      const primaryMatch = matchingOptions[0];
+      const guideEl = chunkEl.querySelector('.romaji-guide');
+      guideEl.textContent = primaryMatch;
+
+      // Check if this chunk is fully completed
+      const exactMatch = matchingOptions.find(opt => opt === nextTyped);
+      if(exactMatch){
+        chunkEl.classList.remove('current');
+        chunkEl.classList.add('correct');
+        currentChunkIndex++;
+        currentTypedLetters = '';
+
+        if(currentChunkIndex < phraseChunks.length){
+          const nextChunkEl = document.getElementById(`chunk-${currentChunkIndex}`);
+          nextChunkEl.classList.add('current');
+        } else {
+          // Phrase Complete!
+          completePhrase();
+        }
+      }
+    } else {
+      // Error stroke
+      errorCount++;
+      chunkEl.classList.add('error');
+      setTimeout(() => {
+        if(chunkEl) chunkEl.classList.remove('error');
+      }, 250);
+    }
+
+    updateLiveHUD();
+  }
+
+  function completePhrase(){
+    clearInterval(timerInterval);
+    const finalElapsedSec = Math.max(0.1, (Date.now() - startTime) / 1000);
+    const finalCPM = Math.round((totalKanaCount / finalElapsedSec) * 60);
+
+    const correctHits = Math.max(0, totalKeystrokes - errorCount);
+    const finalAcc = totalKeystrokes > 0 ? Math.round((correctHits / totalKeystrokes) * 100) : 100;
+
+    const isNewRecord = finalCPM > bestCPM && finalCPM > 0;
+    if(isNewRecord){
+      bestCPM = finalCPM;
+      localStorage.setItem('speed_reader_best_cpm', bestCPM.toString());
+    }
+
+    // Populate Results Modal
+    resCPM.textContent = finalCPM.toString();
+    resAcc.textContent = `${finalAcc}%`;
+    resTime.textContent = finalElapsedSec.toFixed(1) + 's';
+    resErrors.textContent = errorCount.toString();
+    resRecordBadge.style.display = isNewRecord ? 'inline-block' : 'none';
+
+    resultsModal.classList.add('show');
+  }
+
+  function focusInput(){
+    hiddenInput.value = '';
+    hiddenInput.focus();
+  }
+
+  // ---------- Event Listeners ----------
+
+  // Global Keydown Handler
+  document.addEventListener('keydown', (e) => {
+    // If modal is open, Enter or Tab dismisses and moves on
+    if(resultsModal.classList.contains('show')){
+      if(e.key === 'Enter'){
+        e.preventDefault();
+        resultsModal.classList.remove('show');
+        loadPhrase(pickRandomPhrase());
+        return;
+      }
+      if(e.key === 'Tab' || e.key === 'Escape'){
+        e.preventDefault();
+        resultsModal.classList.remove('show');
+        loadPhrase(currentPhrase);
+        return;
+      }
+      return;
+    }
+
+    // Shortcut: Tab -> Restart current phrase
+    if(e.key === 'Tab'){
+      e.preventDefault();
+      loadPhrase(currentPhrase);
+      return;
+    }
+
+    // Shortcut: Enter -> Next phrase
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      loadPhrase(pickRandomPhrase());
+      return;
+    }
+
+    // Ignore modifier combinations
+    if(e.ctrlKey || e.altKey || e.metaKey) return;
+
+    // Normal typing character
+    if(e.key.length === 1){
+      handleKeyPress(e.key);
+    }
+  });
+
+  // Clicking anywhere in the card refocuses typing
+  typingAreaEl.addEventListener('click', focusInput);
+  document.getElementById('speed-reader-card').addEventListener('click', focusInput);
+
+  // Button Listeners
+  btnNext.addEventListener('click', () => loadPhrase(pickRandomPhrase()));
+  btnRestart.addEventListener('click', () => loadPhrase(currentPhrase));
+  resBtnNext.addEventListener('click', () => {
+    resultsModal.classList.remove('show');
+    loadPhrase(pickRandomPhrase());
+  });
+  resBtnRetry.addEventListener('click', () => {
+    resultsModal.classList.remove('show');
+    loadPhrase(currentPhrase);
+  });
+
+  // Mode Selection Listeners
+  modeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      modeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentMode = btn.dataset.mode;
+      loadPhrase(pickRandomPhrase());
+    });
+  });
+
+  // ---------- Init ----------
+  loadPhrase(pickRandomPhrase());
+
+})();
+</script>
+</body>
+</html>
