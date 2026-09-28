@@ -36,10 +36,19 @@ Ferramenta focada na prática de leitura dos dias do mês em japonês (1 a 31) e
 
 ---
 
+### 🔤 て形ドリル (Treino da Forma て)
+
+Exercício para praticar a conjugação de verbos japoneses para a forma て.
+
+* **Filtros por grupo:** Pratique verbos do grupo 1 (五段), grupo 2 (一段) e irregulares separadamente ou misturados.
+* **Validação e dicas:** Responda em hiragana ou romaji, receba feedback imediato e consulte a regra de conjugação como dica.
+* **Guia de consulta:** Resumo das terminações por grupo e das exceções する, 来る e 行く.
+
+---
+
 ## 📝 Próximos passos
 
 * [x] Quiz de contadores (1 a 100) em hiragana
 * [x] Treino interativo de digitação em Kana (Hiragana / Katakana)
 * [x] Treino de leitura e exceções dos dias do mês com calendário (1 a 31)
 * [ ] Novas ferramentas e exercícios interativos conforme o progresso nos estudos
-
