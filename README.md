@@ -44,6 +44,10 @@ Exercício para praticar a conjugação de verbos japoneses para a forma て.
 * **Validação e dicas:** Responda em hiragana ou romaji, receba feedback imediato e consulte a regra de conjugação como dica.
 * **Guia de consulta:** Resumo das terminações por grupo e das exceções する, 来る e 行く.
 
+### 📝 Flexão de Adjetivos
+
+Drill interativo para praticar as formas afirmativa e negativa de adjetivos い e な no presente e no passado. Inclui dica opcional de classe, conversão de romaji para hiragana e guia de flexões.
+
 ---
 
 ## 📝 Próximos passos
