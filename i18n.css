@@ -1,0 +1,2 @@
+.language-select { min-height: 32px; padding: 4px 6px; border: 1px solid #46464d; border-radius: 4px; background: #280000; color: #f0bf5c; font: 500 11px/16px 'JetBrains Mono', monospace; cursor: pointer; }
+.language-select:focus-visible { outline: 2px solid #f0bf5c; outline-offset: 3px; }

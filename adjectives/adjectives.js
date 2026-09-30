@@ -1,4 +1,6 @@
 (() => {
+  const t = (text, params) => window.NihongoI18n?.text(text, params) ?? (typeof text === 'string' ? text.replace(/{{(\w+)}}/g, (_, key) => params?.[key] ?? '') : text);
+  const ui = (element, render, attribute = 'textContent') => { if (window.NihongoI18n) window.NihongoI18n.bindText(element, render, attribute); else element[attribute] = render(); };
   const $ = id => document.getElementById(id);
   const forms = ['Presente Afirmativo', 'Presente Negativo', 'Passado Afirmativo', 'Passado Negativo'];
   let current, previous, formIndex, locked = false, correct = 0, wrong = 0, streak = 0, drill = 0;
@@ -15,7 +17,7 @@
     $('wrongCount').textContent = wrong;
     $('totalCount').textContent = total;
     $('accuracy').textContent = total ? `${Math.round(correct / total * 100)}%` : '—';
-    $('streak').textContent = `Sequência: ${streak}`;
+    ui($('streak'), () => t("Sequência: {{v0}}", {v0: t(streak)}));
     $('accuracy-fill').style.width = total ? `${correct / total * 100}%` : '0%';
     $('error-fill').style.width = total ? `${wrong / total * 100}%` : '0%';
   }
@@ -24,14 +26,14 @@
     content.replaceChildren();
     const title = document.createElement('span');
     title.className = 'font-semibold text-[#1f2430]';
-    title.textContent = 'Dica gramatical:';
+    ui(title, () => t('Dica gramatical:'));
     const explanation = document.createElement('span');
     if (current.type === 'na') {
-      explanation.textContent = `Mantenha ${current.kana} e acrescente ${['です', 'じゃないです', 'でした', 'じゃなかったです'][formIndex]}.`;
+      ui(explanation, () => t("Mantenha {{v0}} e acrescente {{v1}}.", {v0: t(current.kana), v1: t(['です', 'じゃないです', 'でした', 'じゃなかったです'][formIndex])}));
     } else if (formIndex === 0) {
-      explanation.textContent = `No presente afirmativo polido, mantenha ${current.kana} e acrescente です.`;
+      ui(explanation, () => t("No presente afirmativo polido, mantenha {{v0}} e acrescente です.", {v0: t(current.kana)}));
     } else {
-      explanation.textContent = `${current.exception ? 'Este adjetivo é uma exceção: use a raiz よ.' : 'Retire o い final.'} Acrescente ${['', 'くないです', 'かったです', 'くなかったです'][formIndex]}.`;
+      ui(explanation, () => t("{{v0}} Acrescente {{v1}}.", {v0: t(current.exception ? t('Este adjetivo é uma exceção: use a raiz よ.') : t('Retire o い final.')), v1: t(['', 'くないです', 'かったです', 'くなかったです'][formIndex])}));
     }
     content.append(title, explanation);
   }
@@ -48,9 +50,9 @@
     drill++;
     $('targetWord').textContent = current.word;
     $('targetKana').textContent = current.kana;
-    $('translation').textContent = current.meaning;
-    $('prompt').textContent = `${forms[formIndex]} (Polido)`;
-    $('drill-label').textContent = `Drill #${drill} • Adjetivos`;
+    ui($('translation'), () => t(current.meaning));
+    ui($('prompt'), () => t("{{v0}} (Polido)", {v0: t(forms[formIndex])}));
+    ui($('drill-label'), () => t("Drill #{{v0}} • Adjetivos", {v0: t(drill)}));
     $('classHintValue').textContent = current.type === 'i' ? 'い-Keiyoushi' : 'な-Keiyoushi';
     $('class-hint-badge').hidden = !$('toggle-hint-class').checked;
     answer.value = '';
@@ -79,7 +81,7 @@
     answer.disabled = true;
     $('submit').disabled = true;
     $('feedback').dataset.result = ok ? 'correct' : 'wrong';
-    $('feedback-title').textContent = ok ? '✓ Correto! 正解です' : 'Resposta incorreta';
+    ui($('feedback-title'), () => t(ok ? t('✓ Correto! 正解です') : t('Resposta incorreta')));
     $('feedback-seal').textContent = ok ? '◯' : '×';
     const romaji = window.wanakana ? ` (${window.wanakana.toRomaji(expected)})` : '';
     $('feedback-detail').textContent = `${current.word} → ${expected}${romaji}`;
@@ -112,11 +114,11 @@
     window.setTimeout(() => guide.classList.remove('ring-2', 'ring-tertiary'), 1200);
   });
   const navigation = $('adjective-navigation');
-  function closeMenu() { navigation.removeAttribute('data-open'); $('menu-button').setAttribute('aria-expanded', 'false'); }
+  function closeMenu() { navigation.removeAttribute('data-open'); $('menu-button').setAttribute('aria-expanded', 'false'); ui($('menu-button'), () => t($('menu-button').getAttribute('aria-expanded') === 'true' ? 'Fechar navegação' : 'Abrir navegação'), 'aria-label'); }
   $('menu-button').addEventListener('click', () => {
     const open = $('menu-button').getAttribute('aria-expanded') !== 'true';
     navigation.toggleAttribute('data-open', open);
-    $('menu-button').setAttribute('aria-expanded', String(open));
+    $('menu-button').setAttribute('aria-expanded', String(open)); ui($('menu-button'), () => t($('menu-button').getAttribute('aria-expanded') === 'true' ? 'Fechar navegação' : 'Abrir navegação'), 'aria-label');
   });
   document.addEventListener('click', event => { if (!navigation.contains(event.target) && !$('menu-button').contains(event.target)) closeMenu(); });
   const help = $('keyboard-help');

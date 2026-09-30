@@ -17,25 +17,40 @@
     load: 'currentOnly',
     initImmediate: false,
     keySeparator: false,
+    nsSeparator: false,
+    interpolation: {escapeValue: false}, // All translations are inserted as text, never HTML.
     resources: Object.fromEntries(supported.map(language => [language, {translation: window.NihongoLocales[language]}]))
   });
 
+  const bindings = new WeakMap();
   function render() {
     document.documentElement.lang = engine.language;
     document.querySelectorAll('[data-i18n]').forEach(element => {
       element.textContent = engine.t(element.dataset.i18n);
     });
-    for (const attribute of ['aria-label', 'content']) {
+    for (const attribute of ['aria-label', 'content', 'placeholder', 'title', 'alt']) {
       document.querySelectorAll(`[data-i18n-${attribute}]`).forEach(element => {
         element.setAttribute(attribute, engine.t(element.getAttribute(`data-i18n-${attribute}`)));
       });
     }
+    document.querySelectorAll('[data-i18n-dynamic]').forEach(element => {
+      const binding = bindings.get(element);
+      if (binding) element[binding.attribute] = binding.render();
+    });
     if (selector) selector.value = engine.language;
     document.dispatchEvent(new CustomEvent('nihongo:languagechange', {detail: {language: engine.language}}));
   }
 
   window.NihongoI18n = {
-    t: key => engine.t(key),
+    t: (key, params) => engine.t(key, params),
+    text: (source, params) => typeof source === 'string' ? engine.t(source, {defaultValue: source, ...params}) : source,
+    bindText(element, render, attribute = 'textContent') {
+      // Keep only live DOM nodes discoverable; removed cards/chunks can be garbage collected.
+      element.removeAttribute(attribute === 'textContent' ? 'data-i18n' : `data-i18n-${attribute}`);
+      element.setAttribute('data-i18n-dynamic', '');
+      bindings.set(element, {render, attribute});
+      element[attribute] = render();
+    },
     setLanguage(language) {
       if (!supported.includes(language)) return;
       engine.changeLanguage(language);

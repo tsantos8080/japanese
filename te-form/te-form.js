@@ -1,4 +1,6 @@
 (() => {
+  const t = (text, params) => window.NihongoI18n?.text(text, params) ?? (typeof text === 'string' ? text.replace(/{{(\w+)}}/g, (_, key) => params?.[key] ?? '') : text);
+  const ui = (element, render, attribute = 'textContent') => { if (window.NihongoI18n) window.NihongoI18n.bindText(element, render, attribute); else element[attribute] = render(); };
   const $ = id => document.getElementById(id);
   const answer = $('verbInput');
   let current, previous, locked = false, correct = 0, wrong = 0, streak = 0, drill = 0;
@@ -10,13 +12,13 @@
     $('totalCount').textContent = total;
     $('streak').textContent = streak;
     $('accuracy').textContent = total ? `${Math.round(correct / total * 100)}%` : '—';
-    $('goalLabel').textContent = `Meta do bloco (${total} / 25)`;
+    ui($('goalLabel'), () => t("Meta do bloco ({{v0}} / 25)", {v0: t(total)}));
     const progress = Math.min(100, total / 25 * 100);
     $('goalPercent').textContent = `${Math.round(progress)}%`;
     $('goalFill').style.width = `${progress}%`;
   }
   function explanation() {
-    return `${current.rule}. ${current.v === '行く' ? '行く é uma exceção: use 行って.' : current.g === 'godan' && current.kana.endsWith('く') ? 'Exceção desta família: 行く → 行って.' : ''} Exemplo: ${current.kana} → ${current.te}`;
+    return t("{{v0}}. {{v1}} Exemplo: {{v2}} → {{v3}}", {v0: t(current.rule), v1: t(current.v === '行く' ? t('行く é uma exceção: use 行って.') : current.g === 'godan' && current.kana.endsWith('く') ? t('Exceção desta família: 行く → 行って.') : ''), v2: t(current.kana), v3: t(current.te)});
   }
   function nextQuestion() {
     const groups = [...document.querySelectorAll('input[name="group"]:checked')].map(el => el.value);
@@ -33,15 +35,15 @@
     link.href = `https://jisho.hlorenzi.com/search/${encodeURIComponent(current.v)}`;
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
-    link.title = 'Consultar no dicionário';
+    ui(link, () => t('Consultar no dicionário'), 'title');
     link.innerHTML = current.ruby || current.v;
     $('verbTarget').replaceChildren(link);
     const romaji = window.wanakana ? window.wanakana.toRomaji(current.kana) : current.kana;
-    $('verbTranslation').textContent = `${romaji} · ${current.translation}`;
-    $('verbGroup').textContent = `Grupo: ${ {godan: '五段動詞 (Godan)', ichidan: '一段動詞 (Ichidan)', irregular: 'Irregulares / exceções'}[current.g]}`;
-    $('drill-label').textContent = `N5 · DRILL #${drill} · CONJUGAÇÃO VERBAL`;
-    $('ruleTitle').textContent = `Regra: ${current.rule}`;
-    $('ruleDescription').textContent = explanation();
+    ui($('verbTranslation'), () => t(`${romaji} · ${t(current.translation)}`));
+    ui($('verbGroup'), () => t("Grupo: {{v0}}", {v0: t({godan: '五段動詞 (Godan)', ichidan: '一段動詞 (Ichidan)', irregular: t('Irregulares / exceções')}[current.g])}));
+    ui($('drill-label'), () => t("N5 · DRILL #{{v0}} · CONJUGAÇÃO VERBAL", {v0: t(drill)}));
+    ui($('ruleTitle'), () => t("Regra: {{v0}}", {v0: t(current.rule)}));
+    ui($('ruleDescription'), () => t(explanation()));
     answer.value = '';
     answer.disabled = false;
     delete answer.dataset.result;
@@ -65,10 +67,10 @@
     answer.dataset.result = ok ? 'correct' : 'wrong';
     $('verifyBtn').disabled = true;
     $('feedbackBanner').dataset.result = ok ? 'correct' : 'wrong';
-    $('feedbackTitle').textContent = ok ? '✓ Correto! 正解です' : 'Resposta incorreta';
+    ui($('feedbackTitle'), () => t(ok ? t('✓ Correto! 正解です') : t('Resposta incorreta')));
     $('feedbackSeal').textContent = ok ? '◯' : '×';
     $('feedbackDetail').textContent = `${current.v} → ${current.kanji} (${current.te})`;
-    $('feedbackRule').textContent = explanation();
+    ui($('feedbackRule'), () => t(explanation()));
     $('feedbackBanner').hidden = false;
     $('nextVerbBtn').focus({ preventScroll: true });
   }
@@ -94,7 +96,7 @@
   $('furiganaBtn').addEventListener('click', () => {
     const hide = document.body.classList.toggle('hide-furigana');
     $('furiganaBtn').setAttribute('aria-pressed', String(!hide));
-    $('furiganaBtn').textContent = `Furigana: ${hide ? 'desligado' : 'ligado'}`;
+    ui($('furiganaBtn'), () => t(`Furigana: ${hide ? t('desligado') : t('ligado')}`));
   });
   $('toggleGuideBtn').setAttribute('aria-expanded', 'true');
   $('toggleGuideBtn').addEventListener('click', () => {
@@ -105,11 +107,11 @@
     if (!guide.hidden) guide.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
   });
   const navigation = $('te-navigation');
-  function closeMenu() { navigation.removeAttribute('data-open'); $('menu-button').setAttribute('aria-expanded', 'false'); }
+  function closeMenu() { navigation.removeAttribute('data-open'); $('menu-button').setAttribute('aria-expanded', 'false'); ui($('menu-button'), () => t($('menu-button').getAttribute('aria-expanded') === 'true' ? 'Fechar navegação' : 'Abrir navegação'), 'aria-label'); }
   $('menu-button').addEventListener('click', () => {
     const open = $('menu-button').getAttribute('aria-expanded') !== 'true';
     navigation.toggleAttribute('data-open', open);
-    $('menu-button').setAttribute('aria-expanded', String(open));
+    $('menu-button').setAttribute('aria-expanded', String(open)); ui($('menu-button'), () => t($('menu-button').getAttribute('aria-expanded') === 'true' ? 'Fechar navegação' : 'Abrir navegação'), 'aria-label');
   });
   document.addEventListener('click', event => { if (!navigation.contains(event.target) && !$('menu-button').contains(event.target)) closeMenu(); });
   const help = $('keyboard-help');

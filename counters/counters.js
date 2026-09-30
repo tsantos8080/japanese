@@ -1,4 +1,6 @@
 (() => {
+  const t = (text, params) => window.NihongoI18n?.text(text, params) ?? (typeof text === 'string' ? text.replace(/{{(\w+)}}/g, (_, key) => params?.[key] ?? '') : text);
+  const ui = (element, render, attribute = 'textContent') => { if (window.NihongoI18n) window.NihongoI18n.bindText(element, render, attribute); else element[attribute] = render(); };
   const $ = id => document.getElementById(id);
   const input = $('input-resposta');
   let current, previous, locked = false, correct = 0, wrong = 0, streak = 0, drill = 0, deadline = 0, timer;
@@ -13,16 +15,16 @@
     $('streak').textContent = streak; $('total-label').textContent = `Drill ${total}/25`;
     $('goal-percent').textContent = `${Math.min(100,Math.round(total/25*100))}%`;
     $('goal-fill').style.width = `${Math.min(100,total/25*100)}%`;
-    $('active-count').textContent = `${selected().length} ativos`;
+    ui($('active-count'), () => t("{{v0}} ativos", {v0: t(selected().length)}));
   }
   function hint() {
     const c = current.counter;
     if (['hon','hiki','hai'].includes(c.id)) {
       const endings = {hon:['ほん','ぽん','ぼん'],hiki:['ひき','ぴき','びき'],hai:['はい','ぱい','ばい']}[c.id];
       const suffix = endings.find(ending=>current.answer.endsWith(ending));
-      return `Observe o final ${suffix}: nesta quantidade, ${c.hira} ${suffix === c.hira ? 'mantém seu som' : `muda para ${suffix}`}. Leitura: ${current.answer}.`;
+      return t("Observe o final {{v0}}: nesta quantidade, {{v1}} {{v2}}. Leitura: {{v3}}.", {v0: t(suffix), v1: t(c.hira), v2: t(suffix === c.hira ? t('mantém seu som') : t("muda para {{v0}}", {v0: t(suffix)})), v3: t(current.answer)});
     }
-    return `Contador ${c.kanji || c.hira} (${c.meaning}). Leitura de ${current.n}: ${current.answer}.`;
+    return t("Contador {{v0}} ({{v1}}). Leitura de {{v2}}: {{v3}}.", {v0: t(c.kanji || c.hira), v1: t(c.meaning), v2: t(current.n), v3: t(current.answer)});
   }
   function setHint(visible, userInitiated = false) {
     if (visible && userInitiated && $('caixa-dica').hidden) analytics?.track('hint_open', {hint_type: 'rule'});
@@ -35,13 +37,13 @@
     if (previous && pool.length===1 && n===previous.n && counter.id===previous.id) n = n===counter.max ? counter.min : n+1;
     current = {counter,n,answer:counter.reading(n)}; previous = {id:counter.id,n};
     locked = false; drill++;
-    $('drill-label').textContent = `DRILL #${drill} · CONTADORES`;
-    $('counter-description').textContent = `Contador: ${counter.kanji || counter.hira} (${counter.hira} · ${counter.meaning})`;
+    ui($('drill-label'), () => t("DRILL #{{v0}} · CONTADORES", {v0: t(drill)}));
+    ui($('counter-description'), () => t("Contador: {{v0}} ({{v1}} · {{v2}})", {v0: t(counter.kanji || counter.hira), v1: t(counter.hira), v2: t(counter.meaning)}));
     $('quantity').textContent = n; $('counter-symbol').textContent = counter.kanji || counter.hira;
     $('expression').textContent = `${n}${counter.kanji || counter.hira}`;
     const noun = pick(counter.nouns);
-    $('question').textContent = `Como se lê "${n} ${noun[n===1?0:1]}" em japonês?`;
-    $('hint-text').textContent = hint(); setHint($('toggle-rendaku').checked);
+    ui($('question'), () => t("Como se lê \"{{v0}} {{v1}}\" em japonês?", {v0: t(n), v1: t(noun[n===1?0:1])}));
+    ui($('hint-text'), () => t(hint())); setHint($('toggle-rendaku').checked);
     input.value = ''; input.disabled = false; delete input.dataset.result;
     $('feedback-acerto').hidden = true; $('btn-verificar').disabled = false;
     const objects = $('objects'); objects.replaceChildren(); objects.hidden = counter.id!=='hon'||n>10;
@@ -74,11 +76,11 @@
     $('choices').querySelectorAll('button').forEach(button=>button.disabled=true);
     input.dataset.result=ok?'correct':'wrong';
     $('feedback-acerto').dataset.result=ok?'correct':'wrong';
-    $('feedback-title').textContent=ok?'Correto! 正解です':'Resposta incorreta';
+    ui($('feedback-title'), () => t(ok?t('Correto! 正解です'):t('Resposta incorreta')));
     $('feedback-status').textContent=ok?'正解':'確認';$('feedback-seal').textContent=ok?'◯':'×';
     const romaji=window.wanakana?window.wanakana.toRomaji(current.answer):'';
     $('feedback-answer').textContent=`${current.n}${current.counter.kanji||current.counter.hira} = ${current.answer}${romaji?` (${romaji})`:''}`;
-    $('feedback-detail').textContent=hint();$('feedback-acerto').hidden=false;updateStats();$('next').focus({preventScroll:true});
+    ui($('feedback-detail'), () => t(hint()));$('feedback-acerto').hidden=false;updateStats();$('next').focus({preventScroll:true});
   }
   function reset() {
     clearInterval(timer);correct=wrong=streak=drill=0;deadline=0;
@@ -86,8 +88,8 @@
     if(mode()==='timed') {
       deadline=Date.now()+60000;
       timer=window.setInterval(()=>{
-        const seconds=Math.max(0,Math.ceil((deadline-Date.now())/1000));$('timer-label').textContent=`Tempo restante: ${seconds}s`;
-        if(!seconds){clearInterval(timer);locked=true;input.disabled=true;$('btn-verificar').disabled=true;$('choices').querySelectorAll('button').forEach(b=>b.disabled=true);$('timer-label').textContent=`Bloco encerrado: ${correct} acertos, ${wrong} erros. Reinicie para jogar novamente.`;}
+        const seconds=Math.max(0,Math.ceil((deadline-Date.now())/1000));ui($('timer-label'), () => t("Tempo restante: {{v0}}s", {v0: t(seconds)}));
+        if(!seconds){clearInterval(timer);locked=true;input.disabled=true;$('btn-verificar').disabled=true;$('choices').querySelectorAll('button').forEach(b=>b.disabled=true);ui($('timer-label'), () => t("Bloco encerrado: {{v0}} acertos, {{v1}} erros. Reinicie para jogar novamente.", {v0: t(correct), v1: t(wrong)}));}
       },250);
     }
     nextQuestion();
@@ -95,7 +97,7 @@
   counters.filter(c=>!['hon','mai','hiki','satsu','hai','tsu'].includes(c.id)).forEach(c=>{
     const label=document.createElement('label');label.className='flex items-start gap-3 p-2.5 rounded-lg bg-surface-container-low/30 cursor-pointer';
     const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.name='counter';checkbox.value=c.id;checkbox.className='mt-1 w-4 h-4 accent-tertiary';
-    const text=document.createElement('span');text.className='font-body-sm text-body-sm text-on-surface';text.textContent=`${c.kanji||c.hira} · ${c.hira} (${c.romaji}) — ${c.meaning}`;label.append(checkbox,text);$('extra-counters').append(label);
+    const text=document.createElement('span');text.className='font-body-sm text-body-sm text-on-surface';ui(text, () => t(`${c.kanji||c.hira} · ${c.hira} (${c.romaji}) — ${t(c.meaning)}`));label.append(checkbox,text);$('extra-counters').append(label);
   });
   document.querySelectorAll('input[name="counter"]').forEach(el=>el.addEventListener('change',()=>{if(!selected().length)el.checked=true;if(!expired())nextQuestion();else updateStats();}));
   $('practice-mode').addEventListener('change',reset);
@@ -106,14 +108,14 @@
   $('btn-dica').addEventListener('click',()=>setHint(!$('toggle-rendaku').checked, true));
   $('toggle-rendaku').addEventListener('change',()=>setHint($('toggle-rendaku').checked, true));
   $('btn-toggle-tabela').addEventListener('click',()=>$('secao-tabela').scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'}));
-  counters.forEach(c=>{const section=document.createElement('section');const title=document.createElement('h3');title.textContent=`${c.kanji||c.hira} — ${c.meaning} (${c.min}–${c.max})`;section.append(title);for(let n=1;n<=Math.min(10,c.max);n++){const p=document.createElement('p');p.textContent=`${n}: ${c.reading(n)}`;section.append(p);}$('reference-content').append(section);});
+  counters.forEach(c=>{const section=document.createElement('section');const title=document.createElement('h3');ui(title, () => t(`${c.kanji||c.hira} — ${t(c.meaning)} (${c.min}–${c.max})`));section.append(title);for(let n=1;n<=Math.min(10,c.max);n++){const p=document.createElement('p');p.textContent=`${n}: ${c.reading(n)}`;section.append(p);}$('reference-content').append(section);});
   const reference=$('reference-dialog');$('all-reference').addEventListener('click',()=>reference.showModal());$('close-reference').addEventListener('click',()=>reference.close());
   const navigation = $('counter-navigation');
-  function closeMenu() { navigation.removeAttribute('data-open'); $('menu-button').setAttribute('aria-expanded', 'false'); }
+  function closeMenu() { navigation.removeAttribute('data-open'); $('menu-button').setAttribute('aria-expanded', 'false'); ui($('menu-button'), () => t($('menu-button').getAttribute('aria-expanded') === 'true' ? 'Fechar navegação' : 'Abrir navegação'), 'aria-label'); }
   $('menu-button').addEventListener('click', () => {
     const open = $('menu-button').getAttribute('aria-expanded') !== 'true';
     navigation.toggleAttribute('data-open', open);
-    $('menu-button').setAttribute('aria-expanded', String(open));
+    $('menu-button').setAttribute('aria-expanded', String(open)); ui($('menu-button'), () => t($('menu-button').getAttribute('aria-expanded') === 'true' ? 'Fechar navegação' : 'Abrir navegação'), 'aria-label');
   });
   document.addEventListener('click', event => { if (!navigation.contains(event.target) && !$('menu-button').contains(event.target)) closeMenu(); });
   const help = $('keyboard-help');

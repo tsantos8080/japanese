@@ -97,11 +97,11 @@ SRS, XP, radicais, frases em kanji/furigana, novas métricas e calendário com m
 
 ## Idiomas
 
-A home oferece `pt-BR` e `en`, com seletor no cabeçalho. A escolha fica salva em `localStorage`; no primeiro acesso, usa o primeiro idioma compatível da lista do navegador, com português como fallback. Os módulos ainda estão em português.
+A home e os seis módulos oferecem `pt-BR` e `en`, com seletor no cabeçalho. A escolha fica salva em `localStorage`; no primeiro acesso, usa o primeiro idioma compatível da lista do navegador, com português como fallback. A troca de idioma preserva a questão atual, a resposta digitada e os filtros.
 
-As traduções da home ficam em `locales/pt-BR.js` e `locales/en.js`. O arquivo `i18n.js` aplica as chaves `data-i18n`, `data-i18n-aria-label` e `data-i18n-content`, incluindo título, descrição e ajuda de teclado. A biblioteca i18next 23.16.8 está em `vendor/`, com sua licença, e não exige build nem alteração da publicação no GitHub Pages. O conteúdo original em português continua acessível se o JavaScript de tradução não carregar.
+As traduções da home ficam em `locales/pt-BR.js` e `locales/en.js`; as dos módulos, em `locales/modules.pt-BR.js` e `locales/modules.en.js`. Nos módulos, o texto original em português serve como chave, com interpolação para mensagens dinâmicas. O arquivo `i18n.js` aplica as chaves `data-i18n`, `data-i18n-aria-label` e `data-i18n-content`, além de placeholders, títulos de controles e textos alternativos. Mensagens dinâmicas usam `NihongoI18n.bindText` para atualizar somente a apresentação, incluindo dicas e traduções do vocabulário. Japonês, respostas esperadas e identificadores de analytics permanecem independentes do idioma. A biblioteca i18next 23.16.8 está em `vendor/`, com sua licença, e não exige build nem alteração da publicação no GitHub Pages. O conteúdo original em português continua acessível se o JavaScript de tradução não carregar.
 
-Validação: `node tests/i18n.test.cjs`.
+Validação: `node tests/i18n.test.cjs` e `node tests/modules-i18n.test.cjs`.
 
 ## Analytics
 

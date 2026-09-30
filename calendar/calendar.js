@@ -1,4 +1,6 @@
 (() => {
+  const t = (text, params) => window.NihongoI18n?.text(text, params) ?? (typeof text === 'string' ? text.replace(/{{(\w+)}}/g, (_, key) => params?.[key] ?? '') : text);
+  const ui = (element, render, attribute = 'textContent') => { if (window.NihongoI18n) window.NihongoI18n.bindText(element, render, attribute); else element[attribute] = render(); };
   const $ = id => document.getElementById(id);
   const exceptions = [1,2,3,4,5,6,7,8,9,10,14,20,24];
   const input = $('drill-input');
@@ -18,16 +20,16 @@
     $('streak').textContent = streak;
     const eligible = pool();
     const count = eligible.filter(day => seen.has(day)).length;
-    $('coverage').textContent = `${count} / ${eligible.length} dias`;
+    ui($('coverage'), () => t("{{v0}} / {{v1}} dias", {v0: t(count), v1: t(eligible.length)}));
     $('coverage-fill').style.width = `${count / eligible.length * 100}%`;
   }
   function hint() {
-    if (currentDay === 4) return 'よっか tem っ pequeno e som curto. Não confunda com ようか (dia 8), que tem vogal longa.';
-    if (currentDay === 8) return 'ようか tem vogal longa. Não confunda com よっか (dia 4), que tem っ pequeno.';
-    if (currentDay === 14 || currentDay === 24) return `Combine ${currentDay === 14 ? 'じゅう' : 'にじゅう'} com よっか.`;
-    if (currentDay === 20) return 'O dia 20 usa a leitura especial はつか, sem にち.';
-    if (exceptions.includes(currentDay)) return `Este dia tem leitura especial: ${daysData[currentDay].hiragana} (${daysData[currentDay].romaji[0]}).`;
-    return `Use o número + にち. Leitura: ${daysData[currentDay].hiragana}. Atenção às leituras しち e く nos dias 17, 19, 27 e 29.`;
+    if (currentDay === 4) return t('よっか tem っ pequeno e som curto. Não confunda com ようか (dia 8), que tem vogal longa.');
+    if (currentDay === 8) return t('ようか tem vogal longa. Não confunda com よっか (dia 4), que tem っ pequeno.');
+    if (currentDay === 14 || currentDay === 24) return t("Combine {{v0}} com よっか.", {v0: t(currentDay === 14 ? 'じゅう' : 'にじゅう')});
+    if (currentDay === 20) return t('O dia 20 usa a leitura especial はつか, sem にち.');
+    if (exceptions.includes(currentDay)) return t("Este dia tem leitura especial: {{v0}} ({{v1}}).", {v0: t(daysData[currentDay].hiragana), v1: t(daysData[currentDay].romaji[0])});
+    return t("Use o número + にち. Leitura: {{v0}}. Atenção às leituras しち e く nos dias 17, 19, 27 e 29.", {v0: t(daysData[currentDay].hiragana)});
   }
   function nextQuestion() {
     const candidates = pool();
@@ -35,12 +37,12 @@
     currentDay = choices[Math.floor(Math.random() * choices.length)] || candidates[0];
     locked = false; drill++;
     $('target-day').textContent = currentDay;
-    $('day-caption').textContent = `Dia ${currentDay} do mês`;
-    $('day-question').textContent = `Qual é a leitura japonesa correta do dia ${currentDay}?`;
-    $('drill-label').textContent = `DRILL #${drill} · DIAS DO MÊS`;
-    $('reading-kind').textContent = exceptions.includes(currentDay) ? 'Leitura Irregular Crítica' : 'Número + にち';
-    $('day-note').textContent = exceptions.includes(currentDay) ? 'Atenção à leitura especial deste dia' : 'Regra geral: número + にち';
-    $('hint-content').textContent = hint();
+    ui($('day-caption'), () => t("Dia {{v0}} do mês", {v0: t(currentDay)}));
+    ui($('day-question'), () => t("Qual é a leitura japonesa correta do dia {{v0}}?", {v0: t(currentDay)}));
+    ui($('drill-label'), () => t("DRILL #{{v0}} · DIAS DO MÊS", {v0: t(drill)}));
+    ui($('reading-kind'), () => t(exceptions.includes(currentDay) ? t('Leitura Irregular Crítica') : t('Número + にち')));
+    ui($('day-note'), () => t(exceptions.includes(currentDay) ? t('Atenção à leitura especial deste dia') : t('Regra geral: número + にち')));
+    ui($('hint-content'), () => t(hint()));
     $('hint-box').hidden = true;
     $('btn-show-hint').setAttribute('aria-expanded', 'false');
     $('feedback-success').hidden = true;
@@ -68,7 +70,7 @@
     input.disabled = true; $('btn-verify').disabled = true;
     input.dataset.result = ok ? 'correct' : 'wrong';
     $('feedback-success').dataset.result = ok ? 'correct' : 'wrong';
-    $('feedback-title').textContent = ok ? '✓ Correto! 正解です' : 'Resposta incorreta';
+    ui($('feedback-title'), () => t(ok ? t('✓ Correto! 正解です') : t('Resposta incorreta')));
     $('feedback-seal').textContent = ok ? '◯' : '×';
     $('feedback-detail').textContent = `${currentDay}日 = ${data.hiragana} (${data.romaji[0]})`;
     $('feedback-success').hidden = false;
@@ -99,11 +101,11 @@
   $('btn-toggle-tabela').addEventListener('click', () => table.showModal());
   $('close-table').addEventListener('click', () => table.close());
   const navigation = $('calendar-navigation');
-  function closeMenu() { navigation.removeAttribute('data-open'); $('menu-button').setAttribute('aria-expanded', 'false'); }
+  function closeMenu() { navigation.removeAttribute('data-open'); $('menu-button').setAttribute('aria-expanded', 'false'); ui($('menu-button'), () => t($('menu-button').getAttribute('aria-expanded') === 'true' ? 'Fechar navegação' : 'Abrir navegação'), 'aria-label'); }
   $('menu-button').addEventListener('click', () => {
     const open = $('menu-button').getAttribute('aria-expanded') !== 'true';
     navigation.toggleAttribute('data-open', open);
-    $('menu-button').setAttribute('aria-expanded', String(open));
+    $('menu-button').setAttribute('aria-expanded', String(open)); ui($('menu-button'), () => t($('menu-button').getAttribute('aria-expanded') === 'true' ? 'Fechar navegação' : 'Abrir navegação'), 'aria-label');
   });
   document.addEventListener('click', event => { if (!navigation.contains(event.target) && !$('menu-button').contains(event.target)) closeMenu(); });
   const help = $('keyboard-help');

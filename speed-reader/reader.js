@@ -1,4 +1,6 @@
 (() => {
+  const t = (text, params) => window.NihongoI18n?.text(text, params) ?? (typeof text === 'string' ? text.replace(/{{(\w+)}}/g, (_, key) => params?.[key] ?? '') : text);
+  const ui = (element, render, attribute = 'textContent') => { if (window.NihongoI18n) window.NihongoI18n.bindText(element, render, attribute); else element[attribute] = render(); };
   const $ = id => document.getElementById(id);
   const input = $('typing-input');
   let mode = 'all', phrase, chunks, index = 0, pending = '', keys = 0, errors = 0, started = 0, finished = false, elapsed = 0;
@@ -12,7 +14,7 @@
     $('metric-wpm').textContent = `${Math.round(cpm / 5)} WPM`;
     $('metric-accuracy').textContent = keys ? Math.round((keys-errors)/keys*100) : '—';
     $('metric-time').textContent = `${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(Math.floor(seconds%60)).padStart(2,'0')}`;
-    $('character-count').textContent = `${kana} / ${phrase.kana.length} caracteres`;
+    ui($('character-count'), () => t("{{v0}} / {{v1}} caracteres", {v0: t(kana), v1: t(phrase.kana.length)}));
     $('phrase-fill').style.width = `${kana/phrase.kana.length*100}%`;
   }
   function render() {
@@ -25,10 +27,10 @@
       $('character-stream').append(span);
     });
     const active = chunks[index], next = chunks[index+1];
-    $('matrix-label').textContent = finished ? 'Frase concluída' : 'Próximo trecho';
-    $('active-keys').textContent = active ? `TECLA ATIVA: ${active.romaji[0].toUpperCase()}` : 'CONCLUÍDO';
+    ui($('matrix-label'), () => t(finished ? t('Frase concluída') : t('Próximo trecho')));
+    ui($('active-keys'), () => t(active ? t("TECLA ATIVA: {{v0}}", {v0: t(active.romaji[0].toUpperCase())}) : t('CONCLUÍDO')));
     $('active-kana').textContent = active ? `${active.kana} (${active.romaji[0]})` : '✓';
-    $('next-keys').textContent = next ? `PRÓXIMO: ${next.romaji[0].toUpperCase()}` : 'FIM';
+    ui($('next-keys'), () => t(next ? t("PRÓXIMO: {{v0}}", {v0: t(next.romaji[0].toUpperCase())}) : t('FIM')));
     $('next-kana').textContent = next ? next.kana : '—';
     updateMetrics();
   }
@@ -36,9 +38,10 @@
     phrase = nextPhrase; chunks = parseKanaSentence(phrase.kana); index = 0; pending = ''; keys = errors = started = elapsed = lastEntry = 0; finished = false; intervals = [];
     input.value = ''; input.disabled = false;
     $('model-phrase').textContent = phrase.kana;
-    $('phrase-meaning').textContent = phrase.meaning;
-    $('phrase-progress').textContent = `Frase ${sessionPhrases+1}`;
-    $('latency-path').setAttribute('d',''); $('latency-summary').textContent = '— ms / entrada';
+    ui($('phrase-meaning'), () => t(phrase.meaning));
+    const phraseNumber = sessionPhrases + 1;
+    ui($('phrase-progress'), () => t("Frase {{v0}}", {v0: t(phraseNumber)}));
+    $('latency-path').setAttribute('d',''); ui($('latency-summary'), () => t('— ms / entrada'));
     render(); input.focus({preventScroll:true});
   }
   function nextQuestion() {
@@ -50,7 +53,7 @@
     finished = true; elapsed = performance.now()-started;
     analytics?.track('phrase_complete', {duration_seconds: Math.round(elapsed / 1000), character_count: phrase.kana.length, error_count: errors, accuracy: Math.round((keys-errors)/keys*100)});
     sessionPhrases++; sessionKana += phrase.kana.length; sessionKeys += keys; sessionErrors += errors;
-    $('session-phrases').textContent = `${sessionPhrases} Frases Concluídas`;
+    ui($('session-phrases'), () => t("{{v0}} Frases Concluídas", {v0: t(sessionPhrases)}));
     $('session-kana').textContent = sessionKana;
     $('session-errors').textContent = sessionErrors;
     $('session-accuracy').textContent = `${Math.round((sessionKeys-sessionErrors)/sessionKeys*100)}%`;
@@ -64,7 +67,7 @@
       intervals.push(now-lastEntry); intervals = intervals.slice(-50);
       const max = Math.max(1,...intervals);
       $('latency-path').setAttribute('d',intervals.map((v,i)=>`${i?'L':'M'} ${i*500/Math.max(1,intervals.length-1)} ${55-v/max*50}`).join(' '));
-      $('latency-summary').textContent = `${Math.round(intervals.reduce((a,b)=>a+b,0)/intervals.length)} ms / entrada`;
+      ui($('latency-summary'), () => t("{{v0}} ms / entrada", {v0: t(Math.round(intervals.reduce((a,b)=>a+b,0)/intervals.length))}));
     }
     lastEntry = now; keys++;
     const chunk = chunks[index];
@@ -95,8 +98,8 @@
   $('help-button').addEventListener('click',()=>help.showModal());
   $('close-help').addEventListener('click',()=>help.close());
   const navigation = $('reader-navigation');
-  function closeMenu(){navigation.removeAttribute('data-open');$('menu-button').setAttribute('aria-expanded','false');}
-  $('menu-button').addEventListener('click',()=>{const open=$('menu-button').getAttribute('aria-expanded')!=='true';navigation.toggleAttribute('data-open',open);$('menu-button').setAttribute('aria-expanded',String(open));});
+  function closeMenu(){navigation.removeAttribute('data-open');$('menu-button').setAttribute('aria-expanded','false'); ui($('menu-button'), () => t($('menu-button').getAttribute('aria-expanded') === 'true' ? 'Fechar navegação' : 'Abrir navegação'), 'aria-label');}
+  $('menu-button').addEventListener('click',()=>{const open=$('menu-button').getAttribute('aria-expanded')!=='true';navigation.toggleAttribute('data-open',open);$('menu-button').setAttribute('aria-expanded',String(open)); ui($('menu-button'), () => t($('menu-button').getAttribute('aria-expanded') === 'true' ? 'Fechar navegação' : 'Abrir navegação'), 'aria-label');});
   document.addEventListener('click',event=>{if(!navigation.contains(event.target)&&!$('menu-button').contains(event.target))closeMenu();});
   document.addEventListener('keydown',event=>{
     if(help.open||event.repeat||event.isComposing||event.ctrlKey||event.metaKey||event.altKey)return;

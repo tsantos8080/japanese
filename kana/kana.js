@@ -1,4 +1,6 @@
 (() => {
+  const t = (text, params) => window.NihongoI18n?.text(text, params) ?? (typeof text === 'string' ? text.replace(/{{(\w+)}}/g, (_, key) => params?.[key] ?? '') : text);
+  const ui = (element, render, attribute = 'textContent') => { if (window.NihongoI18n) window.NihongoI18n.bindText(element, render, attribute); else element[attribute] = render(); };
   const $ = id => document.getElementById(id);
   const entries = new Map(KANA.map(entry => [entry.hira, entry]));
   const cards = [...document.querySelectorAll('.kana-card')].map(element => ({
@@ -21,7 +23,7 @@
     if (entry.hira !== 'あ' || script === 'katakana') {
       const note = document.createElement('span');
       note.className = 'font-body-sm text-body-sm text-[#6e685c]';
-      note.textContent = 'Diagrama de ordem de traços ainda não cadastrado para este caractere.';
+      ui(note, () => t('Diagrama de ordem de traços ainda não cadastrado para este caractere.'));
       sketch.append(note);
       return;
     }
@@ -43,7 +45,7 @@
       shape.textContent = glyph;
       const caption = document.createElement('span');
       caption.className = 'text-[10px] font-mono mt-0.5 ' + (i === 2 ? 'text-[#b3392c] font-bold' : 'text-[#6e685c]');
-      caption.textContent = label;
+      ui(caption, () => t(label));
       step.append(number, shape, caption);
       sketch.append(step);
     });
@@ -54,15 +56,15 @@
     $('inspectMainKana').textContent = script === 'katakana' ? entry.kata : entry.hira;
     $('inspectKataKana').textContent = script === 'katakana' ? entry.hira : entry.kata;
     $('inspectRomaji').textContent = entry.romaji;
-    $('inspectGroupBadge').textContent = initial ? 'Vogal Pura • JLPT N5' : entry.badge;
-    $('inspectDescription').textContent = entry.note;
-    $('inspectStrokeCount').textContent = entry.strokes
-      ? entry.strokes + (entry.strokes === 1 ? ' traço único' : ' traços ordenados') + (script === 'katakana' ? ' (hiragana)' : '')
-      : 'Traços: referência pendente';
+    ui($('inspectGroupBadge'), () => t(initial ? t('Vogal Pura • JLPT N5') : t(entry.badge)));
+    ui($('inspectDescription'), () => t(entry.note));
+    ui($('inspectStrokeCount'), () => t(entry.strokes
+      ? entry.strokes + (entry.strokes === 1 ? t(' traço único') : t(' traços ordenados')) + (script === 'katakana' ? ' (hiragana)' : '')
+      : t('Traços: referência pendente')));
     for (let i = 1; i <= 2; i++) {
       const word = entry.examples?.[(i - 1) * 2] || '';
       $('inspectEx' + i).textContent = word;
-      $('inspectEx' + i + 'Trans').textContent = entry.examples?.[(i - 1) * 2 + 1] || '';
+      ui($('inspectEx' + i + 'Trans'), () => t(entry.examples?.[(i - 1) * 2 + 1] || ''));
       $('example-' + i).hidden = !word;
     }
     renderStrokeSketch(entry);
@@ -101,7 +103,7 @@
     specials.hidden = !(group === 'all' || group === 'specials') ||
       (!!term && !specials.textContent.toLowerCase().normalize('NFKC').includes(term));
     $('search-status').hidden = count > 0 || !specials.hidden;
-    $('search-status').textContent = 'Nenhum kana encontrado. Tente outro som ou bloco.';
+    ui($('search-status'), () => t('Nenhum kana encontrado. Tente outro som ou bloco.'));
     $('clearSearchBtn').hidden = !term;
     document.body.classList.toggle('searching', !!term);
     document.querySelectorAll('[data-script]').forEach(button => {
@@ -123,7 +125,7 @@
     analytics?.track('kana_audio_click', {source, audio_support: window.speechSynthesis && typeof window.SpeechSynthesisUtterance === 'function' ? 'available' : 'unavailable'});
     const synth = window.speechSynthesis;
     if (!synth || typeof window.SpeechSynthesisUtterance !== 'function') {
-      $('audio-status').textContent = 'Síntese de voz indisponível neste navegador.';
+      ui($('audio-status'), () => t('Síntese de voz indisponível neste navegador.'));
       return;
     }
     try {
@@ -137,12 +139,12 @@
       utterance.rate = 0.9;
       utterance.onerror = event => {
         if (event.error !== 'canceled' && event.error !== 'interrupted')
-          $('audio-status').textContent = 'Não foi possível reproduzir a voz japonesa.';
+          ui($('audio-status'), () => t('Não foi possível reproduzir a voz japonesa.'));
       };
       synth.speak(utterance);
-      $('audio-status').textContent = 'Voz japonesa sintetizada';
+      ui($('audio-status'), () => t('Voz japonesa sintetizada'));
     } catch {
-      $('audio-status').textContent = 'Não foi possível reproduzir a voz japonesa.';
+      ui($('audio-status'), () => t('Não foi possível reproduzir a voz japonesa.'));
     }
   }
 
@@ -185,7 +187,7 @@
     autoVoice = !autoVoice;
     $('audioGlobalToggle').setAttribute('aria-pressed', String(autoVoice));
     $('header-audio-toggle').setAttribute('aria-pressed', String(autoVoice));
-    $('audioToggleLabel').textContent = autoVoice ? 'Voz Ativa' : 'Voz Silenciada';
+    ui($('audioToggleLabel'), () => t(autoVoice ? t('Voz Ativa') : t('Voz Silenciada')));
     $('audioToggleIcon').textContent = autoVoice ? 'volume_up' : 'volume_off';
     $('header-audio-toggle').querySelector('span').textContent = autoVoice ? 'volume_up' : 'volume_off';
     if (!autoVoice) window.speechSynthesis?.cancel();
@@ -203,7 +205,7 @@
   $('menu-button').addEventListener('click', () => {
     const open = $('menu-button').getAttribute('aria-expanded') !== 'true';
     navigation.toggleAttribute('data-open', open);
-    $('menu-button').setAttribute('aria-expanded', String(open));
+    $('menu-button').setAttribute('aria-expanded', String(open)); ui($('menu-button'), () => t($('menu-button').getAttribute('aria-expanded') === 'true' ? 'Fechar navegação' : 'Abrir navegação'), 'aria-label');
   });
   document.addEventListener('keydown', event => {
     if (help.open || event.repeat || event.ctrlKey || event.metaKey || event.altKey || event.isComposing ||
