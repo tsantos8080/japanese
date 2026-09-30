@@ -1,6 +1,7 @@
 /* Interaction support only. Home layout uses the original Stitch Tailwind classes. */
 [hidden] { display: none !important; }
-a:focus-visible, button:focus-visible { outline: 2px solid #f0bf5c; outline-offset: 3px; }
+a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid #f0bf5c; outline-offset: 3px; }
+.language-select { min-height: 32px; padding: 4px 6px; border: 1px solid #46464d; border-radius: 4px; background: #280000; color: #f0bf5c; font: 500 11px/16px 'JetBrains Mono', monospace; cursor: pointer; }
 .material-symbols-outlined { vertical-align: middle; }
 #modules { scroll-margin-top: 88px; }
 dialog { margin: auto; width: min(680px, calc(100% - 32px)); max-height: calc(100dvh - 48px); padding: 24px; border: 1px solid #ded3be; border-radius: 8px; background: #efe7d6; color: #1f2430; box-shadow: 0 4px 20px #0a0d1873; }

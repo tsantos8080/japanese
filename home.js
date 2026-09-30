@@ -1,16 +1,23 @@
 (() => {
   const navigation = document.getElementById('home-navigation');
   const menu = document.querySelector('.menu-button');
+  const updateMenuLabel = () => {
+    const open = menu.getAttribute('aria-expanded') === 'true';
+    const key = open ? 'nav.close' : 'nav.open';
+    menu.setAttribute('data-i18n-aria-label', key);
+    menu.setAttribute('aria-label', window.NihongoI18n?.t(key) || (open ? 'Fechar navegação' : 'Abrir navegação'));
+  };
+  document.addEventListener('nihongo:languagechange', updateMenuLabel);
   const closeMenu = () => {
     navigation.removeAttribute('data-open');
     menu.setAttribute('aria-expanded', 'false');
-    menu.setAttribute('aria-label', 'Abrir navegação');
+    updateMenuLabel();
   };
   menu.addEventListener('click', () => {
     const open = menu.getAttribute('aria-expanded') !== 'true';
     navigation.toggleAttribute('data-open', open);
     menu.setAttribute('aria-expanded', String(open));
-    menu.setAttribute('aria-label', open ? 'Fechar navegação' : 'Abrir navegação');
+    updateMenuLabel();
   });
   navigation.addEventListener('click', event => {
     if (event.target.closest('a')) closeMenu();

@@ -95,6 +95,14 @@ Consulta de Hiragana e Katakana com 46 caracteres básicos, 25 sonorizados e 15 
 
 SRS, XP, radicais, frases em kanji/furigana, novas métricas e calendário com mês/ano são expansões opcionais, sem compromisso de implementação. Contas de usuário estão fora do escopo.
 
+## Idiomas
+
+A home oferece `pt-BR` e `en`, com seletor no cabeçalho. A escolha fica salva em `localStorage`; no primeiro acesso, usa o primeiro idioma compatível da lista do navegador, com português como fallback. Os módulos ainda estão em português.
+
+As traduções da home ficam em `locales/pt-BR.js` e `locales/en.js`. O arquivo `i18n.js` aplica as chaves `data-i18n`, `data-i18n-aria-label` e `data-i18n-content`, incluindo título, descrição e ajuda de teclado. A biblioteca i18next 23.16.8 está em `vendor/`, com sua licença, e não exige build nem alteração da publicação no GitHub Pages. O conteúdo original em português continua acessível se o JavaScript de tradução não carregar.
+
+Validação: `node tests/i18n.test.cjs`.
+
 ## Analytics
 
 Todas as páginas usam o GA4 `G-W1SDFKSFH6`. Os módulos carregam o helper compartilhado `analytics.js` e registram:
