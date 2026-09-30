@@ -1,353 +1,611 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>日にちドリル — Treino de Dias</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4914230912970008" crossorigin="anonymous"></script>
-<style>
-:root{
-  --bg-indigo:#171d34; --bg-indigo-2:#1f2846; --indigo-line:#3c4a73; --indigo-line-soft:#2a3459;
-  --paper:#efe7d6; --paper-2:#e6dcc6; --ink:#2a2318; --ink-soft:#5c5341;
-  --hanko:#b3392c; --hanko-dark:#8f2c22; --gold:#c89b3c; --gold-soft:#dcc27c; --ok:#4c6b3f;
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
- margin:0; min-height:100vh; padding:32px 20px 60px; background:
- radial-gradient(circle at 15% 10%,rgba(200,155,60,.08),transparent 45%),
- radial-gradient(circle at 85% 90%,rgba(179,57,44,.10),transparent 45%),var(--bg-indigo);
- background-attachment:fixed; font-family:'Zen Kaku Gothic New',sans-serif; color:var(--paper)
-}
-body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.35;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.06'/></svg>");mix-blend-mode:overlay}
-.wrap{max-width:1080px;margin:0 auto;position:relative}
-header.top{text-align:center;margin-bottom:34px}
-.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:10px}
-h1{font-family:'Shippori Mincho',serif;font-weight:800;font-size:clamp(34px,6vw,56px);margin:0 0 8px;letter-spacing:.04em;color:var(--paper);text-shadow:0 2px 0 rgba(0,0,0,.25)}
-h1 .accent{color:var(--gold)}
-.subtitle{font-size:15px;color:rgba(239,231,214,.72);max-width:600px;margin:0 auto;line-height:1.6}
-.header-actions{display:flex;justify-content:center;gap:12px;margin-top:16px;flex-wrap:wrap}
-.nav-btn,.guide-btn{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.04em;background:transparent;border:1px solid var(--gold-soft);color:var(--gold-soft);padding:10px 18px;border-radius:9px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:.15s}
-.nav-btn:hover,.guide-btn:hover{background:rgba(200,155,60,.12)}
-.layout{display:grid;grid-template-columns:300px 1fr;gap:24px;align-items:start}
-.sidebar{background:linear-gradient(180deg,var(--bg-indigo-2),#172041);border:1px solid var(--indigo-line);border-radius:14px;padding:18px 16px 20px;position:sticky;top:20px}
-.sidebar h2{font-family:'Shippori Mincho',serif;font-size:17px;margin:2px 4px 4px;color:var(--gold-soft);font-weight:700}
-.sidebar .hint{font-size:11.5px;color:rgba(239,231,214,.55);margin:0 4px 14px;line-height:1.5}
-.controls{display:flex;flex-direction:column;gap:8px;margin:0 4px}
-.mode-option{display:flex;align-items:flex-start;gap:10px;background:rgba(239,231,214,.04);border:1px solid var(--indigo-line-soft);border-radius:9px;padding:10px;cursor:pointer;color:rgba(239,231,214,.82);font-size:12px;line-height:1.4}
-.mode-option:hover{background:rgba(239,231,214,.08);border-color:var(--indigo-line)}
-.mode-option input{accent-color:var(--gold);margin-top:2px}
-.mode-option strong{color:var(--paper);display:block;font-size:12px}
-.main{background:var(--paper);background-image:radial-gradient(circle at 8% 15%,rgba(179,57,44,.05),transparent 30%),radial-gradient(circle at 92% 85%,rgba(60,74,115,.06),transparent 30%);border-radius:16px;padding:26px 26px 30px;color:var(--ink);box-shadow:0 20px 50px rgba(0,0,0,.35);position:relative;min-height:480px}
-.scoreboard{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding-bottom:16px;margin-bottom:24px;border-bottom:1px dashed var(--ink-soft)}
-.score-pill{display:flex;gap:14px;font-family:'JetBrains Mono',monospace}
-.score-item{text-align:center}
-.score-item .num{font-size:22px;font-weight:700}
-.score-item .lbl{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
-.score-item.correct .num{color:var(--ok)} .score-item.wrong .num{color:var(--hanko)}
-.scoreboard-right{display:flex;align-items:center;gap:10px}
-.mode-toggle{display:inline-flex;background:var(--paper-2);border:1px solid var(--ink-soft);border-radius:8px;padding:3px;gap:3px}
-.mode-btn{font-family:'JetBrains Mono',monospace;font-size:11px;background:transparent;border:none;color:var(--ink-soft);padding:6px 11px;border-radius:6px;cursor:pointer;font-weight:600}
-.mode-btn.active{background:var(--bg-indigo);color:var(--paper);box-shadow:0 2px 5px rgba(0,0,0,.2)}
-#reset-btn{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:var(--paper-2);border:1px solid var(--ink-soft);color:var(--ink);padding:9px 14px;border-radius:8px;cursor:pointer}
-.challenge{text-align:center;margin:16px auto 22px}
-.question-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
-.target{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(48px,9vw,76px);line-height:1.15;margin:0;color:var(--ink)}
-.target .n{color:var(--hanko)}
-.hint-text{font-size:13px;color:var(--ink-soft);min-height:24px;margin-top:7px}
-.calendar-wrap{max-width:520px;margin:0 auto 24px}
-.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
-.cal-header{font-family:'JetBrains Mono',monospace;text-align:center;font-size:10px;letter-spacing:.08em;color:var(--ink-soft);padding:4px}
-.cal-day{background:#faf6ea;border:1px solid rgba(42,35,24,.18);border-radius:9px;display:flex;justify-content:center;align-items:center;aspect-ratio:1;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--ink-soft);transition:transform .12s,background .15s,border-color .15s,box-shadow .15s}
-.cal-day.active{background:var(--hanko);border-color:var(--hanko-dark);color:var(--paper);transform:scale(1.08);box-shadow:0 5px 14px rgba(179,57,44,.28);z-index:2}
-.cal-day.success{background:rgba(76,107,63,.16);border-color:var(--ok);color:var(--ok)}
-.cal-day.error{background:rgba(179,57,44,.12);border-color:var(--hanko);color:var(--hanko);animation:shake .4s}
-.input-area{display:flex;justify-content:center;gap:10px;max-width:480px;margin:0 auto}
-#answerInput{font-family:'Shippori Mincho',serif;font-size:23px;text-align:center;padding:13px 18px;width:min(330px,100%);border:2px solid var(--ink-soft);border-radius:10px;background:#faf6ea;color:var(--ink);outline:none;transition:border-color .15s,box-shadow .15s}
-#answerInput:focus{border-color:var(--hanko);box-shadow:0 0 0 3px rgba(179,57,44,.12)}
-#answerInput.correct{border-color:var(--ok)} #answerInput.incorrect{border-color:var(--hanko)}
-button.primary{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:14px;background:var(--hanko);color:var(--paper);border:none;padding:12px 24px;border-radius:9px;cursor:pointer}
-button.primary:hover{background:var(--hanko-dark)}
-.btn-secondary{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:13px;background:transparent;color:var(--ink-soft);border:1px solid var(--ink-soft);padding:11px 20px;border-radius:9px;cursor:pointer}
-.feedback{text-align:center;min-height:34px;font-size:14px;margin:16px 0 18px}
-.feedback .correct-answer{font-family:'Shippori Mincho',serif;font-weight:700;color:var(--hanko);font-size:17px}
-.feedback.ok-text{color:var(--ok)}
-.feedback .note{font-size:11.5px;color:var(--ink-soft);margin-top:5px}
-.actions{display:flex;justify-content:center;gap:10px}
-footer{text-align:center;margin-top:26px;font-size:11px;color:rgba(239,231,214,.35);font-family:'JetBrains Mono',monospace}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,13,26,.72);backdrop-filter:blur(2px);z-index:50;padding:24px 16px;overflow-y:auto}
-.modal-overlay.show{display:block}
-.modal{max-width:760px;margin:0 auto;background:var(--paper);color:var(--ink);border-radius:16px;box-shadow:0 30px 70px rgba(0,0,0,.5);overflow:hidden}
-.modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:24px 26px 18px;border-bottom:1px dashed var(--ink-soft);background:linear-gradient(180deg,rgba(179,57,44,.05),transparent)}
-.modal-head h2{font-family:'Shippori Mincho',serif;font-size:24px;margin:4px 0 8px}
-.modal-sub{font-size:12.5px;color:var(--ink-soft);max-width:560px;line-height:1.6;margin:0}
-.guide-close{background:var(--paper-2);border:1px solid var(--ink-soft);color:var(--ink);width:34px;height:34px;border-radius:50%;cursor:pointer}
-.modal-body{padding:20px 26px 28px}
-.guide-card{background:rgba(255,255,255,.4);border:1px solid rgba(42,35,24,.14);border-radius:12px;padding:16px}
-.guide-card h3{font-family:'Shippori Mincho',serif;margin:0 0 10px;font-size:20px}
-.guide-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
-.guide-item{padding:8px 5px;text-align:center;border:1px solid rgba(42,35,24,.12);border-radius:7px;background:rgba(255,255,255,.35)}
-.guide-item .d{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-soft)}
-.guide-item .r{font-family:'Shippori Mincho',serif;font-weight:700;margin-top:3px}
-@keyframes shake{0%{transform:translateX(0)}25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-5px)}100%{transform:translateX(0)}}
-@media(max-width:860px){.layout{grid-template-columns:1fr}.sidebar{position:static}}
-@media(max-width:560px){body{padding:20px 12px 40px}.main{padding:20px 14px 24px}.scoreboard-right{width:100%;justify-content:space-between}.calendar-grid{gap:5px}.guide-grid{grid-template-columns:repeat(3,1fr)}.input-area{flex-wrap:wrap}#answerInput{width:100%}}
-</style>
-</head>
-<body>
-<div class="wrap">
-<header class="top">
-  <div class="eyebrow">hinichi drill · カレンダー</div>
-  <h1>日にち<span class="accent">ドリル</span></h1>
-  <p class="subtitle">Treine a leitura dos dias do mês em japonês. O calendário funciona como apoio visual, enquanto você responde a leitura completa em hiragana.</p>
-  <div class="header-actions">
-    <a href="../" class="nav-btn">← Início</a>
-    <button id="guide-btn" class="guide-btn">📖 Guia de estudo</button>
-  </div>
+
+
+<html class="dark" lang="pt-BR"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Serif:wght@500;600&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-primary":"#292f47","outline-variant":"#46464d","on-surface":"#ffdad5","surface-container-low":"#410000","error-container":"#93000a","tertiary":"#f0bf5c","on-tertiary-fixed":"#261900","surface-bright":"#760a06","primary":"#c0c5e4","surface-container-lowest":"#280000","on-secondary":"#343025","inverse-primary":"#575d78","secondary-fixed-dim":"#cdc6b6","on-error-container":"#ffdad6","surface-dim":"#310000","primary-fixed-dim":"#c0c5e4","on-primary-fixed":"#141a31","on-tertiary":"#412d00","surface-variant":"#700403","outline":"#909097","surface-container-high":"#5c0001","error":"#ffb4ab","on-primary-container":"#7f85a1","on-secondary-fixed":"#1f1b11","secondary-container":"#4d493c","inverse-surface":"#ffdad5","on-primary-fixed-variant":"#40465f","tertiary-fixed":"#ffdea4","on-error":"#690005","on-surface-variant":"#c7c6ce","on-secondary-fixed-variant":"#4b463a","secondary-fixed":"#eae2d1","tertiary-container":"#2a1c00","surface-tint":"#c0c5e4","on-tertiary-fixed-variant":"#5d4200","on-secondary-container":"#bfb8a8","tertiary-fixed-dim":"#f0bf5c","surface":"#310000","background":"#310000","surface-container-highest":"#700403","on-tertiary-container":"#a97f22","primary-container":"#171d34","surface-container":"#490000","on-background":"#ffdad5","inverse-on-surface":"#690001","primary-fixed":"#dce1ff","secondary":"#cdc6b6"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-xl":"2.5rem","space-lg":"1.5rem","space-sm":"0.5rem","space-xs":"0.25rem","space-md":"1rem","gutter-mobile":"1rem","gutter":"1.5rem","margin-mobile":"1.25rem","margin":"2.5rem"},fontFamily:{"body-sm":["Inter"],"label-md":["JetBrains Mono"],"headline-sm":["Noto Serif"],"headline-md":["Noto Serif"],"label-lg":["JetBrains Mono"],"headline-lg-mobile":["Noto Serif"],"headline-lg":["Noto Serif"],"body-md":["Inter"],"display-lg-mobile":["Noto Serif"],"body-lg":["Inter"],"label-sm":["JetBrains Mono"],"display-lg":["Noto Serif"]},fontSize:{"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"500"}],"headline-sm":["20px",{"lineHeight":"28px","fontWeight":"500"}],"headline-md":["24px",{"lineHeight":"32px","fontWeight":"500"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.05em","fontWeight":"500"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"40px","fontWeight":"600"}],"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}],"display-lg-mobile":["32px",{"lineHeight":"40px","fontWeight":"600"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.06em","fontWeight":"500"}],"display-lg":["48px",{"lineHeight":"56px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}}</script><title>Dias do Mês — Nihongo Lab</title><link rel="icon" href="../favicon.svg"><link rel="stylesheet" href="calendar.css"></head><body class="bg-primary-container font-body-md text-on-surface antialiased selection:bg-tertiary-container selection:text-tertiary"><header class="fixed top-0 left-0 w-full z-50 bg-primary-container/95 backdrop-blur-md border-b border-tertiary/20"><div class="h-16 max-w-7xl mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md shrink-0"><img alt="Nihongo Lab Logo" class="h-8 w-auto object-contain" src="../assets/nihongo-lab.svg"><div class="hidden sm:flex flex-col"><span class="font-headline-sm text-headline-sm text-primary-fixed tracking-tight leading-none">日本語ラボ</span><span class="font-label-sm text-label-sm text-tertiary tracking-wider uppercase mt-0.5">Prática deliberada e drills</span></div>
+
+</div>
+
+<nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-surface-container-high text-on-surface font-semibold rounded" id="calendar-navigation" aria-label="Navegação principal"><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="inicio-modulos" href="../">Início / Módulos</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="adjetivos-keiyoushi" href="../adjectives/">Adjetivos 形容詞</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="forma-te" href="../te-form/">Forma て</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="contadores-josuushi" href="../counters/">Contadores 助数詞</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="dias-hinichi" href="./" aria-current="page">Dias 日にち</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="rastro-de-leitura-kana" href="../speed-reader/">Rastro de Leitura 仮名</a></nav>
+
+<div class="flex items-center gap-space-md shrink-0"><div class="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container-low/80 border border-outline-variant/30"><span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span><span class="font-label-sm text-label-sm text-tertiary">Modo Estudo</span></div>
+
+<button class="flex items-center px-2 py-0.5 rounded bg-surface-container-lowest border border-outline-variant/40" type="button" id="help-button" aria-label="Abrir ajuda de teclado"><span class="font-label-sm text-label-sm text-secondary-fixed-dim">?</span></button><button type="button" id="menu-button" class="xl:hidden w-8 h-8 text-tertiary" aria-controls="calendar-navigation" aria-expanded="false" aria-label="Abrir navegação"><span class="material-symbols-outlined" aria-hidden="true">menu</span></button></div>
+
+</div>
+
 </header>
-
-<div class="layout">
-  <aside class="sidebar">
-    <h2>📅 カレンダー · Dias</h2>
-    <p class="hint">Escolha entre praticar todos os dias ou focar apenas nas leituras especiais.</p>
-    <div class="controls">
-      <label class="mode-option">
-        <input type="radio" name="mode" value="all" checked>
-        <span><strong>Todos os dias</strong>1 a 31</span>
-      </label>
-      <label class="mode-option">
-        <input type="radio" name="mode" value="exceptions">
-        <span><strong>Apenas exceções</strong>1–10, 14, 20 e 24</span>
-      </label>
-    </div>
-  </aside>
-
-  <main class="main">
-    <div class="scoreboard">
-      <div class="score-pill">
-        <div class="score-item correct"><div class="num" id="score-correct">0</div><div class="lbl">Acertos</div></div>
-        <div class="score-item wrong"><div class="num" id="score-wrong">0</div><div class="lbl">Erros</div></div>
-        <div class="score-item"><div class="num" id="score-total">0</div><div class="lbl">Total</div></div>
-      </div>
-      <div class="scoreboard-right">
-        <div class="mode-toggle">
-          <button class="mode-btn active" id="mode-typing">⌨️ Digitação</button>
-        </div>
-        <button id="reset-btn">↺ Reiniciar</button>
-      </div>
-    </div>
-
-    <div class="challenge">
-      <div class="question-label">Como se diz em japonês?</div>
-      <p class="target" id="targetDisplay">--<span class="n">日</span></p>
-      <div class="hint-text" id="hintDisplay">Digite em romaji ou hiragana e pressione Enter</div>
-    </div>
-
-    <div class="calendar-wrap">
-      <div class="calendar-grid" id="calendarGrid">
-        <div class="cal-header">日</div><div class="cal-header">月</div><div class="cal-header">火</div>
-        <div class="cal-header">水</div><div class="cal-header">木</div><div class="cal-header">金</div><div class="cal-header">土</div>
-      </div>
-    </div>
-
-    <div class="input-area">
-      <input type="text" id="answerInput" placeholder="tsuitachi / ついたち" autocomplete="off" autocapitalize="off" spellcheck="false">
-      <button class="primary" id="submitBtn">Verificar</button>
-      <button class="btn-secondary" id="hintBtn">?</button>
-    </div>
-    <div class="feedback" id="feedback"></div>
-    <div class="actions">
-      <button class="primary" id="nextBtn" style="display:none">Próxima pergunta →</button>
-    </div>
-  </main>
-</div>
-<footer>1〜31 · ついたち・ふつか・みっか・よっか・いつか・むいか・なのか・ようか・ここのか・とおか・はつか</footer>
+<main class="w-full pt-16 bg-primary-container min-h-screen"><div class="flex flex-col w-full text-on-surface">
+<!-- Sub-cabeçalho de navegação e status -->
+<div class="w-full bg-primary-container/80 backdrop-blur-md px-margin-mobile lg:px-margin py-space-sm">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<a class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface-container-high/60 hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm transition-all shadow-sm" data-path="inicio-modulos" href="../">
+<span class="material-symbols-outlined text-[16px] text-tertiary">arrow_back</span>
+<span>Início</span>
+</a>
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-primary-fixed tracking-tight">Dias do Mês</span>
+<span class="font-headline-sm text-headline-sm text-tertiary">（日にちの読み方）</span>
+<span class="px-2 py-0.5 rounded bg-surface-variant/80 text-on-surface font-label-sm text-label-sm tracking-widest uppercase">N5 Essencial</span>
 </div>
 
-<div class="modal-overlay" id="guide-overlay">
-  <div class="modal">
-    <div class="modal-head">
-      <div>
-        <div class="eyebrow">reference · 参考</div>
-        <h2>Guia de leitura dos dias</h2>
-        <p class="modal-sub">As leituras de 1 a 10 e de alguns dias específicos são irregulares. Use esta tabela como referência rápida.</p>
-      </div>
-      <button id="guide-close" class="guide-close">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="guide-card"><h3>1〜31 · 日</h3><div class="guide-grid" id="guide-grid"></div></div>
-    </div>
-  </div>
 </div>
 
-<script src="https://unpkg.com/wanakana"></script>
-<script>
-(function(){
-  const daysData = {
-      1: { hiragana: 'ついたち', romaji: ['tsuitachi'] },
-      2: { hiragana: 'ふつか', romaji: ['futsuka'] },
-      3: { hiragana: 'みっか', romaji: ['mikka'] },
-      4: { hiragana: 'よっか', romaji: ['yokka'] },
-      5: { hiragana: 'いつか', romaji: ['itsuka'] },
-      6: { hiragana: 'むいか', romaji: ['muika'] },
-      7: { hiragana: 'なのか', romaji: ['nanoka'] },
-      8: { hiragana: 'ようか', romaji: ['youka', 'yooka'] },
-      9: { hiragana: 'ここのか', romaji: ['kokonoka'] },
-      10: { hiragana: 'とおか', romaji: ['tooka', 'touka'] },
-      11: { hiragana: 'じゅういちにち', romaji: ['juuichinichi', 'juichinichi'] },
-      12: { hiragana: 'じゅうににち', romaji: ['juuninichi', 'juninichi'] },
-      13: { hiragana: 'じゅうさんにち', romaji: ['juusannichi', 'jusannichi'] },
-      14: { hiragana: 'じゅうよっか', romaji: ['juuyokka', 'juyokka'] },
-      15: { hiragana: 'じゅうごにち', romaji: ['juugonichi', 'jugonichi'] },
-      16: { hiragana: 'じゅうろくにち', romaji: ['juurokunichi', 'jurokunichi'] },
-      17: { hiragana: 'じゅうしちにち', romaji: ['juushichinichi', 'jushichinichi', 'juunananichi'] },
-      18: { hiragana: 'じゅうはちにち', romaji: ['juuhachinichi', 'juhachinichi'] },
-      19: { hiragana: 'じゅうくにち', romaji: ['juukunichi', 'jukunichi'] },
-      20: { hiragana: 'はつか', romaji: ['hatsuka'] },
-      21: { hiragana: 'にじゅういちにち', romaji: ['nijuuichinichi', 'nijuichinichi'] },
-      22: { hiragana: 'にじゅうににち', romaji: ['nijuuninichi', 'nijuninichi'] },
-      23: { hiragana: 'にじゅうさんにち', romaji: ['nijuusannichi', 'nijusannichi'] },
-      24: { hiragana: 'にじゅうよっか', romaji: ['nijuuyokka', 'nijuyokka'] },
-      25: { hiragana: 'にじゅうごにち', romaji: ['nijuugonichi', 'nijugonichi'] },
-      26: { hiragana: 'にじゅうろくにち', romaji: ['nijuurokunichi', 'nijurokunichi'] },
-      27: { hiragana: 'にじゅうしちにち', romaji: ['nijuushichinichi', 'nijushichinichi', 'nijuunananichi'] },
-      28: { hiragana: 'にじゅうはちにち', romaji: ['nijuuhachinichi', 'nijuhachinichi'] },
-      29: { hiragana: 'にじゅうくにち', romaji: ['nijuukunichi', 'nijukunichi'] },
-      30: { hiragana: 'さんじゅうにち', romaji: ['sanjuunichi', 'sanjunichi'] },
-      31: { hiragana: 'さんじゅういちにち', romaji: ['sanjuuichinichi', 'sanjuichinichi'] }
-  };
-  const exceptions = [1,2,3,4,5,6,7,8,9,10,14,20,24];
+<div class="flex items-center gap-space-sm">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface-container-lowest/80 hover:bg-surface-container-low text-tertiary font-label-md text-label-md transition-colors shadow-sm" id="btn-toggle-tabela" type="button">
+<span class="material-symbols-outlined text-[16px]">calendar_month</span>
+<span>Tabela Completa 1〜31</span>
+</button>
+</div>
 
-  let currentDay = null;
-  let score = {correct:0, wrong:0};
-  let answered = false;
+</div>
 
-  const grid = document.getElementById('calendarGrid');
-  const targetDisplay = document.getElementById('targetDisplay');
-  const hintDisplay = document.getElementById('hintDisplay');
-  const input = document.getElementById('answerInput');
-  const feedback = document.getElementById('feedback');
-  const submitBtn = document.getElementById('submitBtn');
-  const hintBtn = document.getElementById('hintBtn');
-  const nextBtn = document.getElementById('nextBtn');
+</div>
 
-  if(window.wanakana) wanakana.bind(input, { IMEMode:'toHiragana' });
+<!-- Container Principal do Laboratório (2 Colunas Desktop) -->
+<div class="w-full max-w-7xl mx-auto px-margin-mobile lg:px-margin py-space-lg flex flex-col gap-space-xl">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- PAINEL LATERAL ESQUERDO: Filtros & Estatísticas (4 Colunas) -->
+<aside class="lg:col-span-4 flex flex-col gap-space-md">
+<!-- Configuração de Intervalos e Filtros -->
+<div class="bg-surface-container-lowest/90 rounded-xl p-space-md shadow-xl flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[18px]">tune</span>
+<span class="font-label-lg text-label-lg text-primary-fixed uppercase tracking-wider">Configuração do Calendário</span>
+</div>
 
-  function renderCalendar(){
-    for(let i=0;i<3;i++) grid.appendChild(document.createElement('div'));
-    for(let i=1;i<=31;i++){
-      const el=document.createElement('div');
-      el.className='cal-day';
-      el.id=`day-${i}`;
-      el.textContent=i;
-      grid.appendChild(el);
-    }
-  }
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+</div>
 
-  function pickNext(){
-    const mode=document.querySelector('input[name="mode"]:checked').value;
-    const pool=mode==='exceptions' ? exceptions : Array.from({length:31},(_,i)=>i+1);
-    let next;
-    do { next=pool[Math.floor(Math.random()*pool.length)]; }
-    while(next===currentDay && pool.length>1);
-    currentDay=next;
-    answered=false;
+<div class="flex flex-col gap-2.5">
+<label class="flex items-center gap-3 p-2 rounded bg-surface-container-high/40 hover:bg-surface-container-high/70 cursor-pointer transition-colors">
+<input checked="" class="w-4 h-4 rounded text-surface-variant focus:ring-0 accent-surface-variant cursor-pointer" type="checkbox" name="day-range" value="1-10">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Dias 1 a 10 (Irregulares Clássicos)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ついたち a とおか · Frequência JLPT N5</span>
+</div>
 
-    document.querySelectorAll('.cal-day').forEach(el=>el.classList.remove('active','success','error'));
-    document.getElementById(`day-${currentDay}`).classList.add('active');
+</label>
+<label class="flex items-center gap-3 p-2 rounded bg-surface-container-high/40 hover:bg-surface-container-high/70 cursor-pointer transition-colors">
+<input checked="" class="w-4 h-4 rounded text-surface-variant focus:ring-0 accent-surface-variant cursor-pointer" type="checkbox" name="day-range" value="11-20">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Dias 11 a 20 (Inclui 14 e 20)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">じゅうよっか e o especial はつか</span>
+</div>
 
-    targetDisplay.innerHTML=`<span class="n">${currentDay}</span> <span>日</span>`;
-    hintDisplay.textContent='Digite em romaji ou hiragana e pressione Enter';
-    feedback.innerHTML='';
-    feedback.className='feedback';
-    input.value='';
-    input.className='';
-    input.disabled=false;
-    submitBtn.disabled=false;
-    submitBtn.textContent='Verificar';
-    nextBtn.style.display='none';
-    input.focus();
-  }
+</label>
+<label class="flex items-center gap-3 p-2 rounded bg-surface-container-high/40 hover:bg-surface-container-high/70 cursor-pointer transition-colors">
+<input checked="" class="w-4 h-4 rounded text-surface-variant focus:ring-0 accent-surface-variant cursor-pointer" type="checkbox" name="day-range" value="21-31">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Dias 21 a 31 (Inclui 24)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Foco em にじゅうよっか e regra にち</span>
+</div>
 
-  function checkAnswer(){
-    if(answered) return;
-    let raw=input.value.trim().toLowerCase();
-    if(window.wanakana) {
-      raw=wanakana.toHiragana(raw);
-      input.value=raw;
-    }
-    if(!raw) return;
+</label>
+</div>
 
-    const data=daysData[currentDay];
-    const correct=raw===data.hiragana;
-    const el=document.getElementById(`day-${currentDay}`);
+<div class="mt-1 pt-2 bg-surface-container-low/60 p-2.5 rounded">
+<label class="flex items-start gap-2.5 cursor-pointer">
+<input checked="" class="mt-0.5 w-4 h-4 text-surface-bright accent-surface-bright cursor-pointer" type="checkbox" id="day-exceptions">
+<span class="font-label-sm text-label-sm text-tertiary-fixed leading-tight">
+                Foco estrito nas 13 leituras irregulares críticas (1〜10, 14, 20, 24)
+              </span>
+</label>
+</div>
 
-    answered=true;
-    if(correct){
-      el.classList.add('success');
-      input.className='correct';
-      feedback.className='feedback ok-text';
-      feedback.innerHTML=`Isso mesmo!<div class="note">${data.hiragana}</div>`;
-      score.correct++;
-    } else {
-      el.classList.add('error');
-      input.className='incorrect';
-      feedback.className='feedback';
-      feedback.innerHTML=`Resposta certa: <span class="correct-answer">${data.hiragana}</span><div class="note">Você pode digitar em romaji; ele é convertido automaticamente.</div>`;
-      score.wrong++;
-      setTimeout(()=>el.classList.remove('error'),400);
-    }
-    updateScore();
+</div>
 
-    submitBtn.textContent='Próxima pergunta →';
-  }
+<!-- Estatísticas da Sessão & Cadência -->
+<div class="bg-surface-container-lowest/90 rounded-xl p-space-md shadow-xl flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">query_stats</span>
+<span class="font-label-lg text-label-lg text-secondary-fixed uppercase tracking-wider">Estatísticas da Sessão</span>
+</div>
 
-  function updateScore(){
-    document.getElementById('score-correct').textContent=score.correct;
-    document.getElementById('score-wrong').textContent=score.wrong;
-    document.getElementById('score-total').textContent=score.correct+score.wrong;
-  }
+<span class="font-label-sm text-label-sm text-on-surface-variant">Drill Contínuo</span>
+</div>
 
-  function showHint(){
-    hintDisplay.textContent=daysData[currentDay].hiragana;
-    input.focus();
-  }
+<!-- Métricas em Grid -->
+<div class="grid grid-cols-2 gap-2">
+<div class="p-2.5 rounded bg-surface-container-high/40 flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Acertos</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-headline-md text-headline-md text-tertiary font-semibold" id="stat-hits">0</span>
+<span class="font-label-sm text-label-sm text-tertiary/70" id="stat-total">/ 0</span>
+</div>
 
-  submitBtn.addEventListener('click',()=>answered ? pickNext() : checkAnswer());
-  nextBtn.addEventListener('click',pickNext);
-  hintBtn.addEventListener('click',showHint);
-  input.addEventListener('keydown',e=>{
-    if(e.key==='Enter'){
-      e.preventDefault();
-      answered ? pickNext() : checkAnswer();
-    }
-  });
-  document.addEventListener('keydown',e=>{
-    if(e.key==='Escape') {
-      document.getElementById('guide-overlay').classList.remove('show');
-    }
-  });
-  document.querySelectorAll('input[name="mode"]').forEach(r=>r.addEventListener('change',pickNext));
-  document.getElementById('reset-btn').addEventListener('click',()=>location.reload());
+</div>
 
-  const guideGrid=document.getElementById('guide-grid');
-  Object.entries(daysData).forEach(([n,data])=>{
-    const item=document.createElement('div');
-    item.className='guide-item';
-    item.innerHTML=`<div class="d">${n}日</div><div class="r">${data.hiragana}</div>`;
-    guideGrid.appendChild(item);
-  });
+<div class="p-2.5 rounded bg-surface-container-high/40 flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Erros</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-headline-md text-headline-md text-error font-semibold" id="stat-misses">0</span>
+<span class="font-label-sm text-label-sm text-error/70">na sessão</span>
+</div>
 
-  const guideOverlay=document.getElementById('guide-overlay');
-  document.getElementById('guide-btn').addEventListener('click',()=>guideOverlay.classList.add('show'));
-  document.getElementById('guide-close').addEventListener('click',()=>guideOverlay.classList.remove('show'));
-  guideOverlay.addEventListener('click',e=>{if(e.target===guideOverlay) guideOverlay.classList.remove('show')});
+</div>
 
-  renderCalendar();
-  pickNext();
-})();
-</script>
-</body>
-</html>
+<div class="p-2.5 rounded bg-surface-container-high/40 flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Aproveitamento</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-headline-md text-headline-md text-primary-fixed font-semibold" id="accuracy">—</span>
+<span class="font-label-sm text-label-sm text-primary-fixed/60">precisão</span>
+</div>
+
+</div>
+
+<div class="p-2.5 rounded bg-surface-container-high/40 flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sequência Atual</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-headline-md text-headline-md text-tertiary font-semibold" id="streak">0</span>
+<span class="font-label-sm text-label-sm text-tertiary">🔥</span>
+</div>
+
+</div>
+
+</div>
+
+<!-- Barra de Progresso do Lote -->
+<div class="flex flex-col gap-1.5 mt-1">
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>Dias distintos respondidos</span>
+<span class="text-tertiary" id="coverage">0 / 13 dias</span>
+</div>
+
+<div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-tertiary transition-all duration-500" style="width:0%" id="coverage-fill"></div>
+
+</div>
+
+</div>
+
+<button class="w-full mt-2 py-2 rounded bg-surface-container-high/60 hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm flex items-center justify-center gap-1.5 transition-colors" id="btn-reset-session" type="button">
+<span class="material-symbols-outlined text-[16px]">refresh</span>
+<span>Reiniciar Métricas da Sessão</span>
+</button>
+</div>
+
+<!-- Alerta Mnemônico Geral -->
+<div class="bg-surface-container-high/50 rounded-xl p-space-md text-on-surface flex items-start gap-3 shadow-md">
+<span class="material-symbols-outlined text-tertiary text-[20px] shrink-0 mt-0.5">lightbulb</span>
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-tertiary font-semibold uppercase">Padrão da Regra Geral</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Para a maioria dos dias regulares (ex: 11, 12, 15, 25...), a leitura é o <strong class="text-on-surface">Número Sino-Japonês + にち (nichi)</strong>. Memorize com máxima atenção os 13 casos de raiz nativa (<em class="text-tertiary-fixed">yamato-kotoba</em>)!
+            </p>
+</div>
+
+</div>
+
+</aside>
+
+<!-- ÁREA PRINCIPAL: Washi Card Estilizado (8 Colunas) -->
+<section class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- Cartão de Estudo em Folha Washi Clara (#efe7d6) -->
+<div class="relative bg-[#efe7d6] text-[#1f2430] rounded-2xl p-space-md sm:p-space-xl shadow-2xl overflow-hidden">
+<!-- Faixa Superior do Card -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-md">
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded bg-[#ded3be] text-[#2c344d] font-label-sm text-label-sm font-semibold tracking-wider" id="drill-label">DIAS DO MÊS</span>
+<span class="px-2 py-0.5 rounded bg-[#f5e6e3] text-[#b3392c] font-label-sm text-label-sm font-semibold flex items-center gap-1" id="reading-kind">
+<span class="w-1.5 h-1.5 rounded-full bg-[#b3392c]"></span>
+                Leitura Irregular Crítica
+              </span>
+</div>
+
+<!-- Hanko Stamp Badge Tradicional -->
+<div class="flex items-center gap-2">
+
+<div class="w-9 h-9 rounded-md bg-transparent flex items-center justify-center -rotate-3 text-[#b3392c] shadow-sm select-none" style="outline: 1.5px solid #b3392c;">
+<span class="font-headline-sm text-headline-sm font-bold text-[#b3392c] leading-none">日</span>
+</div>
+
+</div>
+
+</div>
+
+<!-- Conteúdo Central: Folha de Calendário + Mini-Calendário Integrado -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-lg my-space-md items-center">
+<!-- Folha do Calendário Artesanal (Esquerda) -->
+<div class="md:col-span-7 flex flex-col items-center justify-center">
+<div class="relative w-64 bg-[#f8f4ec] rounded-xl p-5 shadow-md flex flex-col items-center text-center">
+<!-- Cabeça do calendário estilo encadernação japonesa -->
+<div class="w-full bg-[#b3392c] text-white py-1 px-4 rounded-t-lg -mt-5 flex items-center justify-between shadow-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-widest font-semibold">カレンダー · 暦</span>
+<span class="font-headline-sm text-headline-sm leading-none font-bold" id="calendar-month">日付</span>
+</div>
+
+<div class="mt-4 flex flex-col items-center">
+<span class="font-label-sm text-label-sm text-[#7f85a1] tracking-wider uppercase" id="calendar-context">LEITURA DO DIA</span>
+<!-- Kanji Grande com Furigana opcional de apoio -->
+<div class="my-1 flex items-baseline justify-center">
+<span class="font-display-lg text-display-lg text-[#1f2430] font-bold tracking-tight" id="target-day">4</span>
+<span class="font-headline-lg text-headline-lg text-[#1f2430] font-semibold ml-1">日</span>
+</div>
+
+<span class="font-body-sm text-body-sm text-[#575d78] font-medium" id="day-caption">Dia 4 do mês</span>
+</div>
+
+<div class="w-full mt-3 pt-2 bg-[#ded3be]/30 rounded px-2 py-1 text-center">
+<span class="font-label-sm text-label-sm text-[#575d78]" id="day-note">
+                    Alerta de armadilha: diferente de 4 (よん / し)
+                  </span>
+</div>
+
+</div>
+
+<p class="mt-4 font-headline-sm text-headline-sm text-[#1f2430] text-center font-medium" id="day-question">
+                Qual é a leitura japonesa correta do <span class="text-[#b3392c] font-semibold">dia 4</span>?
+              </p>
+</div>
+
+<!-- Mini-Calendário Visual de Apoio Compacto (Direita) -->
+<div class="md:col-span-5 bg-[#e6dec9] rounded-xl p-3.5 shadow-inner flex flex-col gap-2">
+<div class="flex items-center justify-between pb-1">
+<span class="font-label-sm text-label-sm font-semibold text-[#1f2430] uppercase tracking-wider">Mini-Calendário N5</span>
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-[#575d78]">
+<span class="w-2 h-2 rounded-full bg-[#c89b3c]"></span> = Especial
+                </span>
+</div>
+
+<!-- Grade de Dias 1 a 31 -->
+<div class="grid grid-cols-7 gap-1 text-center font-label-sm text-label-sm" id="mini-calendar">
+<span class="text-[#b3392c] font-bold">日</span>
+<span class="text-[#575d78]">月</span>
+<span class="text-[#575d78]">火</span>
+<span class="text-[#575d78]">水</span>
+<span class="text-[#575d78]">木</span>
+<span class="text-[#575d78]">金</span>
+<span class="text-[#171d34] font-bold">土</span>
+<!-- Linha 1 -->
+<div class="relative py-1 rounded bg-[#efe7d6] text-[#1f2430] font-medium" data-day="1">
+                  1<span class="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-[#c89b3c]"></span>
+</div>
+
+<div class="relative py-1 rounded bg-[#efe7d6] text-[#1f2430] font-medium" data-day="2">
+                  2<span class="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-[#c89b3c]"></span>
+</div>
+
+<div class="relative py-1 rounded bg-[#efe7d6] text-[#1f2430] font-medium" data-day="3">
+                  3<span class="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-[#c89b3c]"></span>
+</div>
+
+<!-- Dia Atual Focado: Dia 4 -->
+<div class="relative py-1 rounded bg-[#efe7d6] text-[#1f2430] font-medium" data-day="4">
+                  4
+                </div>
+
+<div class="relative py-1 rounded bg-[#efe7d6] text-[#1f2430] font-medium" data-day="5">
+                  5<span class="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-[#c89b3c]"></span>
+</div>
+
+<div class="relative py-1 rounded bg-[#efe7d6] text-[#1f2430] font-medium" data-day="6">
+                  6<span class="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-[#c89b3c]"></span>
+</div>
+
+<div class="relative py-1 rounded bg-[#efe7d6] text-[#1f2430] font-medium" data-day="7">
+                  7<span class="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-[#c89b3c]"></span>
+</div>
+
+<!-- Linha 2 -->
+<div class="relative py-1 rounded bg-[#efe7d6] text-[#1f2430] font-medium" data-day="8">
+                  8<span class="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-[#c89b3c]"></span>
+</div>
+
+<div class="relative py-1 rounded bg-[#efe7d6] text-[#1f2430] font-medium" data-day="9">
+                  9<span class="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-[#c89b3c]"></span>
+</div>
+
+<div class="relative py-1 rounded bg-[#efe7d6] text-[#1f2430] font-medium" data-day="10">
+                  10<span class="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-[#c89b3c]"></span>
+</div>
+
+<div class="py-1 rounded bg-[#ded3be]/40 text-[#575d78]" data-day="11">11</div>
+
+<div class="py-1 rounded bg-[#ded3be]/40 text-[#575d78]" data-day="12">12</div>
+
+<div class="py-1 rounded bg-[#ded3be]/40 text-[#575d78]" data-day="13">13</div>
+
+<div class="relative py-1 rounded bg-[#efe7d6] text-[#1f2430] font-medium" data-day="14">
+                  14<span class="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-[#c89b3c]"></span>
+</div>
+
+<!-- Linha 3 -->
+<div class="py-1 rounded bg-[#ded3be]/40 text-[#575d78]" data-day="15">15</div>
+
+<div class="py-1 rounded bg-[#ded3be]/40 text-[#575d78]" data-day="16">16</div>
+
+<div class="py-1 rounded bg-[#ded3be]/40 text-[#575d78]" data-day="17">17</div>
+
+<div class="py-1 rounded bg-[#ded3be]/40 text-[#575d78]" data-day="18">18</div>
+
+<div class="py-1 rounded bg-[#ded3be]/40 text-[#575d78]" data-day="19">19</div>
+
+<div class="relative py-1 rounded bg-[#efe7d6] text-[#1f2430] font-medium" data-day="20">
+                  20<span class="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-[#c89b3c]"></span>
+</div>
+
+<div class="py-1 rounded bg-[#ded3be]/40 text-[#575d78]" data-day="21">21</div>
+
+<!-- Linha 4 -->
+<div class="py-1 rounded bg-[#ded3be]/40 text-[#575d78]" data-day="22">22</div>
+
+<div class="py-1 rounded bg-[#ded3be]/40 text-[#575d78]" data-day="23">23</div>
+
+<div class="relative py-1 rounded bg-[#efe7d6] text-[#1f2430] font-medium" data-day="24">
+                  24<span class="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-[#c89b3c]"></span>
+</div>
+
+<div class="py-1 rounded bg-[#ded3be]/40 text-[#575d78]" data-day="25">25</div>
+
+<div class="py-1 rounded bg-[#ded3be]/40 text-[#575d78]" data-day="26">26</div>
+
+<div class="py-1 rounded bg-[#ded3be]/40 text-[#575d78]" data-day="27">27</div>
+
+<div class="py-1 rounded bg-[#ded3be]/40 text-[#575d78]" data-day="28">28</div>
+
+<!-- Linha 5 -->
+<div class="py-1 rounded bg-[#ded3be]/40 text-[#575d78]" data-day="29">29</div>
+
+<div class="py-1 rounded bg-[#ded3be]/40 text-[#575d78]" data-day="30">30</div>
+
+<div class="py-1 rounded bg-[#ded3be]/40 text-[#575d78]" data-day="31">31</div>
+
+<div class="opacity-0"></div>
+<div class="opacity-0"></div>
+<div class="opacity-0"></div>
+<div class="opacity-0"></div>
+
+</div>
+
+<div class="mt-1 p-1.5 rounded bg-[#f8f4ec] text-[10px] text-[#575d78] leading-tight text-center">
+                Legenda: Destaque vermelho = exercício atual. Ponto dourado = raiz nativa especial.
+              </div>
+
+</div>
+
+</div>
+
+<!-- Campo de Resposta Interativo (Hiragana Well) -->
+<div class="max-w-xl mx-auto flex flex-col gap-2 my-space-md">
+<div class="relative">
+<input autocomplete="off" class="w-full h-14 px-5 pr-28 rounded-xl bg-[#e6dec9] text-[#1f2430] placeholder-[#7f85a1] font-label-lg text-label-lg focus:outline-none focus:bg-[#ded3be] shadow-inner transition-all text-center tracking-wide" id="drill-input" placeholder="Digite em hiragana (ex: よっか) ou romaji (yokka)..." spellcheck="false" type="text">
+<div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5 pointer-events-none">
+<span class="px-2 py-0.5 rounded bg-[#ded3be] text-[#575d78] font-label-sm text-label-sm">[かな / Romaji]</span>
+</div>
+
+</div>
+
+<div class="flex items-center justify-between px-1">
+<span class="font-label-sm text-label-sm text-[#575d78]">Dica: Pressione <strong class="text-[#1f2430]">Enter ↵</strong> para validar</span>
+<button class="font-label-sm text-label-sm text-[#b3392c] hover:underline flex items-center gap-1" id="btn-show-hint" type="button">
+<span class="material-symbols-outlined text-[14px]">psychology</span>
+<span>Ver Mnemônica</span>
+</button>
+</div>
+
+</div>
+
+<!-- Bloco da Dica Mnemônica (Toggleable) -->
+<div class="max-w-xl mx-auto bg-[#f8f4ec] rounded-xl p-space-md my-space-sm shadow-sm flex items-start gap-3" id="hint-box" hidden>
+<div class="w-7 h-7 rounded-full bg-[#f0bf5c]/30 text-[#412d00] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px]">help</span>
+</div>
+
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm font-semibold text-[#1f2430]">Dica Mnemônica &amp; Atenção Auditiva:</span>
+<p class="font-body-sm text-body-sm text-[#2c344d]" id="hint-content">
+                Cuidado para não confundir com o número 8 (<strong>ようか</strong> — <em>youka</em> com vogal longa). O dia 4 tem 'tsu' pequeno e som curto com oclusiva: <strong class="text-[#b3392c]">よっか (yokka)</strong>.
+              </p>
+</div>
+
+</div>
+
+<!-- Botões de Ação na Área Inferior do Card -->
+<div class="max-w-xl mx-auto flex items-center justify-between gap-space-sm pt-space-sm">
+<button class="px-4 py-2.5 rounded-lg bg-[#ded3be]/60 hover:bg-[#ded3be] text-[#2c344d] font-body-sm text-body-sm font-medium transition-colors flex items-center gap-1.5 shadow-sm" id="btn-skip" type="button">
+<span class="material-symbols-outlined text-[16px]">skip_next</span>
+<span>Pular</span>
+</button>
+<div class="flex items-center gap-2">
+<button class="px-6 py-2.5 rounded-lg bg-[#b3392c] hover:bg-[#992f24] text-white font-body-sm text-body-sm font-semibold transition-all shadow flex items-center gap-2" id="btn-verify" type="button">
+<span>Verificar Resposta</span>
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+</button>
+</div>
+
+</div>
+
+<!-- Feedback de Acerto Claro (Card Revelado) -->
+<div class="max-w-xl mx-auto mt-space-md bg-[#e4ede1] rounded-xl p-space-md shadow-md flex items-center justify-between gap-space-md" id="feedback-success" hidden role="status" aria-live="polite">
+<div class="flex items-center gap-3">
+<!-- Hanko Maru (Selo Vermelho Redondo) -->
+<div class="w-12 h-12 rounded-full bg-transparent flex items-center justify-center text-[#b3392c] select-none shrink-0" style="outline: 2px solid #b3392c;">
+<span class="font-display-lg text-display-lg leading-none font-bold text-[#b3392c]" id="feedback-seal">◯</span>
+</div>
+
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm font-semibold text-[#1f2430]" id="feedback-title">✓ Correto! 正解です</span>
+</div>
+
+<span class="font-label-md text-label-md text-[#2c344d]" id="feedback-detail">
+<strong>4日</strong> = <span class="text-[#b3392c] font-bold">よっか</span> (yokka) · Som curto com pausa oclusiva.
+                </span>
+</div>
+
+</div>
+
+<button class="px-4 py-2 rounded-lg bg-[#1f2430] hover:bg-[#2c344d] text-[#efe7d6] font-body-sm text-body-sm font-medium flex items-center gap-1.5 shrink-0 shadow-sm transition-colors" id="btn-next-day" type="button">
+<span>Próximo dia</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<!-- GUIA DE CONSULTA RÁPIDA: Quadro Sinótico de Leituras Irregulares (1〜10, 14, 20, 24) -->
+<section class="w-full bg-surface-container-lowest/90 rounded-2xl p-space-md lg:p-space-lg shadow-xl flex flex-col gap-space-md" id="secao-quadro-sinotico">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-xs gap-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[20px]">menu_book</span>
+</div>
+
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary-fixed">Quadro Sinótico de Leituras Irregulares de Dias</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Os 13 dias de raiz nativa japonesa que não seguem a regra padrão (Número + にち).
+            </p>
+</div>
+
+</div>
+
+<div class="flex items-center gap-2">
+<span class="px-3 py-1 rounded bg-surface-container-high font-label-sm text-label-sm text-tertiary">
+            Regra geral para os demais: Número + にち (nichi)
+          </span>
+</div>
+
+</div>
+
+<!-- Tabela em Cartões Didáticos Washi -->
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2.5">
+<!-- Dia 1 -->
+<div class="p-3 rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high/80 transition-all flex flex-col items-center text-center shadow-sm" data-reference-day="1">
+<span class="font-label-sm text-label-sm text-tertiary font-medium">Dia 1</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold my-0.5">1日</span>
+<span class="font-label-md text-label-md text-primary-fixed font-bold">ついたち</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">tsuitachi</span>
+</div>
+
+<!-- Dia 2 -->
+<div class="p-3 rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high/80 transition-all flex flex-col items-center text-center shadow-sm" data-reference-day="2">
+<span class="font-label-sm text-label-sm text-tertiary font-medium">Dia 2</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold my-0.5">2日</span>
+<span class="font-label-md text-label-md text-primary-fixed font-bold">ふつか</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">futsuka</span>
+</div>
+
+<!-- Dia 3 -->
+<div class="p-3 rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high/80 transition-all flex flex-col items-center text-center shadow-sm" data-reference-day="3">
+<span class="font-label-sm text-label-sm text-tertiary font-medium">Dia 3</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold my-0.5">3日</span>
+<span class="font-label-md text-label-md text-primary-fixed font-bold">みっか</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">mikka</span>
+</div>
+
+<!-- Dia 4 (Ativo / Exercício) -->
+<div class="p-3 rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high/80 transition-all flex flex-col items-center text-center shadow-sm" data-reference-day="4">
+<span class="font-label-sm text-label-sm text-tertiary font-bold">Dia 4</span>
+<span class="font-headline-md text-headline-md text-white font-bold my-0.5">4日</span>
+<span class="font-label-md text-label-md text-tertiary-fixed font-bold">よっか</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">yokka</span>
+</div>
+
+<!-- Dia 5 -->
+<div class="p-3 rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high/80 transition-all flex flex-col items-center text-center shadow-sm" data-reference-day="5">
+<span class="font-label-sm text-label-sm text-tertiary font-medium">Dia 5</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold my-0.5">5日</span>
+<span class="font-label-md text-label-md text-primary-fixed font-bold">いつか</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">itsuka</span>
+</div>
+
+<!-- Dia 6 -->
+<div class="p-3 rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high/80 transition-all flex flex-col items-center text-center shadow-sm" data-reference-day="6">
+<span class="font-label-sm text-label-sm text-tertiary font-medium">Dia 6</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold my-0.5">6日</span>
+<span class="font-label-md text-label-md text-primary-fixed font-bold">むいか</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">muika</span>
+</div>
+
+<!-- Dia 7 -->
+<div class="p-3 rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high/80 transition-all flex flex-col items-center text-center shadow-sm" data-reference-day="7">
+<span class="font-label-sm text-label-sm text-tertiary font-medium">Dia 7</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold my-0.5">7日</span>
+<span class="font-label-md text-label-md text-primary-fixed font-bold">なのか</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">nanoka</span>
+</div>
+
+<!-- Dia 8 -->
+<div class="p-3 rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high/80 transition-all flex flex-col items-center text-center shadow-sm" data-reference-day="8">
+<span class="font-label-sm text-label-sm text-tertiary font-medium">Dia 8</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold my-0.5">8日</span>
+<span class="font-label-md text-label-md text-primary-fixed font-bold">ようか</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">youka (longo)</span>
+</div>
+
+<!-- Dia 9 -->
+<div class="p-3 rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high/80 transition-all flex flex-col items-center text-center shadow-sm" data-reference-day="9">
+<span class="font-label-sm text-label-sm text-tertiary font-medium">Dia 9</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold my-0.5">9日</span>
+<span class="font-label-md text-label-md text-primary-fixed font-bold">ここのか</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">kokonoka</span>
+</div>
+
+<!-- Dia 10 -->
+<div class="p-3 rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high/80 transition-all flex flex-col items-center text-center shadow-sm" data-reference-day="10">
+<span class="font-label-sm text-label-sm text-tertiary font-medium">Dia 10</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold my-0.5">10日</span>
+<span class="font-label-md text-label-md text-primary-fixed font-bold">とおか</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">tooka</span>
+</div>
+
+<!-- Dia 14 -->
+<div class="p-3 rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high/80 transition-all flex flex-col items-center text-center shadow-sm" data-reference-day="14">
+<span class="font-label-sm text-label-sm text-tertiary font-medium">Dia 14</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold my-0.5">14日</span>
+<span class="font-label-md text-label-md text-primary-fixed font-bold">じゅうよっか</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">juuyokka</span>
+</div>
+
+<!-- Dia 20 -->
+<div class="p-3 rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high/80 transition-all flex flex-col items-center text-center shadow-sm" data-reference-day="20">
+<span class="font-label-sm text-label-sm text-tertiary font-medium">Dia 20 (Especial)</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold my-0.5">20日</span>
+<span class="font-label-md text-label-md text-tertiary-fixed font-bold">はつか</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">hatsuka</span>
+</div>
+
+<!-- Dia 24 -->
+<div class="p-3 rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high/80 transition-all flex flex-col items-center text-center shadow-sm" data-reference-day="24">
+<span class="font-label-sm text-label-sm text-tertiary font-medium">Dia 24</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold my-0.5">24日</span>
+<span class="font-label-md text-label-md text-primary-fixed font-bold">にじゅうよっか</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">nijuuyokka</span>
+</div>
+
+<!-- Regra Demais Dias -->
+<div class="p-3 rounded-xl bg-surface-container-high/60 flex flex-col items-center justify-center text-center col-span-2 sm:col-span-1 shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Demais Dias</span>
+<span class="font-headline-sm text-headline-sm text-tertiary font-semibold my-0.5">〜日</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">número + にち</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ex: 11日 = じゅういちにち</span>
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+</div>
+
+</main>
+<footer class="w-full bg-surface-container-lowest border-t border-tertiary/20 py-space-xl"><div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin flex flex-col md:flex-row items-center justify-between gap-space-lg"><div class="flex flex-col items-center md:items-start gap-1"><div class="flex items-center gap-2"><span class="font-headline-sm text-headline-sm text-tertiary">日本語ラボ</span><span class="font-body-sm text-body-sm text-secondary">— Nihongo Lab</span></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center md:text-left">Estudo prático e deliberado da língua japonesa • Estruturado para lusófonos</p></div>
+<div class="flex items-center gap-space-lg font-label-md text-label-md"><a class="text-tertiary hover:underline flex items-center gap-1" data-path="tabela-de-kana" href="../kana/"><span>Tabela de Kana (五十音)</span><span class="material-symbols-outlined text-[14px]">north_east</span></a><span class="text-outline-variant">•</span><span class="text-on-surface-variant">N5 ~ N3 Sistema Guiado</span></div>
+</div>
+</footer>
+<dialog id="keyboard-help" aria-labelledby="help-title"><div class="help-heading"><h2 id="help-title">Atalhos de teclado</h2><button type="button" id="close-help" aria-label="Fechar ajuda">×</button></div>
+<p>Enter — Verificar / Próximo<br>Ctrl + H — Mnemônica<br>Esc — Fechar ajuda</p></dialog><dialog id="full-table"><div class="help-heading"><h2>Tabela Completa 1〜31</h2><button id="close-table" type="button" aria-label="Fechar tabela">×</button></div>
+<div id="table-content"></div>
+</dialog><script src="https://unpkg.com/wanakana"></script><script src="data.js"></script><script src="calendar.js"></script></body></html>

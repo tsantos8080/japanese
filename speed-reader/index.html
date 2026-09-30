@@ -1,1147 +1,392 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rastro de Leitura — Speed Reader de Kana</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml" href="../favicon.svg">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4914230912970008" crossorigin="anonymous"></script>
-<style>
-  :root{
-    --bg-indigo: #171d34;
-    --bg-indigo-2: #1f2846;
-    --indigo-line: #3c4a73;
-    --indigo-line-soft: #2a3459;
-    --paper: #efe7d6;
-    --paper-2: #e6dcc6;
-    --ink: #2a2318;
-    --ink-soft: #5c5341;
-    --ink-muted: #8b806d;
-    --hanko: #b3392c;
-    --hanko-dark: #8f2c22;
-    --gold: #c89b3c;
-    --gold-soft: #dcc27c;
-    --ok: #4c6b3f;
-    --ok-light: #5f874e;
-  }
 
-  *{ box-sizing: border-box; }
 
-  html, body{ height: 100%; }
+<html class="dark" lang="pt-BR"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Serif:wght@500;600&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-primary":"#292f47","outline-variant":"#46464d","on-surface":"#ffdad5","surface-container-low":"#410000","error-container":"#93000a","tertiary":"#f0bf5c","on-tertiary-fixed":"#261900","surface-bright":"#760a06","primary":"#c0c5e4","surface-container-lowest":"#280000","on-secondary":"#343025","inverse-primary":"#575d78","secondary-fixed-dim":"#cdc6b6","on-error-container":"#ffdad6","surface-dim":"#310000","primary-fixed-dim":"#c0c5e4","on-primary-fixed":"#141a31","on-tertiary":"#412d00","surface-variant":"#700403","outline":"#909097","surface-container-high":"#5c0001","error":"#ffb4ab","on-primary-container":"#7f85a1","on-secondary-fixed":"#1f1b11","secondary-container":"#4d493c","inverse-surface":"#ffdad5","on-primary-fixed-variant":"#40465f","tertiary-fixed":"#ffdea4","on-error":"#690005","on-surface-variant":"#c7c6ce","on-secondary-fixed-variant":"#4b463a","secondary-fixed":"#eae2d1","tertiary-container":"#2a1c00","surface-tint":"#c0c5e4","on-tertiary-fixed-variant":"#5d4200","on-secondary-container":"#bfb8a8","tertiary-fixed-dim":"#f0bf5c","surface":"#310000","background":"#310000","surface-container-highest":"#700403","on-tertiary-container":"#a97f22","primary-container":"#171d34","surface-container":"#490000","on-background":"#ffdad5","inverse-on-surface":"#690001","primary-fixed":"#dce1ff","secondary":"#cdc6b6"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-xl":"2.5rem","space-lg":"1.5rem","space-sm":"0.5rem","space-xs":"0.25rem","space-md":"1rem","gutter-mobile":"1rem","gutter":"1.5rem","margin-mobile":"1.25rem","margin":"2.5rem"},fontFamily:{"body-sm":["Inter"],"label-md":["JetBrains Mono"],"headline-sm":["Noto Serif"],"headline-md":["Noto Serif"],"label-lg":["JetBrains Mono"],"headline-lg-mobile":["Noto Serif"],"headline-lg":["Noto Serif"],"body-md":["Inter"],"display-lg-mobile":["Noto Serif"],"body-lg":["Inter"],"label-sm":["JetBrains Mono"],"display-lg":["Noto Serif"]},fontSize:{"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"500"}],"headline-sm":["20px",{"lineHeight":"28px","fontWeight":"500"}],"headline-md":["24px",{"lineHeight":"32px","fontWeight":"500"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.05em","fontWeight":"500"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"40px","fontWeight":"600"}],"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}],"display-lg-mobile":["32px",{"lineHeight":"40px","fontWeight":"600"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.06em","fontWeight":"500"}],"display-lg":["48px",{"lineHeight":"56px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}}</script><title>Rastro de Leitura — Nihongo Lab</title><link rel="icon" href="../favicon.svg"><link rel="stylesheet" href="reader.css"></head><body class="bg-primary-container font-body-md text-on-surface antialiased selection:bg-tertiary-container selection:text-tertiary"><header class="fixed top-0 left-0 w-full z-50 bg-primary-container/95 backdrop-blur-md border-b border-tertiary/20"><div class="h-16 max-w-7xl mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md shrink-0"><img alt="Nihongo Lab Logo" class="h-8 w-auto object-contain" src="../assets/nihongo-lab.svg"><div class="hidden sm:flex flex-col"><span class="font-headline-sm text-headline-sm text-primary-fixed tracking-tight leading-none">日本語ラボ</span><span class="font-label-sm text-label-sm text-tertiary tracking-wider uppercase mt-0.5">Prática deliberada e drills</span></div>
 
-  body{
-    margin: 0;
-    min-height: 100vh;
-    background:
-      radial-gradient(circle at 15% 10%, rgba(200,155,60,0.08), transparent 45%),
-      radial-gradient(circle at 85% 90%, rgba(179,57,44,0.10), transparent 45%),
-      var(--bg-indigo);
-    background-attachment: fixed;
-    font-family: 'Zen Kaku Gothic New', sans-serif;
-    color: var(--paper);
-    padding: 32px 20px 60px;
-  }
-
-  body::before{
-    content:"";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.35;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.06'/></svg>");
-    mix-blend-mode: overlay;
-  }
-
-  .speed-reader-wrap{
-    max-width: 960px;
-    margin: 0 auto;
-    position: relative;
-  }
-
-  /* Header */
-  header.speed-reader-top{
-    text-align: center;
-    margin-bottom: 30px;
-  }
-
-  .speed-reader-eyebrow{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--gold-soft);
-    margin-bottom: 10px;
-  }
-
-  h1.speed-reader-title{
-    font-family: 'Shippori Mincho', serif;
-    font-weight: 800;
-    font-size: clamp(34px, 5.5vw, 54px);
-    margin: 0 0 8px;
-    letter-spacing: 0.04em;
-    color: var(--paper);
-    text-shadow: 0 2px 0 rgba(0,0,0,0.25);
-  }
-
-  h1.speed-reader-title .accent{ color: var(--gold); }
-
-  .speed-reader-subtitle{
-    font-size: 15px;
-    color: rgba(239,231,214,0.72);
-    max-width: 580px;
-    margin: 0 auto 16px;
-    line-height: 1.6;
-  }
-
-  .speed-reader-header-actions{
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .speed-reader-nav-btn{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.04em;
-    background: transparent;
-    border: 1px solid var(--gold-soft);
-    color: var(--gold-soft);
-    padding: 9px 16px;
-    border-radius: 9px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: background .15s ease, color .15s ease;
-  }
-  .speed-reader-nav-btn:hover{ background: rgba(200,155,60,0.12); }
-
-  /* Main Card */
-  .speed-reader-card{
-    background: var(--paper);
-    background-image:
-      radial-gradient(circle at 10% 15%, rgba(179,57,44,0.04), transparent 35%),
-      radial-gradient(circle at 90% 85%, rgba(60,74,115,0.05), transparent 35%);
-    border-radius: 18px;
-    padding: 28px 32px 34px;
-    color: var(--ink);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
-    position: relative;
-    outline: none;
-  }
-
-  @media (max-width: 600px){
-    .speed-reader-card{ padding: 20px 18px 24px; }
-  }
-
-  /* Mode Switcher */
-  .speed-reader-mode-bar{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 14px;
-    padding-bottom: 18px;
-    margin-bottom: 24px;
-    border-bottom: 1px dashed var(--ink-soft);
-  }
-
-  .speed-reader-mode-group{
-    display: inline-flex;
-    background: rgba(42,35,24,0.06);
-    border: 1px solid rgba(42,35,24,0.15);
-    border-radius: 10px;
-    padding: 3px;
-    gap: 4px;
-  }
-
-  .speed-reader-mode-btn{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11.5px;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    background: transparent;
-    border: none;
-    color: var(--ink-soft);
-    padding: 7px 14px;
-    border-radius: 7px;
-    cursor: pointer;
-    transition: all .15s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    user-select: none;
-  }
-  .speed-reader-mode-btn:hover{ color: var(--ink); }
-  .speed-reader-mode-btn.active{
-    background: var(--bg-indigo);
-    color: var(--paper);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  }
-
-  /* Live HUD Metrics */
-  .speed-reader-hud{
-    display: flex;
-    gap: 18px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .speed-reader-hud-item{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-  }
-  .speed-reader-hud-item .num{
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1.1;
-    color: var(--ink);
-  }
-  .speed-reader-hud-item .lbl{
-    font-size: 9px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-top: 2px;
-  }
-  .speed-reader-hud-item.accent .num{ color: var(--gold); }
-  .speed-reader-hud-item.cpm .num{ color: var(--ok); }
-
-  /* Interactive Typing Display Area */
-  .speed-reader-typing-area{
-    min-height: 220px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    cursor: text;
-    user-select: none;
-    padding: 18px 10px;
-    border-radius: 12px;
-    transition: background .15s ease;
-  }
-  .speed-reader-typing-area:focus-within{
-    background: rgba(200,155,60,0.03);
-  }
-
-  /* Hidden Input (captures typing seamlessly) */
-  .speed-reader-hidden-input{
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-    width: 0; height: 0;
-    border: none;
-    outline: none;
-  }
-
-  /* Phrase Container */
-  .speed-reader-phrase{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 6px 14px;
-    margin-bottom: 26px;
-    max-width: 820px;
-    line-height: 1.4;
-  }
-
-  /* Chunk element (Kana + Romaji Guide) */
-  .speed-reader-chunk{
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    padding: 4px 3px;
-    border-radius: 6px;
-    transition: color .12s ease, transform .12s ease;
-  }
-
-  .speed-reader-chunk .kana-char{
-    font-family: 'Shippori Mincho', serif;
-    font-size: clamp(34px, 5.5vw, 52px);
-    font-weight: 700;
-    line-height: 1.15;
-    color: var(--ink-muted);
-    transition: color .12s ease, transform .1s ease, text-shadow .15s ease;
-  }
-
-  .speed-reader-chunk .romaji-guide{
-    display: none;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    color: rgba(92,83,65,0.45);
-    margin-top: 4px;
-    transition: color .12s ease;
-  }
-
-  /* Chunk States */
-  .speed-reader-chunk.correct .kana-char{
-    color: var(--ok);
-    text-shadow: 0 0 1px rgba(76,107,63,0.3);
-  }
-  .speed-reader-chunk.correct .romaji-guide{
-    color: var(--ok);
-    opacity: 0.85;
-  }
-
-  .speed-reader-chunk.current{
-    position: relative;
-  }
-  .speed-reader-chunk.current .kana-char{
-    color: var(--ink);
-  }
-  .speed-reader-chunk.current .romaji-guide{
-    color: var(--hanko);
-    font-weight: 700;
-  }
-  .speed-reader-chunk.current::after{
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 2px;
-    right: 2px;
-    height: 3px;
-    background: var(--gold);
-    border-radius: 2px;
-    animation: pulseCaret .8s infinite alternate;
-  }
-  @keyframes pulseCaret{
-    0%{ opacity: 0.3; transform: scaleX(0.85); }
-    100%{ opacity: 1; transform: scaleX(1); }
-  }
-
-  .speed-reader-chunk.error .kana-char{
-    color: var(--hanko);
-    animation: chunkShake .24s cubic-bezier(.36,.07,.19,.97) both;
-  }
-  .speed-reader-chunk.error .romaji-guide{
-    color: var(--hanko);
-    font-weight: 700;
-  }
-  @keyframes chunkShake{
-    10%, 90% { transform: translate3d(-1px, 0, 0); }
-    20%, 80% { transform: translate3d(2px, 0, 0); }
-    30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
-    40%, 60% { transform: translate3d(3px, 0, 0); }
-  }
-
-  /* Meaning / Translation Box */
-  .speed-reader-meaning{
-    text-align: center;
-    font-size: 15px;
-    color: var(--ink-soft);
-    background: rgba(42,35,24,0.04);
-    border: 1px dashed rgba(42,35,24,0.15);
-    border-radius: 10px;
-    padding: 10px 20px;
-    max-width: 620px;
-    line-height: 1.5;
-  }
-
-  /* Action Buttons & Shortcuts */
-  .speed-reader-controls{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 24px;
-    flex-wrap: wrap;
-    gap: 12px;
-    border-top: 1px dashed rgba(42,35,24,0.15);
-    padding-top: 18px;
-  }
-
-  .speed-reader-shortcuts{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--ink-muted);
-  }
-  .speed-reader-shortcuts kbd{
-    background: rgba(42,35,24,0.08);
-    border: 1px solid rgba(42,35,24,0.2);
-    border-radius: 4px;
-    padding: 2px 6px;
-    font-weight: 600;
-    color: var(--ink);
-  }
-
-  .speed-reader-btn-group{
-    display: flex;
-    gap: 10px;
-  }
-
-  .speed-reader-btn{
-    font-family: 'Zen Kaku Gothic New', sans-serif;
-    font-weight: 700;
-    font-size: 13.5px;
-    padding: 10px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all .15s ease;
-    border: 1px solid transparent;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .speed-reader-btn.primary{
-    background: var(--hanko);
-    color: var(--paper);
-  }
-  .speed-reader-btn.primary:hover{ background: var(--hanko-dark); }
-  .speed-reader-btn.secondary{
-    background: var(--paper-2);
-    border-color: var(--ink-soft);
-    color: var(--ink);
-  }
-  .speed-reader-btn.secondary:hover{ background: #dcd0b3; }
-
-  /* Results Overlay */
-  .speed-reader-modal-overlay{
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(10,13,26,0.75);
-    backdrop-filter: blur(3px);
-    z-index: 50;
-    padding: 24px 16px;
-    overflow-y: auto;
-    align-items: center;
-    justify-content: center;
-  }
-  .speed-reader-modal-overlay.show{ display: flex; }
-
-  .speed-reader-results-card{
-    background: var(--paper);
-    color: var(--ink);
-    border-radius: 16px;
-    max-width: 500px;
-    width: 100%;
-    box-shadow: 0 30px 70px rgba(0,0,0,0.5);
-    overflow: hidden;
-    animation: modalPop .3s cubic-bezier(.17,.89,.32,1.25);
-  }
-  @keyframes modalPop{
-    0% { transform: scale(0.92); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-  }
-
-  .speed-reader-results-head{
-    padding: 22px 24px 16px;
-    border-bottom: 1px dashed var(--ink-soft);
-    background: linear-gradient(180deg, rgba(76,107,63,0.06), transparent);
-    text-align: center;
-  }
-  .speed-reader-results-head h2{
-    font-family: 'Shippori Mincho', serif;
-    font-size: 26px;
-    margin: 4px 0 2px;
-    color: var(--ink);
-  }
-
-  .speed-reader-results-body{
-    padding: 24px 26px 28px;
-    text-align: center;
-  }
-
-  .speed-reader-cpm-hero{
-    margin-bottom: 20px;
-  }
-  .speed-reader-cpm-num{
-    font-family: 'Shippori Mincho', serif;
-    font-size: 64px;
-    font-weight: 800;
-    color: var(--ok);
-    line-height: 1;
-    text-shadow: 0 2px 0 rgba(0,0,0,0.08);
-  }
-  .speed-reader-cpm-lbl{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.16em;
-    color: var(--ink-soft);
-    text-transform: uppercase;
-    margin-top: 4px;
-  }
-
-  .speed-reader-badge-record{
-    display: inline-block;
-    background: var(--gold);
-    color: var(--bg-indigo);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    padding: 4px 12px;
-    border-radius: 20px;
-    margin-top: 8px;
-  }
-
-  .speed-reader-stats-grid{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    background: rgba(42,35,24,0.05);
-    border: 1px solid rgba(42,35,24,0.12);
-    border-radius: 10px;
-    padding: 14px 8px;
-    margin-bottom: 20px;
-  }
-  .speed-reader-stat-item .val{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--ink);
-  }
-  .speed-reader-stat-item .lbl{
-    font-size: 10px;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-top: 2px;
-  }
-
-  .speed-reader-results-actions{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  footer.speed-reader-footer{
-    text-align: center;
-    margin-top: 36px;
-    font-size: 11px;
-    color: rgba(239,231,214,0.35);
-    font-family: 'JetBrains Mono', monospace;
-  }
-</style>
-</head>
-<body>
-
-<div class="speed-reader-wrap">
-
-  <header class="speed-reader-top">
-    <div class="speed-reader-eyebrow">speed reader · 速読ドリル</div>
-    <h1 class="speed-reader-title">Rastro de <span class="accent">Leitura</span></h1>
-    <p class="speed-reader-subtitle">Treine a leitura ágil e sem pausas de frases em Hiragana e Katakana digitando em Romaji. Acompanhe seu CPM e acurácia em tempo real.</p>
-    
-    <div class="speed-reader-header-actions">
-      <a href="../" class="speed-reader-nav-btn">← Início</a>
-    </div>
-  </header>
-
-  <main class="speed-reader-card" id="speed-reader-card" tabindex="0">
-
-    <!-- Top Bar: Mode Switcher & Live HUD -->
-    <div class="speed-reader-mode-bar">
-      <div class="speed-reader-mode-group">
-        <button type="button" class="speed-reader-mode-btn active" data-mode="all">あ/ア Misto</button>
-        <button type="button" class="speed-reader-mode-btn" data-mode="hiragana">あ Hiragana</button>
-        <button type="button" class="speed-reader-mode-btn" data-mode="katakana">ア Katakana</button>
-      </div>
-
-      <div class="speed-reader-hud">
-        <div class="speed-reader-hud-item cpm">
-          <div class="num" id="hud-cpm">0</div>
-          <div class="lbl">CPM</div>
-        </div>
-        <div class="speed-reader-hud-item accent">
-          <div class="num" id="hud-acc">100%</div>
-          <div class="lbl">Acurácia</div>
-        </div>
-        <div class="speed-reader-hud-item">
-          <div class="num" id="hud-time">0.0s</div>
-          <div class="lbl">Tempo</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Interactive Monkeytype Typing Area -->
-    <div class="speed-reader-typing-area" id="speed-reader-area">
-      <input type="text" id="speed-reader-input" class="speed-reader-hidden-input" autocomplete="off" autocapitalize="off" spellcheck="false">
-
-      <div class="speed-reader-phrase" id="speed-reader-phrase">
-        <!-- Chunks injected via JS -->
-      </div>
-
-      <div class="speed-reader-meaning" id="speed-reader-meaning">
-        Carregando frase...
-      </div>
-    </div>
-
-    <!-- Controls & Shortcuts -->
-    <div class="speed-reader-controls">
-      <div class="speed-reader-shortcuts">
-        Atalhos: <kbd>Tab</kbd> reiniciar frase · <kbd>Enter</kbd> próxima
-      </div>
-      <div class="speed-reader-btn-group">
-        <button type="button" class="speed-reader-btn secondary" id="btn-restart">↺ Reiniciar</button>
-        <button type="button" class="speed-reader-btn primary" id="btn-next">Próxima Frase →</button>
-      </div>
-    </div>
-
-  </main>
-
-  <footer class="speed-reader-footer">日本語ラボ · Rastro de Leitura · Speed Reader em Kana</footer>
 
 </div>
 
-<!-- Results Modal -->
-<div class="speed-reader-modal-overlay" id="results-modal">
-  <div class="speed-reader-results-card">
-    <div class="speed-reader-results-head">
-      <div class="speed-reader-eyebrow">resultado · 完了</div>
-      <h2>Excelente Leitura!</h2>
-    </div>
-    <div class="speed-reader-results-body">
-      <div class="speed-reader-cpm-hero">
-        <div class="speed-reader-cpm-num" id="res-cpm">0</div>
-        <div class="speed-reader-cpm-lbl">Caracteres Por Minuto (CPM)</div>
-        <div class="speed-reader-badge-record" id="res-record" style="display:none;">🏆 Novo Recorde!</div>
-      </div>
 
-      <div class="speed-reader-stats-grid">
-        <div class="speed-reader-stat-item">
-          <div class="val" id="res-acc">0%</div>
-          <div class="lbl">Acurácia</div>
-        </div>
-        <div class="speed-reader-stat-item">
-          <div class="val" id="res-time">0.0s</div>
-          <div class="lbl">Tempo Total</div>
-        </div>
-        <div class="speed-reader-stat-item">
-          <div class="val" id="res-errors">0</div>
-          <div class="lbl">Erros</div>
-        </div>
-      </div>
+<nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-surface-container-high text-on-surface font-semibold rounded" id="reader-navigation" aria-label="Navegação principal"><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="inicio-modulos" href="../">Início / Módulos</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="adjetivos-keiyoushi" href="../adjectives/">Adjetivos 形容詞</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="forma-te" href="../te-form/">Forma て</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="contadores-josuushi" href="../counters/">Contadores 助数詞</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="dias-hinichi" href="../calendar/">Dias 日にち</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="rastro-de-leitura-kana" href="./" aria-current="page">Rastro de Leitura 仮名</a></nav>
 
-      <div class="speed-reader-results-actions">
-        <button type="button" class="speed-reader-btn primary" id="res-btn-next">Próxima Frase → (Enter)</button>
-        <button type="button" class="speed-reader-btn secondary" id="res-btn-retry">↺ Repetir Frase (Tab)</button>
-      </div>
-    </div>
-  </div>
+
+<div class="flex items-center gap-space-md shrink-0"><div class="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container-low/80 border border-outline-variant/30"><span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span><span class="font-label-sm text-label-sm text-tertiary">Modo Estudo</span></div>
+
+
+<button class="flex items-center px-2 py-0.5 rounded bg-surface-container-lowest border border-outline-variant/40" type="button" id="help-button" aria-label="Abrir ajuda de teclado"><span class="font-label-sm text-label-sm text-secondary-fixed-dim">?</span></button><button type="button" id="menu-button" class="xl:hidden w-8 h-8 text-tertiary" aria-controls="reader-navigation" aria-expanded="false" aria-label="Abrir navegação"><span class="material-symbols-outlined" aria-hidden="true">menu</span></button></div>
+
+
 </div>
 
-<script>
-(function(){
 
-  // ---------- Kana & Romaji Mapping Table ----------
+</header>
+<main class="w-full pt-16 bg-primary-container min-h-screen"><div class="flex flex-col w-full">
+<!-- Sub-cabeçalho de navegação e contexto do treino -->
+<section class="w-full bg-primary-container/80 backdrop-blur-sm">
+<div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin py-space-md flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<a class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-high/60 text-secondary-fixed hover:bg-surface-container-high hover:text-white transition-colors font-body-sm text-body-sm shadow-sm" data-path="inicio-modulos" href="../">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span>Início</span>
+</a>
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-md text-headline-sm lg:text-headline-md text-primary-fixed tracking-tight">Rastro de Leitura</span>
+<span class="font-label-sm text-label-sm text-tertiary px-2 py-0.5 rounded bg-tertiary-container/90">速読・タイピング仮名</span>
+<span class="hidden sm:inline-flex font-label-sm text-label-sm text-secondary-fixed-dim px-2 py-0.5 rounded bg-surface-container-low">Agilidade &amp; Fluidez</span>
+</div>
 
-  const KANA_MAP = {
-    // Digraphs (Youon Hiragana)
-    "きゃ": ["kya","kilya","kixya"], "きゅ": ["kyu","kilyu","kixyu"], "きょ": ["kyo","kilyo","kixyo"],
-    "しゃ": ["sha","sya"], "しゅ": ["shu","syu"], "しょ": ["sho","syo"],
-    "ちゃ": ["cha","tya","cya"], "ちゅ": ["chu","tyu","cyu"], "ちょ": ["cho","tyo","cyo"],
-    "にゃ": ["nya"], "にゅ": ["nyu"], "にょ": ["nyo"],
-    "ひゃ": ["hya"], "ひゅ": ["hyu"], "ひょ": ["hyo"],
-    "みゃ": ["mya"], "みゅ": ["myu"], "みょ": ["myo"],
-    "りゃ": ["rya"], "りゅ": ["ryu"], "りょ": ["ryo"],
-    "ぎゃ": ["gya"], "ぎゅ": ["gyu"], "ぎょ": ["gyo"],
-    "じゃ": ["ja","zya","jya"], "じゅ": ["ju","zyu","jyu"], "じょ": ["jo","zyo","jyo"],
-    "びゃ": ["bya"], "びゅ": ["byu"], "びょ": ["byo"],
-    "ぴゃ": ["pya"], "ぴゅ": ["pyu"], "ぴょ": ["pyo"],
+</div>
 
-    // Digraphs (Youon Katakana)
-    "キャ": ["kya"], "キュ": ["kyu"], "キョ": ["kyo"],
-    "シャ": ["sha","sya"], "シュ": ["shu","syu"], "ショ": ["sho","syo"],
-    "チャ": ["cha","tya"], "チュ": ["chu","tyu"], "チョ": ["cho","tyo"],
-    "ニャ": ["nya"], "ニュ": ["nyu"], "ニョ": ["nyo"],
-    "ヒャ": ["hya"], "ヒュ": ["hyu"], "ヒョ": ["hyo"],
-    "ミャ": ["mya"], "ミュ": ["myu"], "ミョ": ["myo"],
-    "リャ": ["rya"], "リュ": ["ryu"], "リョ": ["ryo"],
-    "ギャ": ["gya"], "ギュ": ["gyu"], "ギョ": ["gyo"],
-    "ジャ": ["ja","zya","jya"], "ジュ": ["ju","zyu","jyu"], "ジョ": ["jo","zyo","jyo"],
-    "ビャ": ["bya"], "ビュ": ["byu"], "ビョ": ["byo"],
-    "ピャ": ["pya"], "ピュ": ["pyu"], "ピョ": ["pyo"],
-    "ティ": ["ti","thi"], "ディ": ["di","dhi"],
-    "ファ": ["fa"], "フィ": ["fi"], "フェ": ["fe"], "フォ": ["fo"],
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-lowest text-secondary-fixed">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="font-label-sm text-label-sm">Modo: Frases em kana</span>
+</div>
 
-    // Hiragana Singles
-    "あ": ["a"], "い": ["i","yi"], "う": ["u","wu"], "え": ["e"], "お": ["o"],
-    "か": ["ka","ca"], "き": ["ki"], "く": ["ku","cu","qu"], "け": ["ke"], "こ": ["ko","co"],
-    "さ": ["sa"], "し": ["shi","si","ci"], "す": ["su"], "せ": ["se","ce"], "そ": ["so"],
-    "た": ["ta"], "ち": ["chi","ti"], "つ": ["tsu","tu"], "て": ["te"], "と": ["to"],
-    "な": ["na"], "に": ["ni"], "ぬ": ["nu"], "ね": ["ne"], "の": ["no"],
-    "は": ["ha","wa"], "ひ": ["hi"], "ふ": ["fu","hu"], "へ": ["he","e"], "ほ": ["ho"],
-    "ま": ["ma"], "み": ["mi"], "む": ["mu"], "め": ["me"], "も": ["mo"],
-    "や": ["ya"], "ゆ": ["yu"], "よ": ["yo"],
-    "ら": ["ra"], "り": ["ri"], "る": ["ru"], "れ": ["re"], "ろ": ["ro"],
-    "わ": ["wa"], "を": ["wo","o"], "ん": ["n","nn","xn"],
-    "が": ["ga"], "ぎ": ["gi"], "ぐ": ["gu"], "げ": ["ge"], "ご": ["go"],
-    "ざ": ["za"], "じ": ["ji","zi"], "ず": ["zu"], "ぜ": ["ze"], "ぞ": ["zo"],
-    "だ": ["da"], "ぢ": ["di","ji"], "づ": ["du","zu"], "で": ["de"], "ど": ["do"],
-    "ば": ["ba"], "び": ["bi"], "ぶ": ["bu"], "べ": ["be"], "ぼ": ["bo"],
-    "ぱ": ["pa"], "ぴ": ["pi"], "ぷ": ["pu"], "ぺ": ["pe"], "ぽ": ["po"],
+</div>
 
-    // Katakana Singles
-    "ア": ["a"], "イ": ["i"], "ウ": ["u"], "エ": ["e"], "オ": ["o"],
-    "カ": ["ka"], "キ": ["ki"], "ク": ["ku"], "ケ": ["ke"], "コ": ["ko"],
-    "サ": ["sa"], "シ": ["shi","si"], "ス": ["su"], "セ": ["se"], "ソ": ["so"],
-    "タ": ["ta"], "チ": ["chi","ti"], "ツ": ["tsu","tu"], "テ": ["te"], "ト": ["to"],
-    "ナ": ["na"], "ニ": ["ni"], "ヌ": ["nu"], "ネ": ["ne"], "ノ": ["no"],
-    "ハ": ["ha","wa"], "ヒ": ["hi"], "フ": ["fu","hu"], "ヘ": ["he","e"], "ホ": ["ho"],
-    "マ": ["ma"], "ミ": ["mi"], "ム": ["mu"], "メ": ["me"], "モ": ["mo"],
-    "ヤ": ["ya"], "ユ": ["yu"], "ヨ": ["yo"],
-    "ラ": ["ra"], "リ": ["ri"], "ル": ["ru"], "レ": ["re"], "ロ": ["ro"],
-    "ワ": ["wa"], "ヲ": ["wo","o"], "ン": ["n","nn","xn"],
-    "ガ": ["ga"], "ギ": ["gi"], "グ": ["gu"], "ゲ": ["ge"], "ゴ": ["go"],
-    "ザ": ["za"], "ジ": ["ji","zi"], "ず": ["zu"], "ぜ": ["ze"], "ゾ": ["zo"],
-    "ダ": ["da"], "ヂ": ["di","ji"], "ヅ": ["du","zu"], "デ": ["de"], "ド": ["do"],
-    "バ": ["ba"], "ビ": ["bi"], "ブ": ["bu"], "ベ": ["be"], "ボ": ["bo"],
-    "パ": ["pa"], "ピ": ["pi"], "プ": ["pu"], "ペ": ["pe"], "ポ": ["po"],
-    "ー": ["-","^"],
-    "、": [","], "。": ["."], "！": ["!"], "？": ["?"], " ": [" "], "　": [" "]
-  };
+</div>
 
-  // Parses a full Kana sentence into syllabic chunks with valid romaji options
-  function parseKanaSentence(sentence){
-    const chunks = [];
-    let i = 0;
-    while(i < sentence.length){
-      // Sokuon (small tsu / っ / ッ)
-      if(sentence[i] === 'っ' || sentence[i] === 'ッ'){
-        const nextPair = sentence.slice(i+1, i+3);
-        const nextSingle = sentence[i+1];
-        const nextRomajiList = KANA_MAP[nextPair] || KANA_MAP[nextSingle] || ['t'];
-        const sokuonChar = nextRomajiList[0] ? nextRomajiList[0][0] : 't';
-        chunks.push({
-          kana: sentence[i],
-          romaji: [sokuonChar, 'xtsu', 'ltsu', 'xtu', 'ltu']
-        });
-        i++;
-        continue;
-      }
+</section>
 
-      // Digraph (youon 2 chars)
-      const pair = sentence.slice(i, i+2);
-      if(KANA_MAP[pair]){
-        chunks.push({
-          kana: pair,
-          romaji: KANA_MAP[pair]
-        });
-        i += 2;
-        continue;
-      }
+<!-- Painel Principal de Estudo (Grid Assimétrico 12 colunas) -->
+<section class="max-w-7xl mx-auto w-full px-margin-mobile lg:px-margin py-space-lg lg:py-space-xl">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Coluna da Esquerda (8 Colunas): O "Washi Stage" Interativo -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- Barra de Métricas de Digitação em Tempo Real -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm bg-surface-container-lowest p-space-md rounded-xl shadow-md">
+<div class="flex flex-col p-2.5 rounded-lg bg-primary-container">
+<span class="font-label-sm text-label-sm text-on-primary-container flex items-center justify-between">
+              VELOCIDADE
+              <span class="material-symbols-outlined text-[15px] text-tertiary">bolt</span>
+</span>
+<div class="mt-1 flex items-baseline gap-1">
+<span class="font-label-lg text-headline-sm text-primary-fixed font-semibold" id="metric-cpm">0</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">CPM</span>
+<span class="font-label-sm text-label-sm text-tertiary ml-auto" id="metric-wpm">0 WPM</span>
+</div>
 
-      // Single character
-      const single = sentence[i];
-      chunks.push({
-        kana: single,
-        romaji: KANA_MAP[single] || [single]
-      });
-      i++;
-    }
-    return chunks;
-  }
+</div>
 
-  // ---------- Phrase Database (Mock) ----------
+<div class="flex flex-col p-2.5 rounded-lg bg-primary-container">
+<span class="font-label-sm text-label-sm text-on-primary-container flex items-center justify-between">
+              PRECISÃO
+              <span class="material-symbols-outlined text-[15px] text-secondary">verified</span>
+</span>
+<div class="mt-1 flex items-baseline gap-1">
+<span class="font-label-lg text-headline-sm text-secondary-fixed font-semibold" id="metric-accuracy">—</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">%</span>
+</div>
 
-  const PHRASES = [
-    // Hiragana
-    {
-      id: 1,
-      type: "hiragana",
-      kana: "きょうはいいてんきですね",
-      meaning: "Hoje o tempo está bom, né?"
-    },
-    {
-      id: 2,
-      type: "hiragana",
-      kana: "はじめまして、よろしくおねがいします",
-      meaning: "Muito prazer em conhecê-lo."
-    },
-    {
-      id: 3,
-      type: "hiragana",
-      kana: "あしたはともだちにあいます",
-      meaning: "Amanhã vou encontrar um amigo."
-    },
-    {
-      id: 4,
-      type: "hiragana",
-      kana: "にほんごのべんきょうはたのしいです",
-      meaning: "Estudar japonês é muito divertido."
-    },
-    {
-      id: 5,
-      type: "hiragana",
-      kana: "すみません、いまなんじですか",
-      meaning: "Com licença, que horas são agora?"
-    },
-    {
-      id: 6,
-      type: "hiragana",
-      kana: "まいあさしちじにおきます",
-      meaning: "Acordo todos os dias às sete horas."
-    },
-    {
-      id: 7,
-      type: "hiragana",
-      kana: "がっこうへあるいていきます",
-      meaning: "Vou a pé para a escola."
-    },
+</div>
 
-    // Katakana
-    {
-      id: 8,
-      type: "katakana",
-      kana: "コーヒーをのみます",
-      meaning: "Bebo café."
-    },
-    {
-      id: 9,
-      type: "katakana",
-      kana: "アイスクリームがおいしいです",
-      meaning: "O sorvete está uma delícia."
-    },
-    {
-      id: 10,
-      type: "katakana",
-      kana: "レストランでピザをたべました",
-      meaning: "Comi pizza no restaurante."
-    },
-    {
-      id: 11,
-      type: "katakana",
-      kana: "スーパーでパンをかいます",
-      meaning: "Compro pão no supermercado."
-    },
-    {
-      id: 12,
-      type: "katakana",
-      kana: "ホテルはどこにありますか",
-      meaning: "Onde fica o hotel?"
-    },
-    {
-      id: 13,
-      type: "katakana",
-      kana: "ノートパソコンをつかいます",
-      meaning: "Uso o computador portátil."
-    },
-    {
-      id: 14,
-      type: "katakana",
-      kana: "タクシーでいきます",
-      meaning: "Vou de táxi."
-    },
+<div class="flex flex-col p-2.5 rounded-lg bg-primary-container">
+<span class="font-label-sm text-label-sm text-on-primary-container flex items-center justify-between">
+              TEMPO
+              <span class="material-symbols-outlined text-[15px] text-primary">timer</span>
+</span>
+<div class="mt-1 flex items-baseline gap-1">
+<span class="font-label-lg text-headline-sm text-primary-fixed font-semibold" id="metric-time">00:00</span>
+</div>
 
-    // Mixed
-    {
-      id: 15,
-      type: "mixed",
-      kana: "デパートでシャツをかいました",
-      meaning: "Comprei uma camisa na loja de departamentos."
-    },
-    {
-      id: 16,
-      type: "mixed",
-      kana: "スマホでしゃしんをとります",
-      meaning: "Tiro fotos com o smartphone."
-    },
-    {
-      id: 17,
-      type: "mixed",
-      kana: "テレビでアニメをみました",
-      meaning: "Assisti anime na televisão."
-    },
-    {
-      id: 18,
-      type: "mixed",
-      kana: "コンビニでおにぎりをかいます",
-      meaning: "Compro onigiri na loja de conveniência."
-    },
-    {
-      id: 19,
-      type: "mixed",
-      kana: "バスでがっこうへいきます",
-      meaning: "Vou para a escola de ônibus."
-    },
-    {
-      id: 20,
-      type: "mixed",
-      kana: "カフェでジュースをのみました",
-      meaning: "Bebi suco na cafeteria."
-    }
-  ];
+</div>
 
-  // ---------- Application State ----------
+<div class="flex flex-col p-2.5 rounded-lg bg-primary-container">
+<span class="font-label-sm text-label-sm text-on-primary-container flex items-center justify-between">
+              SESSÃO
+              <span class="material-symbols-outlined text-[15px] text-secondary">flag</span>
+</span>
+<div class="mt-1 flex flex-col justify-end">
+<span class="font-label-lg text-label-lg text-secondary-fixed" id="phrase-progress">Frase 1</span>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-1 overflow-hidden">
+<div class="bg-tertiary h-full rounded-full  transition-all duration-300" id="phrase-fill" style="width:0%"></div>
 
-  let currentMode = 'all'; // 'all' | 'hiragana' | 'katakana'
-  let currentPhrase = null;
-  let phraseChunks = [];
-  let currentChunkIndex = 0;
-  let currentTypedLetters = '';
+</div>
 
-  let isTyping = false;
-  let startTime = null;
-  let timerInterval = null;
-  let totalKeystrokes = 0;
-  let errorCount = 0;
-  let totalKanaCount = 0;
+</div>
 
-  let bestCPM = parseInt(localStorage.getItem('speed_reader_best_cpm') || '0', 10);
+</div>
 
-  // DOM Elements
-  const phraseEl = document.getElementById('speed-reader-phrase');
-  const meaningEl = document.getElementById('speed-reader-meaning');
-  const typingAreaEl = document.getElementById('speed-reader-area');
-  const hiddenInput = document.getElementById('speed-reader-input');
+</div>
 
-  const hudCPM = document.getElementById('hud-cpm');
-  const hudAcc = document.getElementById('hud-acc');
-  const hudTime = document.getElementById('hud-time');
+<!-- O Papel Washi Elevado (Área Central de Digitação & Foco) -->
+<div class="relative bg-[#EFE7D6] text-[#1F2430] p-space-md sm:p-space-lg lg:p-space-xl rounded-xl shadow-2xl overflow-hidden">
+<!-- Selo Hanko Vermelho (Carimbo JLPT N5) -->
+<div class="absolute top-4 right-4 sm:top-6 sm:right-6 rotate-[-3deg] select-none pointer-events-none opacity-90">
+<div class="w-14 h-14 rounded-lg bg-[#B3392C]/10 flex flex-col items-center justify-center p-1" style="box-shadow: inset 0 0 0 1.5px #B3392C;">
+<span class="font-headline-sm text-headline-sm text-[#B3392C] leading-none">日</span>
+<span class="font-label-sm text-[9px] text-[#B3392C] uppercase tracking-widest mt-0.5">練習</span>
+</div>
 
-  const btnNext = document.getElementById('btn-next');
-  const btnRestart = document.getElementById('btn-restart');
-  const modeBtns = document.querySelectorAll('.speed-reader-mode-btn');
+</div>
 
-  const resultsModal = document.getElementById('results-modal');
-  const resCPM = document.getElementById('res-cpm');
-  const resAcc = document.getElementById('res-acc');
-  const resTime = document.getElementById('res-time');
-  const resErrors = document.getElementById('res-errors');
-  const resRecordBadge = document.getElementById('res-record');
-  const resBtnNext = document.getElementById('res-btn-next');
-  const resBtnRetry = document.getElementById('res-btn-retry');
+<!-- Barra de Controles Rápidos do Treino -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-md">
+<div class="flex items-center gap-space-xs text-[#5D5545] font-label-sm text-label-sm">
 
-  // ---------- Core Typing Engine ----------
+<button class="px-2.5 py-1 rounded bg-[#E6DEC9]/60 text-[#6B6353] hover:text-[#1F2430] transition-colors" id="toggle-romaji" type="button">
+                Romaji Apoio
+              </button>
 
-  function pickRandomPhrase(){
-    let pool = PHRASES;
-    if(currentMode === 'hiragana') pool = PHRASES.filter(p => p.type === 'hiragana');
-    else if(currentMode === 'katakana') pool = PHRASES.filter(p => p.type === 'katakana');
+</div>
 
-    // Avoid picking same phrase consecutively if multiple exist
-    const available = pool.filter(p => !currentPhrase || p.id !== currentPhrase.id);
-    return available.length > 0
-      ? available[Math.floor(Math.random() * available.length)]
-      : pool[Math.floor(Math.random() * pool.length)];
-  }
+<div class="flex items-center gap-1 bg-[#E6DEC9] p-1 rounded-lg"><button type="button" data-mode="all" class="px-2 py-0.5 rounded bg-[#1F2430] text-[#EFE7D6] font-label-sm text-label-sm" aria-pressed="true">Misto</button><button type="button" data-mode="hiragana" class="px-2 py-0.5 rounded text-[#6B6353] font-label-sm text-label-sm" aria-pressed="false">Hiragana</button><button type="button" data-mode="katakana" class="px-2 py-0.5 rounded text-[#6B6353] font-label-sm text-label-sm" aria-pressed="false">Katakana</button></div>
 
-  function loadPhrase(phrase){
-    currentPhrase = phrase;
-    phraseChunks = parseKanaSentence(phrase.kana);
-    totalKanaCount = phrase.kana.replace(/[、。！？\s]/g, '').length;
-    resetMetrics();
+</div>
 
-    // Render DOM chunks
-    phraseEl.innerHTML = '';
-    phraseChunks.forEach((chunk, idx) => {
-      const span = document.createElement('span');
-      span.className = 'speed-reader-chunk' + (idx === 0 ? ' current' : '');
-      span.id = `chunk-${idx}`;
-      span.innerHTML = `
-        <span class="kana-char">${chunk.kana}</span>
-        <span class="romaji-guide">${chunk.romaji[0]}</span>
-      `;
-      phraseEl.appendChild(span);
-    });
+<!-- Display Principal da Frase em Noto Serif (Tipografia Mincho) -->
+<div class="py-space-md sm:py-space-lg flex flex-col gap-space-md">
+<div class="text-[#847B69] font-label-sm text-label-sm tracking-widest uppercase flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-[#B3392C]"></span>
+              Frase Modelo
+            </div>
 
-    meaningEl.textContent = phrase.meaning;
-    focusInput();
-  }
+<!-- Frase Japonesa com Ruby Annotation -->
+<div class="text-left select-none overflow-x-auto">
+<p class="font-headline-lg text-headline-lg sm:text-[38px] sm:leading-[58px] text-[#1F2430] font-headline tracking-normal" id="model-phrase"></p>
+</div>
 
-  function resetMetrics(){
-    clearInterval(timerInterval);
-    timerInterval = null;
-    isTyping = false;
-    startTime = null;
-    currentChunkIndex = 0;
-    currentTypedLetters = '';
-    totalKeystrokes = 0;
-    errorCount = 0;
+<!-- Tradução de Referência em Português -->
+<div class="flex items-center gap-space-sm text-[#5B5445] bg-[#E5DEC9] px-3.5 py-2 rounded-lg">
+<span class="material-symbols-outlined text-[#B3392C] text-[18px]">translate</span>
+<p class="font-body-md text-body-md italic text-[#343025]" id="phrase-meaning"></p>
+</div>
 
-    hudCPM.textContent = '0';
-    hudAcc.textContent = '100%';
-    hudTime.textContent = '0.0s';
-  }
+</div>
 
-  function startTimerIfNeeded(){
-    if(!isTyping){
-      isTyping = true;
-      startTime = Date.now();
-      timerInterval = setInterval(updateLiveHUD, 100);
-    }
-  }
+<!-- Área do Rastro Interativo (Stream de Caracteres) -->
+<div class="mt-space-sm bg-[#E6DEC9] p-space-md rounded-lg flex flex-col gap-space-sm shadow-inner">
+<div class="flex items-center justify-between text-[#68604F] font-label-sm text-label-sm">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-[#C89B3C]">stream</span>
+                Fluxo de Decodificação Fonética
+              </span>
+<span class="font-label-sm text-label-sm text-[#8A8170]" id="character-count">0 / 0 caracteres</span>
+</div>
 
-  function updateLiveHUD(){
-    if(!startTime) return;
-    const elapsedSec = (Date.now() - startTime) / 1000;
-    hudTime.textContent = elapsedSec.toFixed(1) + 's';
+<!-- Caracteres Digitados vs Esperados -->
+<div class="font-headline-md text-headline-md sm:text-[28px] sm:leading-[38px] flex flex-wrap items-center gap-x-1 gap-y-2 py-2" id="character-stream"></div>
 
-    // CPM calculation: (completed kana count / elapsedSec) * 60
-    let completedKana = 0;
-    for(let i = 0; i < currentChunkIndex; i++){
-      completedKana += phraseChunks[i].kana.length;
-    }
-    const cpm = elapsedSec > 0 ? Math.round((completedKana / elapsedSec) * 60) : 0;
-    hudCPM.textContent = cpm.toString();
+</div>
 
-    // Accuracy: ((totalKeystrokes - errorCount) / totalKeystrokes) * 100
-    const correctKeystrokes = Math.max(0, totalKeystrokes - errorCount);
-    const acc = totalKeystrokes > 0 ? Math.round((correctKeystrokes / totalKeystrokes) * 100) : 100;
-    hudAcc.textContent = `${acc}%`;
-  }
+<!-- Campo de Digitação Direta (Well Rebaixado) -->
+<div class="mt-space-md relative">
+<input autocapitalize="off" autocomplete="off" autocorrect="off" class="w-full bg-[#E5DDC7] text-[#1F2430] placeholder-[#8B8372] px-4 py-3.5 pr-28 rounded-lg font-body-md text-body-lg outline-none focus:bg-[#EFE8D6] focus:ring-2 focus:ring-[#C89B3C] transition-all shadow-inner" id="typing-input" placeholder="Digite a leitura em kana ou romaji..." spellcheck="false" type="text" aria-label="Digite a leitura em kana ou romaji">
+<div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5 select-none pointer-events-none">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-[#D9D0B8] text-[#554E40] uppercase">かな / Romaji</span>
+</div>
 
-  function handleKeyPress(char){
-    if(currentChunkIndex >= phraseChunks.length) return;
-    startTimerIfNeeded();
-    totalKeystrokes++;
+</div>
 
-    const chunk = phraseChunks[currentChunkIndex];
-    const chunkEl = document.getElementById(`chunk-${currentChunkIndex}`);
-    const nextTyped = currentTypedLetters + char.toLowerCase();
+<!-- Painel de Ações e Atalhos no Rodapé do Card Washi -->
+<div class="mt-space-md pt-space-sm flex flex-wrap items-center justify-between gap-space-sm text-[#4E4738]">
+<div class="flex items-center gap-space-xs">
+<button class="px-3 py-1.5 rounded bg-[#E4DEC9] hover:bg-[#DDD6C0] text-[#1F2430] font-body-sm text-body-sm flex items-center gap-1.5 transition-colors shadow-sm" type="button" id="restart">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+<span>Reiniciar</span>
+<span class="font-label-sm text-[10px] text-[#7A7260] bg-[#D7CFB7] px-1 rounded ml-1">Esc</span>
+</button>
+<button class="px-3 py-1.5 rounded bg-[#B3392C] hover:bg-[#992F24] text-white font-body-sm text-body-sm flex items-center gap-1.5 transition-colors shadow-sm" type="button" id="next">
+<span class="material-symbols-outlined text-[18px]">skip_next</span>
+<span>Próxima</span>
+<span class="font-label-sm text-[10px] text-white/80 bg-black/20 px-1 rounded ml-1">Enter</span>
+</button>
+</div>
 
-    // Find any valid candidate romaji for this chunk that starts with nextTyped
-    const matchingOptions = chunk.romaji.filter(opt => opt.startsWith(nextTyped));
 
-    if(matchingOptions.length > 0){
-      // Valid progressive stroke
-      currentTypedLetters = nextTyped;
-      chunkEl.classList.remove('error');
+</div>
 
-      // Update the romaji guide display for the remaining untyped letters
-      const primaryMatch = matchingOptions[0];
-      const guideEl = chunkEl.querySelector('.romaji-guide');
-      guideEl.textContent = primaryMatch;
+</div>
 
-      // Check if this chunk is fully completed
-      const exactMatch = matchingOptions.find(opt => opt === nextTyped);
-      if(exactMatch){
-        chunkEl.classList.remove('current');
-        chunkEl.classList.add('correct');
-        currentChunkIndex++;
-        currentTypedLetters = '';
+<!-- Ritmo e Consistência da Digitação (Gráfico Linear Compacto SVG) -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[18px]">timeline</span>
+<span class="font-label-md text-label-md text-on-surface">Intervalo entre entradas (ms)</span>
+</div>
 
-        if(currentChunkIndex < phraseChunks.length){
-          const nextChunkEl = document.getElementById(`chunk-${currentChunkIndex}`);
-          nextChunkEl.classList.add('current');
-        } else {
-          // Phrase Complete!
-          completePhrase();
-        }
-      }
-    } else {
-      // Error stroke
-      errorCount++;
-      chunkEl.classList.add('error');
-      setTimeout(() => {
-        if(chunkEl) chunkEl.classList.remove('error');
-      }, 250);
-    }
+<span class="font-label-sm text-label-sm text-secondary-fixed" id="latency-summary">— ms / entrada</span>
+</div>
 
-    updateLiveHUD();
-  }
+<div class="w-full h-16 pt-1">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 500 60">
+<!-- Linhas de grade suave -->
+<line class="text-surface-container-high" stroke="currentColor" stroke-dasharray="3,3" x1="0" x2="500" y1="15" y2="15"></line>
+<line class="text-surface-container-high" stroke="currentColor" stroke-dasharray="3,3" x1="0" x2="500" y1="40" y2="40"></line>
+<!-- Curva de velocidade de digitação -->
+<path d="" fill="none" stroke="#F0BF5C" stroke-linecap="round" stroke-width="2.5" id="latency-path"></path>
+<!-- Ponto de foco atual -->
 
-  function completePhrase(){
-    clearInterval(timerInterval);
-    const finalElapsedSec = Math.max(0.1, (Date.now() - startTime) / 1000);
-    const finalCPM = Math.round((totalKanaCount / finalElapsedSec) * 60);
 
-    const correctHits = Math.max(0, totalKeystrokes - errorCount);
-    const finalAcc = totalKeystrokes > 0 ? Math.round((correctHits / totalKeystrokes) * 100) : 100;
+</svg>
+</div>
 
-    const isNewRecord = finalCPM > bestCPM && finalCPM > 0;
-    if(isNewRecord){
-      bestCPM = finalCPM;
-      localStorage.setItem('speed_reader_best_cpm', bestCPM.toString());
-    }
+<div class="flex justify-between text-on-surface-variant font-label-sm text-[10px]">
+<span>Início</span>
+<span>Meio</span>
+<span class="text-tertiary">Entradas recentes</span>
+<span>Fim</span>
+</div>
 
-    // Populate Results Modal
-    resCPM.textContent = finalCPM.toString();
-    resAcc.textContent = `${finalAcc}%`;
-    resTime.textContent = finalElapsedSec.toFixed(1) + 's';
-    resErrors.textContent = errorCount.toString();
-    resRecordBadge.style.display = isNewRecord ? 'inline-block' : 'none';
+</div>
 
-    resultsModal.classList.add('show');
-  }
+</div>
 
-  function focusInput(){
-    hiddenInput.value = '';
-    hiddenInput.focus();
-  }
+<!-- Coluna da Direita (4 Colunas): Matriz Fonética, Guia de Teclado & Sessão -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- Cartão Teclado Virtual / Matriz Kana Ativa -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">keyboard</span>
+<span class="font-headline-sm text-headline-sm text-primary-fixed">Matriz Ativa</span>
+</div>
 
-  // ---------- Event Listeners ----------
+<span class="font-label-sm text-label-sm text-tertiary px-2 py-0.5 rounded bg-tertiary-container" id="matrix-label">Próximo trecho</span>
+</div>
 
-  // Global Keydown Handler
-  document.addEventListener('keydown', (e) => {
-    // If modal is open, Enter or Tab dismisses and moves on
-    if(resultsModal.classList.contains('show')){
-      if(e.key === 'Enter'){
-        e.preventDefault();
-        resultsModal.classList.remove('show');
-        loadPhrase(pickRandomPhrase());
-        return;
-      }
-      if(e.key === 'Tab' || e.key === 'Escape'){
-        e.preventDefault();
-        resultsModal.classList.remove('show');
-        loadPhrase(currentPhrase);
-        return;
-      }
-      return;
-    }
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Pressione a sequência fonética no seu teclado físico:
+          </p>
+<!-- Simulação do Mapa de Teclas Físicas -->
+<div class="grid grid-cols-4 gap-1.5 p-space-sm bg-surface-container-high rounded-lg text-center">
+<div class="flex flex-col items-center justify-center p-2 rounded bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">
+<span class="text-[10px] opacity-70">KA</span>
+<span class="font-headline text-headline-sm text-secondary-fixed">か</span>
+</div>
 
-    // Shortcut: Tab -> Restart current phrase
-    if(e.key === 'Tab'){
-      e.preventDefault();
-      loadPhrase(currentPhrase);
-      return;
-    }
+<div class="flex flex-col items-center justify-center p-2 rounded bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">
+<span class="text-[10px] opacity-70">KI</span>
+<span class="font-headline text-headline-sm text-secondary-fixed">き</span>
+</div>
 
-    // Shortcut: Enter -> Next phrase
-    if(e.key === 'Enter'){
-      e.preventDefault();
-      loadPhrase(pickRandomPhrase());
-      return;
-    }
+<div class="flex flex-col items-center justify-center p-2 rounded bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">
+<span class="text-[10px] opacity-70">KU</span>
+<span class="font-headline text-headline-sm text-secondary-fixed">く</span>
+</div>
 
-    // Ignore modifier combinations
-    if(e.ctrlKey || e.altKey || e.metaKey) return;
+<div class="flex flex-col items-center justify-center p-2 rounded bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">
+<span class="text-[10px] opacity-70">KE</span>
+<span class="font-headline text-headline-sm text-secondary-fixed">け</span>
+</div>
 
-    // Normal typing character
-    if(e.key.length === 1){
-      handleKeyPress(e.key);
-    }
-  });
+<!-- Linha com Dakuten Ativo -->
+<div class="flex flex-col items-center justify-center p-2 rounded bg-[#C89B3C] text-[#1F2430] font-label-sm text-label-sm shadow-md col-span-2">
+<span class="text-[10px] font-bold" id="active-keys">TECLA ATIVA</span>
+<span class="font-headline text-headline-sm font-bold" id="active-kana">—</span>
+</div>
 
-  // Clicking anywhere in the card refocuses typing
-  typingAreaEl.addEventListener('click', focusInput);
-  document.getElementById('speed-reader-card').addEventListener('click', focusInput);
+<div class="flex flex-col items-center justify-center p-2 rounded bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm col-span-2">
+<span class="text-[10px] opacity-70" id="next-keys">PRÓXIMO</span>
+<span class="font-headline text-headline-sm text-tertiary" id="next-kana">—</span>
+</div>
 
-  // Button Listeners
-  btnNext.addEventListener('click', () => loadPhrase(pickRandomPhrase()));
-  btnRestart.addEventListener('click', () => loadPhrase(currentPhrase));
-  resBtnNext.addEventListener('click', () => {
-    resultsModal.classList.remove('show');
-    loadPhrase(pickRandomPhrase());
-  });
-  resBtnRetry.addEventListener('click', () => {
-    resultsModal.classList.remove('show');
-    loadPhrase(currentPhrase);
-  });
+</div>
 
-  // Mode Selection Listeners
-  modeBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      modeBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentMode = btn.dataset.mode;
-      loadPhrase(pickRandomPhrase());
-    });
-  });
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm pt-1">
+<span class="flex items-center gap-1">Kana / Romaji</span>
+<button class="text-secondary-fixed underline cursor-pointer" type="button" id="typing-guide-button">Guia de Digitação</button>
+</div>
 
-  // ---------- Init ----------
-  loadPhrase(pickRandomPhrase());
+</div>
 
-})();
-</script>
-</body>
-</html>
+<!-- Painel Editorial de Foco e Dica de Estudo Deliberado -->
+<div class="bg-gradient-to-br from-surface-container to-surface-container-high p-space-md rounded-xl shadow-md flex flex-col gap-space-md relative overflow-hidden">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[20px]">psychology</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Princípio do Rastro</span>
+</div>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Elimine as pausas de tradução mental ao ler japonês. Ao conectar o reconhecimento visual do kanji/kana imediatamente ao movimento tátil dos dedos, você cria o reflexo de leitura sem intermediação do português.
+          </p>
+<div class="p-space-sm bg-surface-container-lowest/80 rounded-lg flex items-start gap-2.5">
+<span class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">lightbulb</span>
+<div class="text-secondary-fixed font-body-sm text-body-sm">
+<strong class="text-tertiary">Dica de Prática:</strong> Não olhe para o teclado. Mantenha os olhos fixos na linha central e digite conforme a sonoridade que você ouve internamente.
+            </div>
+
+</div>
+
+</div>
+
+<!-- Mídia Visual de Imersão e Caligrafia Sumi -->
+<div class="relative rounded-xl overflow-hidden shadow-lg h-44 group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close-up of Japanese calligraphy brush dipped in black sumi ink touching handmade washi paper, natural warm daylight, rich paper texture with dark indigo backdrop accents, minimalist Japanese aesthetic, quiet concentration atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVWey5KOoKuhBmcgVkOia_w9AoYeYtZKZeEzWawxttakxdwRNck614fiAVn4eo5KsB449KMQ7tG9WUAKBMLK65OJRFztzZh_bK5jUDJ05-NOHMv8__lETdqzf4ydTHG8aufTJbDwd2125lr8kTTOi0cFXprZaCvC2pszjpSy5q_wQs-yzEyQrJ5_sI4O68mC-6QWH43MsyI1hW1kFGUJjLpGtw5teXV_6mZnRs5FiLKNYkfeJZVldpcw">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/50 to-transparent flex flex-col justify-end p-space-md">
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Técnica de Fixação</span>
+<span class="font-headline-sm text-headline-sm text-primary-fixed">Ritmo &amp; Memória Muscular</span>
+</div>
+
+</div>
+
+<!-- Estatísticas Globais da Sessão Atual -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between text-on-surface font-label-md text-label-md">
+<span>Sessão Atual</span>
+<span class="text-tertiary font-label-sm" id="session-phrases">0 Frases Concluídas</span>
+</div>
+
+<div class="grid grid-cols-3 gap-2 text-center pt-2">
+<div class="p-2 bg-surface-container-high rounded-lg">
+<div class="font-label-lg text-headline-sm text-primary-fixed" id="session-kana">0</div>
+
+<div class="font-label-sm text-[10px] text-on-surface-variant">Caracteres</div>
+
+</div>
+
+<div class="p-2 bg-surface-container-high rounded-lg">
+<div class="font-label-lg text-headline-sm text-error" id="session-errors">0</div>
+
+<div class="font-label-sm text-[10px] text-on-surface-variant">Erros</div>
+
+</div>
+
+<div class="p-2 bg-surface-container-high rounded-lg">
+<div class="font-label-lg text-headline-sm text-secondary-fixed" id="session-accuracy">—</div>
+
+<div class="font-label-sm text-[10px] text-on-surface-variant">Acerto Final</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Rodapé Auxiliar de Metodologia -->
+<section class="w-full bg-surface-container-lowest/60 py-space-md">
+<div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant font-label-sm text-label-sm">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span>Treinamento de datilografia e reconhecimento ortográfico • Nihongo Lab</span>
+</div>
+
+<div class="flex items-center gap-space-md">
+<span>Atalhos: <kbd class="px-1.5 py-0.5 rounded bg-surface-container-high text-secondary-fixed">Tab</kbd> Próxima Frase</span>
+<span><kbd class="px-1.5 py-0.5 rounded bg-surface-container-high text-secondary-fixed">Esc</kbd> Reset</span>
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+</main>
+<footer class="w-full bg-surface-container-lowest border-t border-tertiary/20 py-space-xl"><div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin flex flex-col md:flex-row items-center justify-between gap-space-lg"><div class="flex flex-col items-center md:items-start gap-1"><div class="flex items-center gap-2"><span class="font-headline-sm text-headline-sm text-tertiary">日本語ラボ</span><span class="font-body-sm text-body-sm text-secondary">— Nihongo Lab</span></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center md:text-left">Estudo prático e deliberado da língua japonesa • Estruturado para lusófonos</p></div>
+<div class="flex items-center gap-space-lg font-label-md text-label-md"><a class="text-tertiary hover:underline flex items-center gap-1" data-path="tabela-de-kana" href="../kana/"><span>Tabela de Kana (五十音)</span><span class="material-symbols-outlined text-[14px]">north_east</span></a><span class="text-outline-variant">•</span><span class="text-on-surface-variant">N5 ~ N3 Sistema Guiado</span></div>
+</div>
+</footer>
+<dialog id="keyboard-help" aria-labelledby="help-title"><div class="help-heading"><h2 id="help-title">Guia de Digitação</h2><button type="button" id="close-help" aria-label="Fechar ajuda">×</button></div>
+<p>Digite em kana ou romaji. O trecho fica verde quando sua leitura é concluída. Erros não avançam o cursor.<br>Enter — Próxima frase<br>Esc — Reiniciar frase<br>CPM: kana por minuto. WPM: CPM dividido por 5.<br>Romaji de apoio pode ser alternado no cartão.</p></dialog><script src="data.js"></script><script src="reader.js"></script></body></html>

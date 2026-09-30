@@ -1,142 +1,403 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>形容詞ドリル — Flexão de Adjetivos</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml" href="../favicon.svg">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4914230912970008" crossorigin="anonymous"></script>
-<style>
-:root{--bg:#171d34;--bg2:#1f2846;--line:#3c4a73;--paper:#efe7d6;--paper2:#e6dcc6;--ink:#2a2318;--soft:#5c5341;--red:#b3392c;--gold:#c89b3c;--gold2:#dcc27c;--ok:#4c6b3f}*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:32px 20px 60px;background:radial-gradient(circle at 15% 10%,rgba(200,155,60,.08),transparent 45%),radial-gradient(circle at 85% 90%,rgba(179,57,44,.1),transparent 45%),var(--bg);background-attachment:fixed;font-family:'Zen Kaku Gothic New',sans-serif;color:var(--paper)}.wrap{max-width:1080px;margin:auto}header{text-align:center;margin-bottom:34px}.eyebrow{font:12px 'JetBrains Mono',monospace;letter-spacing:.28em;color:var(--gold2);margin-bottom:10px}h1{font:800 clamp(34px,6vw,56px) 'Shippori Mincho',serif;margin:0 0 8px}.accent{color:var(--gold)}.subtitle{font-size:15px;color:#efe7d6b8;max-width:620px;margin:auto;line-height:1.6}.header-actions{display:flex;justify-content:center;gap:12px;margin-top:16px}.nav-btn,.guide-btn{font:12px 'JetBrains Mono',monospace;background:transparent;border:1px solid var(--gold2);color:var(--gold2);padding:10px 18px;border-radius:9px;cursor:pointer;text-decoration:none}.layout{display:grid;grid-template-columns:300px 1fr;gap:24px;align-items:start}.sidebar{background:linear-gradient(180deg,var(--bg2),#172041);border:1px solid var(--line);border-radius:14px;padding:18px 16px 20px;position:sticky;top:20px}.sidebar h2{font:700 17px 'Shippori Mincho',serif;color:var(--gold2);margin:2px 4px 4px}.sidebar .hint{font-size:11.5px;color:#efe7d68c;margin:0 4px 14px;line-height:1.5}.option{display:flex;align-items:flex-start;gap:10px;background:#efe7d60a;border:1px solid #2a3459;border-radius:9px;padding:10px;cursor:pointer;color:#efe7d6d1;font-size:12px;line-height:1.4}.option input{accent-color:var(--gold);margin-top:3px}.option strong{display:block;color:var(--paper)}.main{background:var(--paper);border-radius:16px;padding:26px 26px 30px;color:var(--ink);box-shadow:0 12px 35px #0004}.scoreboard{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}.scores{display:flex;gap:10px}.score{min-width:66px;text-align:center;background:#2a23180a;border-radius:10px;padding:8px 12px}.score span{display:block;font:700 20px 'JetBrains Mono',monospace}.score small{font:9px 'JetBrains Mono',monospace;letter-spacing:.08em;color:var(--soft)}.score.correct span{color:var(--ok)}.score.wrong span{color:var(--red)}button{font-family:inherit}.scoreboard button,.secondary{background:transparent;border:1px solid #2a231844;color:var(--soft);border-radius:8px;padding:9px 12px;cursor:pointer}.challenge{text-align:center;padding:24px 12px 18px}.label{font:11px 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}.target{font:700 clamp(27px,5vw,42px) 'Shippori Mincho',serif;margin:12px 0 4px}.translation{color:var(--soft);font-size:14px}.prompt{font-size:15px;font-weight:700;margin:14px 0 0}.class-prompt{margin:18px auto 0;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--soft)}.class-prompt[hidden]{display:none}.class-prompt button{background:transparent;border:1px solid #2a231844;color:var(--ink);border-radius:8px;padding:7px 15px;font-weight:700;cursor:pointer}.class-prompt button.selected{background:var(--bg2);color:var(--gold2);border-color:var(--gold)}.answer-area{display:flex;gap:9px;max-width:620px;margin:12px auto 0}.answer-area input{flex:1;min-width:0;border:1px solid #2a231833;border-radius:9px;padding:12px 14px;font:16px 'Zen Kaku Gothic New',sans-serif;background:#fff9;color:var(--ink)}.answer-area input:focus{outline:2px solid var(--gold)}.primary{background:var(--red);border:0;color:white;border-radius:9px;padding:11px 17px;font-weight:700;cursor:pointer}.secondary{font-weight:700}.feedback{text-align:center;min-height:28px;margin:18px auto 0;font-size:14px}.feedback.correct{color:var(--ok)}.feedback.wrong{color:var(--red)}.actions{text-align:center;margin-top:10px}.actions button[hidden]{display:none}.hint-text{text-align:center;color:var(--soft);font-size:12px;min-height:20px;margin-top:12px}.footer{margin-top:22px;text-align:center;color:#efe7d680;font-size:11px}.overlay{position:fixed;inset:0;background:#090d1dcc;display:none;align-items:center;justify-content:center;padding:20px;z-index:3}.overlay.show{display:flex}.modal{width:min(640px,100%);max-height:85vh;overflow:auto;background:var(--paper);color:var(--ink);border-radius:15px;padding:24px}.modal-head{display:flex;justify-content:space-between;gap:16px}.modal h2{font:700 25px 'Shippori Mincho',serif;margin:0}.modal p{color:var(--soft);font-size:13px}.close{align-self:flex-start;border:0;background:transparent;font-size:20px;cursor:pointer}.guide{background:#2a23180a;border-radius:10px;padding:14px;margin-top:12px;line-height:1.7}.guide h3{font:700 16px 'Shippori Mincho',serif;margin:0 0 5px;color:var(--red)}.guide p{margin:0}.guide b{color:var(--red)}@media(max-width:760px){body{padding:22px 14px 40px}.layout{grid-template-columns:1fr}.sidebar{position:static}.main{padding:20px 15px 24px}.answer-area{flex-wrap:wrap}.answer-area input{flex-basis:100%}.scoreboard{align-items:flex-start;gap:10px}.scores{gap:5px}.score{min-width:55px;padding:7px 8px}}
-.class-hint{display:inline-block;margin-top:10px;padding:4px 10px;border:1px solid #c89b3c66;border-radius:999px;color:#76591d;background:#c89b3c18;font:600 11px 'JetBrains Mono',monospace}.class-hint[hidden]{display:none}.guide-table-wrap{overflow-x:auto}.guide table{width:100%;border-collapse:collapse;font-size:13px}.guide th,.guide td{text-align:left;padding:8px 10px;border-bottom:1px solid #2a231822;vertical-align:top}.guide th{font:600 10px 'JetBrains Mono',monospace;letter-spacing:.06em;color:var(--soft);text-transform:uppercase}.guide td:first-child{font-weight:700;white-space:nowrap}@media(max-width:760px){.guide th,.guide td{padding:7px 8px;font-size:12px}}
-</style>
-</head>
-<body>
-<div class="wrap">
-  <header><div class="eyebrow">adjective drill · 形容詞</div><h1>Flexão de <span class="accent">Adjetivos</span></h1><p class="subtitle">Pratique adjetivos い e な no presente e no passado, nas formas afirmativa e negativa.</p><div class="header-actions"><a class="nav-btn" href="../">← Início</a><button class="guide-btn" id="guideBtn" type="button">📖 Guia de estudo</button></div></header>
-  <div class="layout">
-    <aside class="sidebar"><h2>設定 · Opções do treino</h2><p class="hint">Ative para ver a classe do adjetivo como uma dica durante a pergunta.</p><label class="option"><input id="classHintMode" type="checkbox"><span><strong>Mostrar dica de classe い / な</strong>Desligado por padrão</span></label></aside>
-    <main class="main">
-      <div class="scoreboard"><div class="scores"><div class="score correct"><span id="correctCount">0</span><small>ACERTOS</small></div><div class="score wrong"><span id="wrongCount">0</span><small>ERROS</small></div><div class="score"><span id="totalCount">0</span><small>TOTAL</small></div></div><button id="reset" type="button">↺ Reiniciar</button></div>
-      <section class="challenge"><div class="label" id="challengeLabel">Conjugue o adjetivo</div><p class="target" id="target"></p><div class="translation" id="translation"></div><span class="class-hint" id="classHint" hidden></span><p class="prompt" id="prompt"></p></section>
-      <div class="answer-area"><input id="answer" placeholder="Digite a forma em japonês" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="primary" id="submit" type="button">Verificar</button><button class="secondary" id="hint" type="button">Dica</button></div>
-      <div class="feedback" id="feedback" aria-live="polite"></div><div class="actions"><button class="primary" id="next" type="button" hidden>Próximo adjetivo →</button></div><div class="hint-text" id="hintText">Digite a forma pedida e pressione Enter</div>
-    </main>
-  </div>
-  <footer class="footer">い-adjetivos: 〜くない・〜かった・〜くなかった　|　な-adjetivos: じゃない・でした・じゃなかった</footer>
+
+
+<html class="dark" lang="pt-BR"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Serif:wght@500;600&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-primary":"#292f47","outline-variant":"#46464d","on-surface":"#ffdad5","surface-container-low":"#410000","error-container":"#93000a","tertiary":"#f0bf5c","on-tertiary-fixed":"#261900","surface-bright":"#760a06","primary":"#c0c5e4","surface-container-lowest":"#280000","on-secondary":"#343025","inverse-primary":"#575d78","secondary-fixed-dim":"#cdc6b6","on-error-container":"#ffdad6","surface-dim":"#310000","primary-fixed-dim":"#c0c5e4","on-primary-fixed":"#141a31","on-tertiary":"#412d00","surface-variant":"#700403","outline":"#909097","surface-container-high":"#5c0001","error":"#ffb4ab","on-primary-container":"#7f85a1","on-secondary-fixed":"#1f1b11","secondary-container":"#4d493c","inverse-surface":"#ffdad5","on-primary-fixed-variant":"#40465f","tertiary-fixed":"#ffdea4","on-error":"#690005","on-surface-variant":"#c7c6ce","on-secondary-fixed-variant":"#4b463a","secondary-fixed":"#eae2d1","tertiary-container":"#2a1c00","surface-tint":"#c0c5e4","on-tertiary-fixed-variant":"#5d4200","on-secondary-container":"#bfb8a8","tertiary-fixed-dim":"#f0bf5c","surface":"#310000","background":"#310000","surface-container-highest":"#700403","on-tertiary-container":"#a97f22","primary-container":"#171d34","surface-container":"#490000","on-background":"#ffdad5","inverse-on-surface":"#690001","primary-fixed":"#dce1ff","secondary":"#cdc6b6"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-xl":"2.5rem","space-lg":"1.5rem","space-sm":"0.5rem","space-xs":"0.25rem","space-md":"1rem","gutter-mobile":"1rem","gutter":"1.5rem","margin-mobile":"1.25rem","margin":"2.5rem"},fontFamily:{"body-sm":["Inter"],"label-md":["JetBrains Mono"],"headline-sm":["Noto Serif"],"headline-md":["Noto Serif"],"label-lg":["JetBrains Mono"],"headline-lg-mobile":["Noto Serif"],"headline-lg":["Noto Serif"],"body-md":["Inter"],"display-lg-mobile":["Noto Serif"],"body-lg":["Inter"],"label-sm":["JetBrains Mono"],"display-lg":["Noto Serif"]},fontSize:{"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"500"}],"headline-sm":["20px",{"lineHeight":"28px","fontWeight":"500"}],"headline-md":["24px",{"lineHeight":"32px","fontWeight":"500"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.05em","fontWeight":"500"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"40px","fontWeight":"600"}],"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}],"display-lg-mobile":["32px",{"lineHeight":"40px","fontWeight":"600"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.06em","fontWeight":"500"}],"display-lg":["48px",{"lineHeight":"56px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}}</script><title>Flexão de Adjetivos — Nihongo Lab</title><link rel="icon" type="image/svg+xml" href="../favicon.svg"><link rel="stylesheet" href="adjectives.css"></head><body class="bg-primary-container font-body-md text-on-surface antialiased selection:bg-tertiary-container selection:text-tertiary"><header class="fixed top-0 left-0 w-full z-50 bg-primary-container/95 backdrop-blur-md border-b border-tertiary/20"><div class="h-16 max-w-7xl mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md shrink-0"><img alt="Nihongo Lab Logo" class="h-8 w-auto object-contain" src="../assets/nihongo-lab.svg"><div class="hidden sm:flex flex-col"><span class="font-headline-sm text-headline-sm text-primary-fixed tracking-tight leading-none">日本語ラボ</span><span class="font-label-sm text-label-sm text-tertiary tracking-wider uppercase mt-0.5">Prática deliberada e drills</span></div>
 </div>
-<div class="overlay" id="overlay"><section class="modal"><div class="modal-head"><div><div class="eyebrow">reference · 参考</div><h2>Como flexionar adjetivos</h2><p>O padrão muda conforme a classe do adjetivo. As tabelas mostram as formas polidas.</p></div><button class="close" id="close" type="button" aria-label="Fechar">✕</button></div><div class="guide"><h3>Adjetivos い</h3><div class="guide-table-wrap"><table><thead><tr><th>Forma</th><th>Padrão</th><th>Exemplo: たかい</th></tr></thead><tbody><tr><td>Presente afirmativo</td><td>〜いです</td><td>たかいです</td></tr><tr><td>Presente negativo</td><td>〜くないです</td><td>たかくないです</td></tr><tr><td>Passado afirmativo</td><td>〜かったです</td><td>たかかったです</td></tr><tr><td>Passado negativo</td><td>〜くなかったです</td><td>たかくなかったです</td></tr></tbody></table></div><p>Retire o い final antes de acrescentar くない, かった ou くなかった.</p></div><div class="guide"><h3>Adjetivos な</h3><div class="guide-table-wrap"><table><thead><tr><th>Forma</th><th>Padrão</th><th>Exemplo: しずか</th></tr></thead><tbody><tr><td>Presente afirmativo</td><td>〜です</td><td>しずかです</td></tr><tr><td>Presente negativo</td><td>〜じゃないです</td><td>しずかじゃないです</td></tr><tr><td>Passado afirmativo</td><td>〜でした</td><td>しずかでした</td></tr><tr><td>Passado negativo</td><td>〜じゃなかったです</td><td>しずかじゃなかったです</td></tr></tbody></table></div><p>O adjetivo não muda; a terminação é que varia. Formas mais formais: ではありません e ではありませんでした.</p></div><div class="guide"><h3>Exceção: いい</h3><div class="guide-table-wrap"><table><thead><tr><th>Forma</th><th>Exemplo</th></tr></thead><tbody><tr><td>Presente afirmativo</td><td>いいです</td></tr><tr><td>Presente negativo</td><td>よくないです</td></tr><tr><td>Passado afirmativo</td><td>よかったです</td></tr><tr><td>Passado negativo</td><td>よくなかったです</td></tr></tbody></table></div><p>As formas flexionadas usam a raiz よ.</p></div></section></div>
-<script src="https://unpkg.com/wanakana"></script>
-<script>
-(()=>{
-  const adjectives=[
-    {word:'高い',kana:'たかい',meaning:'caro; alto',type:'i'},
-    {word:'暑い',kana:'あつい',meaning:'quente (clima)',type:'i'},
-    {word:'熱い',kana:'あつい',meaning:'quente (ao toque)',type:'i'},
-    {word:'寒い',kana:'さむい',meaning:'frio (clima)',type:'i'},
-    {word:'冷たい',kana:'つめたい',meaning:'frio (ao toque)',type:'i'},
-    {word:'おいしい',kana:'おいしい',meaning:'delicioso',type:'i'},
-    {word:'難しい',kana:'むずかしい',meaning:'difícil',type:'i'},
-    {word:'忙しい',kana:'いそがしい',meaning:'ocupado; atarefado',type:'i'},
-    {word:'新しい',kana:'あたらしい',meaning:'novo',type:'i'},
-    {word:'古い',kana:'ふるい',meaning:'velho; antigo',type:'i'},
-    {word:'大きい',kana:'おおきい',meaning:'grande',type:'i'},
-    {word:'小さい',kana:'ちいさい',meaning:'pequeno',type:'i'},
-    {word:'いい',kana:'いい',meaning:'bom',type:'i',exception:true},
-    {word:'静か',kana:'しずか',meaning:'calmo; silencioso',type:'na'},
-    {word:'暇',kana:'ひま',meaning:'livre; desocupado',type:'na'},
-    {word:'きれい',kana:'きれい',meaning:'bonito; limpo',type:'na'},
-    {word:'元気',kana:'げんき',meaning:'saudável; animado',type:'na'},
-    {word:'便利',kana:'べんり',meaning:'conveniente; prático',type:'na'},
-    {word:'有名',kana:'ゆうめい',meaning:'famoso',type:'na'},
-    {word:'好き',kana:'すき',meaning:'de que gosta; favorito',type:'na'},
-    {word:'嫌い',kana:'きらい',meaning:'de que não gosta',type:'na'},
-    {word:'簡単',kana:'かんたん',meaning:'fácil; simples',type:'na'},
-    {word:'危ない',kana:'あぶない',meaning:'perigoso',type:'i'},
-    {word:'赤い',kana:'あかい',meaning:'vermelho; escarlate',type:'i'},
-    {word:'明るい',kana:'あかるい',meaning:'claro; luminoso',type:'i'},
-    {word:'甘い',kana:'あまい',meaning:'doce; indulgente; ingênuo',type:'i'},
-    {word:'青い',kana:'あおい',meaning:'azul',type:'i'},
-    {word:'暖かい',kana:'あたたかい',meaning:'morno; acolhedor',type:'i'},
-    {word:'厚い',kana:'あつい',meaning:'espesso; grosso',type:'i'},
-    {word:'近い',kana:'ちかい',meaning:'perto; próximo',type:'i'},
-    {word:'大丈夫',kana:'だいじょうぶ',meaning:'bem; seguro; sem problemas',type:'na'},
-    {word:'大好き',kana:'だいすき',meaning:'adorar; gostar muito',type:'na'},
-    {word:'太い',kana:'ふとい',meaning:'grosso; robusto',type:'i'},
-    {word:'速い',kana:'はやい',meaning:'rápido; veloz',type:'i'},
-    {word:'早い',kana:'はやい',meaning:'cedo; rápido',type:'i'},
-    {word:'下手',kana:'へた',meaning:'inábil; ruim em',type:'na'},
-    {word:'低い',kana:'ひくい',meaning:'baixo',type:'i'},
-    {word:'広い',kana:'ひろい',meaning:'amplo; espaçoso',type:'i'},
-    {word:'本当',kana:'ほんとう',meaning:'verdadeiro; real',type:'na'},
-    {word:'欲しい',kana:'ほしい',meaning:'querer; desejar',type:'i'},
-    {word:'細い',kana:'ほそい',meaning:'fino; esbelto',type:'i'},
-    {word:'色々',kana:'いろいろ',meaning:'variado; diverso',type:'na'},
-    {word:'痛い',kana:'いたい',meaning:'dolorido; doloroso',type:'i'},
-    {word:'嫌',kana:'いや',meaning:'desagradável; indesejado',type:'na'},
-    {word:'丈夫',kana:'じょうぶ',meaning:'resistente; durável',type:'na'},
-    {word:'上手',kana:'じょうず',meaning:'habilidoso; bom em',type:'na'},
-    {word:'辛い',kana:'からい',meaning:'picante',type:'i'},
-    {word:'軽い',kana:'かるい',meaning:'leve',type:'i'},
-    {word:'可愛い',kana:'かわいい',meaning:'fofo; adorável',type:'i'},
-    {word:'結構',kana:'けっこう',meaning:'ótimo; suficiente',type:'na'},
-    {word:'黄色い',kana:'きいろい',meaning:'amarelo',type:'i'},
-    {word:'綺麗',kana:'きれい',meaning:'bonito; limpo',type:'na'},
-    {word:'汚い',kana:'きたない',meaning:'sujo',type:'i'},
-    {word:'暗い',kana:'くらい',meaning:'escuro; sombrio',type:'i'},
-    {word:'黒い',kana:'くろい',meaning:'preto',type:'i'},
-    {word:'丸い',kana:'まるい',meaning:'redondo; circular',type:'i'},
-    {word:'真っ直ぐ',kana:'まっすぐ',meaning:'reto; direto',type:'na'},
-    {word:'不味い',kana:'まずい',meaning:'ruim (de sabor); desagradável',type:'i'},
-    {word:'短い',kana:'みじかい',meaning:'curto',type:'i'},
-    {word:'長い',kana:'ながい',meaning:'longo; comprido',type:'i'},
-    {word:'賑やか',kana:'にぎやか',meaning:'movimentado; animado',type:'na'},
-    {word:'温い',kana:'ぬるい',meaning:'morno',type:'i'},
-    {word:'美味しい',kana:'おいしい',meaning:'delicioso; saboroso',type:'i'},
-    {word:'重い',kana:'おもい',meaning:'pesado',type:'i'},
-    {word:'面白い',kana:'おもしろい',meaning:'interessante; divertido',type:'i'},
-    {word:'多い',kana:'おおい',meaning:'numeroso; frequente',type:'i'},
-    {word:'遅い',kana:'おそい',meaning:'lento; atrasado; tarde',type:'i'},
-    {word:'立派',kana:'りっぱ',meaning:'magnífico; admirável',type:'na'},
-    {word:'狭い',kana:'せまい',meaning:'estreito; apertado',type:'i'},
-    {word:'白い',kana:'しろい',meaning:'branco',type:'i'},
-    {word:'少ない',kana:'すくない',meaning:'pouco; escasso',type:'i'},
-    {word:'涼しい',kana:'すずしい',meaning:'fresco; agradável',type:'i'},
-    {word:'大変',kana:'たいへん',meaning:'difícil; sério; muito',type:'na'},
-    {word:'大切',kana:'たいせつ',meaning:'importante; precioso',type:'na'},
-    {word:'沢山',kana:'たくさん',meaning:'muito; em grande quantidade',type:'na'},
-    {word:'楽しい',kana:'たのしい',meaning:'divertido; agradável',type:'i'},
-    {word:'遠い',kana:'とおい',meaning:'distante; longe',type:'i'},
-    {word:'詰まらない',kana:'つまらない',meaning:'entediante; sem graça',type:'i'},
-    {word:'強い',kana:'つよい',meaning:'forte; poderoso',type:'i'},
-    {word:'煩い',kana:'うるさい',meaning:'barulhento; irritante',type:'i'},
-    {word:'薄い',kana:'うすい',meaning:'fino; fraco; aguado',type:'i'},
-    {word:'若い',kana:'わかい',meaning:'jovem',type:'i'},
-    {word:'悪い',kana:'わるい',meaning:'ruim; mau',type:'i'},
-    {word:'易しい',kana:'やさしい',meaning:'fácil; simples',type:'i'},
-    {word:'安い',kana:'やすい',meaning:'barato',type:'i'},
-    {word:'良い',kana:'よい',meaning:'bom',type:'i',exception:true},
-    {word:'弱い',kana:'よわい',meaning:'fraco',type:'i'}
-  ];
-  const forms=['presente afirmativo','presente negativo','passado afirmativo','passado negativo'];
-  const $=id=>document.getElementById(id);let current,formIndex,locked=false,correct=0,wrong=0,previous=null;
-  function conjugate(adj,index){
-    if(adj.type==='na')return [adj.kana+'です',adj.kana+'じゃないです',adj.kana+'でした',adj.kana+'じゃなかったです'][index];
-    const stem=adj.exception?'よ':adj.kana.slice(0,-1);
-    return [adj.kana+'です',stem+'くないです',stem+'かったです',stem+'くなかったです'][index];
-  }
-  function nextQuestion(){let options=adjectives.filter(a=>a!==previous);current=options[Math.floor(Math.random()*options.length)]||adjectives[0];previous=current;formIndex=Math.floor(Math.random()*forms.length);locked=false;
-    $('target').textContent=current.word;$('translation').textContent=current.meaning;$('prompt').textContent=`Forma: ${forms[formIndex]}`;$('classHint').hidden=!$('classHintMode').checked;$('classHint').textContent=current.type==='i'?'Classe: い-adjetivo':'Classe: な-adjetivo';
-    $('answer').value='';$('answer').disabled=false;$('answer').className='';$('feedback').textContent='';$('feedback').className='feedback';$('hintText').textContent='Digite a forma pedida e pressione Enter';$('next').hidden=true;$('answer').focus();
-  }
-  function check(){if(locked)return;const raw=$('answer').value.trim();if(!raw)return;const kana=window.wanakana?wanakana.toHiragana(raw):raw;const ok=kana.replace(/\s/g,'')===conjugate(current,formIndex).replace(/\s/g,'');
-    $('answer').className=ok?'correct':'incorrect';$('feedback').textContent=ok?'Correto!':`Resposta: ${conjugate(current,formIndex)}`;$('feedback').className='feedback '+(ok?'correct':'wrong');if(ok)correct++;else wrong++;$('correctCount').textContent=correct;$('wrongCount').textContent=wrong;$('totalCount').textContent=correct+wrong;$('next').hidden=false;$('answer').disabled=true;locked=true;
-  }
-  if(window.wanakana)wanakana.bind($('answer'),{IMEMode:'toHiragana'});
-  $('classHintMode').addEventListener('change',()=>{$('classHint').hidden=!$('classHintMode').checked;});$('submit').onclick=check;$('answer').addEventListener('keydown',e=>{if(e.key==='Enter'){if(locked)nextQuestion();else check();}});$('next').onclick=nextQuestion;$('hint').onclick=()=>{if(current)$('hintText').textContent=`${current.type==='i'?'い-adjetivo':'な-adjetivo'}${current.exception?' · exceção: flexiona pela raiz よ':''} · ${current.kana}`;};$('reset').onclick=()=>{correct=wrong=0;$('correctCount').textContent=$('wrongCount').textContent=$('totalCount').textContent='0';previous=null;nextQuestion();};$('guideBtn').onclick=()=>$('overlay').classList.add('show');$('close').onclick=()=>$('overlay').classList.remove('show');$('overlay').onclick=e=>{if(e.target===$('overlay'))$('overlay').classList.remove('show');};nextQuestion();
-})();
-</script>
-</body>
-</html>
+<nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-surface-container-high text-on-surface font-semibold rounded" id="adjective-navigation" aria-label="Navegação principal"><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="inicio-modulos" href="../">Início / Módulos</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="adjetivos-keiyoushi" href="./" aria-current="page">Adjetivos 形容詞</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="forma-te" href="../te-form/">Forma て</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="contadores-josuushi" href="../counters/">Contadores 助数詞</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="dias-hinichi" href="../calendar/">Dias 日にち</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="rastro-de-leitura-kana" href="../speed-reader/">Rastro de Leitura 仮名</a></nav>
+<div class="flex items-center gap-space-md shrink-0"><div class="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container-low/80 border border-outline-variant/30"><span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span><span class="font-label-sm text-label-sm text-tertiary">Modo Estudo</span></div>
+<button class="flex items-center px-2 py-0.5 rounded bg-surface-container-lowest border border-outline-variant/40" type="button" id="help-button" aria-label="Abrir ajuda de teclado"><span class="font-label-sm text-label-sm text-secondary-fixed-dim">?</span></button><button type="button" id="menu-button" class="xl:hidden w-8 h-8 text-tertiary" aria-controls="adjective-navigation" aria-expanded="false" aria-label="Abrir navegação"><span class="material-symbols-outlined" aria-hidden="true">menu</span></button></div>
+</div>
+</header>
+<main class="w-full pt-16 bg-primary-container min-h-screen"><div class="flex flex-col w-full">
+<div class="w-full max-w-7xl mx-auto px-margin-mobile lg:px-margin py-space-lg flex flex-col gap-space-lg">
+<!-- Top Context & Action Bar -->
+<div class="flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<a class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-high/60 text-secondary hover:text-on-surface transition-colors font-body-sm text-body-sm shadow-sm" href="../">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+<span>Início</span>
+</a>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-outline-variant">/</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Flexão de Adjetivos (形容詞の活用)</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-tertiary-container text-tertiary font-label-sm text-label-sm">
+            N5 ~ N4
+          </span>
+</div>
+
+</div>
+
+<div class="flex items-center gap-space-sm">
+<button class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-variant text-tertiary hover:text-on-surface transition-colors font-label-md text-label-md shadow-sm" id="toggle-guide-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+<span>Guia de Estudo (Gramática)</span>
+</button>
+</div>
+
+</div>
+
+<!-- Main Grid: 4-col Options Sidebar + 8-col Washi Drill Desk -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Left Panel: Session Options & Performance Counters -->
+<aside class="lg:col-span-4 flex flex-col gap-space-md">
+<!-- Filter Card -->
+<div class="bg-surface-container-lowest/80 backdrop-blur-sm rounded-xl p-space-md shadow-xl flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Configuração do Drill</span>
+<span class="material-symbols-outlined text-[18px] text-outline">tune</span>
+</div>
+
+<!-- Included Types Checkboxes -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-body-sm text-body-sm text-on-surface-variant font-medium">Tipos incluídos</label>
+<div class="grid grid-cols-2 gap-2 mt-1">
+<label class="flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-container/60 hover:bg-surface-container cursor-pointer transition-colors">
+<input checked="" class="w-4 h-4 rounded text-tertiary focus:ring-0 accent-tertiary" type="checkbox" name="adjective-type" value="i">
+<span class="font-body-sm text-body-sm text-on-surface">い-Keiyoushi</span>
+</label>
+<label class="flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-container/60 hover:bg-surface-container cursor-pointer transition-colors">
+<input checked="" class="w-4 h-4 rounded text-tertiary focus:ring-0 accent-tertiary" type="checkbox" name="adjective-type" value="na">
+<span class="font-body-sm text-body-sm text-on-surface">な-Keiyoushi</span>
+</label>
+</div>
+
+</div>
+
+<!-- Class Hint Toggle -->
+<div class="flex items-start justify-between gap-space-sm p-3 rounded-lg bg-surface-container-low/70">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Mostrar dica de classe</span>
+<span class="font-label-sm text-label-sm text-secondary-fixed-dim">Indica se o adjetivo é い ou な</span>
+</div>
+
+<label class="relative inline-flex items-center cursor-pointer shrink-0 mt-0.5">
+<input class="sr-only peer" id="toggle-hint-class" type="checkbox">
+<div class="w-9 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-surface after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-tertiary"></div>
+
+</label>
+</div>
+
+<!-- Focus Target Conjugation Form -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Forma de foco</span>
+<div class="flex flex-col gap-1.5 mt-0.5">
+<label class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-surface-container/50 hover:bg-surface-container cursor-pointer transition-colors">
+<input checked="" class="w-3.5 h-3.5 text-tertiary accent-tertiary" name="adjective-focus" type="radio" value="mixed">
+<span class="font-body-sm text-body-sm text-on-surface">Misto (Aleatório)</span>
+</label>
+<label class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-surface-container/50 hover:bg-surface-container cursor-pointer transition-colors">
+<input class="w-3.5 h-3.5 text-tertiary accent-tertiary" name="adjective-focus" type="radio" value="negative">
+<span class="font-body-sm text-body-sm text-on-surface">Apenas Negativas (ない / じゃない)</span>
+</label>
+<label class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-surface-container/50 hover:bg-surface-container cursor-pointer transition-colors">
+<input class="w-3.5 h-3.5 text-tertiary accent-tertiary" name="adjective-focus" type="radio" value="past">
+<span class="font-body-sm text-body-sm text-on-surface">Apenas Passado (かった / でした)</span>
+</label>
+</div>
+
+</div>
+
+</div>
+
+<!-- Session Statistics Widget -->
+<div class="bg-surface-container-lowest/80 backdrop-blur-sm rounded-xl p-space-md shadow-xl flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Estatísticas da Sessão</span>
+<span class="font-label-sm text-label-sm text-tertiary" id="streak">Sequência: 0</span>
+</div>
+
+<div class="grid grid-cols-3 gap-2 py-1">
+<div class="flex flex-col items-center justify-center p-2 rounded-lg bg-surface-container/40">
+<span class="font-label-sm text-label-sm text-secondary">Acertos</span>
+<span class="font-headline-md text-headline-md text-tertiary" id="correctCount">0</span>
+</div>
+
+<div class="flex flex-col items-center justify-center p-2 rounded-lg bg-surface-container/40">
+<span class="font-label-sm text-label-sm text-secondary">Erros</span>
+<span class="font-headline-md text-headline-md text-error" id="wrongCount">0</span>
+</div>
+
+<div class="flex flex-col items-center justify-center p-2 rounded-lg bg-surface-container/40">
+<span class="font-label-sm text-label-sm text-secondary">Aproveitamento</span>
+<span class="font-headline-md text-headline-md text-primary" id="accuracy">—</span>
+</div>
+
+</div>
+
+<!-- Tiny Inline Visual Accuracy Bar -->
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden flex">
+<div class="h-full bg-tertiary" style="width:0%" id="accuracy-fill"></div>
+
+<div class="h-full bg-error" style="width:0%" id="error-fill"></div>
+
+</div>
+
+<div class="flex items-center justify-between pt-2">
+<span class="font-label-sm text-label-sm text-outline">Total: <span id="totalCount">0</span> itens respondidos</span>
+<button class="flex items-center gap-1 font-label-sm text-label-sm text-secondary hover:text-on-surface transition-colors" type="button" id="reset">
+<span class="material-symbols-outlined text-[14px]">refresh</span>
+<span>Reiniciar sessão</span>
+</button>
+</div>
+
+</div>
+
+<!-- Shortcuts Pillbox -->
+<div class="p-3 rounded-lg bg-surface-container-high/40 flex flex-col gap-1.5 text-secondary-fixed-dim">
+<span class="font-label-sm text-label-sm uppercase text-outline">Atalhos de Teclado</span>
+<div class="flex flex-col gap-1 font-label-sm text-label-sm">
+<div class="flex items-center justify-between">
+<span>Validar / Próximo</span>
+<kbd class="px-1.5 py-0.5 rounded bg-surface-container-lowest text-primary text-[10px]">Enter</kbd>
+</div>
+
+<div class="flex items-center justify-between">
+<span>Exibir Dica Gramatical</span>
+<kbd class="px-1.5 py-0.5 rounded bg-surface-container-lowest text-primary text-[10px]">Ctrl + H</kbd>
+</div>
+
+
+</div>
+
+</div>
+
+</aside>
+
+<!-- Main Washi Stage Area -->
+<section class="lg:col-span-8 flex flex-col gap-space-md" aria-label="Exercício e guia de adjetivos">
+<!-- Tactile Paper Card Container -->
+<div class="relative bg-[#efe7d6] text-[#1f2430] rounded-xl p-6 sm:p-10 shadow-2xl flex flex-col gap-8 overflow-hidden">
+<!-- Decorative Washi Texture Overlay & Traditional Corner Accents -->
+<div class="absolute -right-12 -top-12 w-48 h-48 bg-[#d8cca3]/20 rounded-full blur-2xl pointer-events-none"></div>
+
+<div class="absolute left-6 top-6 flex items-center gap-2">
+<!-- Japanese Hanko Seal for JLPT Level -->
+<div class="w-8 h-8 rounded border-2 border-[#b3392c] text-[#b3392c] flex items-center justify-center font-label-md text-label-md font-bold tracking-tighter rotate-[-3deg] select-none shadow-sm">
+              N5
+            </div>
+
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-[#6b6255]" id="drill-label">Drill • Adjetivos</span>
+</div>
+
+<!-- Class Hint Badge (Controlled by user toggle) -->
+<div class="flex justify-end min-h-[24px]"><div class="self-end inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#dfd3be] text-[#3d362d] font-label-sm text-label-sm" id="class-hint-badge" hidden>
+<span class="w-1.5 h-1.5 rounded-full bg-[#b3392c]"></span>
+<span>Classe: <strong class="font-bold" id="classHintValue">い-Keiyoushi</strong></span>
+</div>
+</div>
+
+<!-- Prompt Section -->
+<div class="flex flex-col items-center justify-center text-center mt-2 gap-2">
+<!-- Large Furigana Kanji Target -->
+<ruby class="font-display-lg text-display-lg text-[#141a31] tracking-wide select-text"><span id="targetWord"></span><rt class="font-headline-sm text-headline-sm text-[#b3392c] select-none pb-1" id="targetKana">たかい</rt></ruby>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-body-lg text-body-lg text-[#3d362d] font-medium" id="translation"></span>
+
+</div>
+
+<div class="mt-4 px-4 py-1.5 rounded-lg bg-[#2a1c00]/10 text-[#5d4200] font-label-md text-label-md uppercase tracking-wider">
+              Forma solicitada: <span class="font-bold text-[#141a31]" id="prompt"></span>
+</div>
+
+</div>
+
+<!-- Input Well & Action Strip -->
+<div class="flex flex-col gap-3">
+<div class="relative w-full">
+<input class="w-full h-14 px-4 pr-32 rounded-lg bg-[#e6dec9] text-[#1f2430] font-headline-sm text-headline-sm focus:outline-none focus:ring-2 focus:ring-[#f0bf5c] transition-all shadow-inner placeholder:text-[#8d8272]" id="drill-input" placeholder="Digite a conjugação..." type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Resposta em hiragana ou romaji">
+<div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5 pointer-events-none">
+<span class="px-2 py-0.5 rounded bg-[#ded3be] text-[#554d3f] font-label-sm text-label-sm">かな / Romaji</span>
+</div>
+
+</div>
+
+<!-- Hint Collapse Section (Open Demo State) -->
+<div class="p-3.5 rounded-lg bg-[#e4ded0] text-[#3a3224] flex items-start gap-2.5 shadow-sm" id="hint-box" hidden>
+<span class="material-symbols-outlined text-[#b3392c] text-[20px] shrink-0 mt-0.5">lightbulb</span>
+<div class="flex flex-col text-body-sm font-body-sm" id="hint-content">
+<span class="font-semibold text-[#1f2430]">Dica gramatical:</span>
+<span>Lembre-se: em adjetivos い, troca-se o <strong class="text-[#b3392c]">い</strong> final por <strong class="text-[#1f2430]">く</strong> e adiciona-se <strong class="text-[#b3392c]">なかったです</strong>.</span>
+</div>
+
+</div>
+
+<!-- Action Buttons Strip -->
+<div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+<button class="flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-transparent hover:bg-[#ded3be] text-[#2c344d] font-label-md text-label-md transition-colors" id="toggle-hint-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">lightbulb</span>
+<span>Dica (Ctrl+H)</span>
+</button>
+<div class="flex items-center gap-2">
+<button class="px-4 py-2.5 rounded-lg bg-[#ded3be] hover:bg-[#d0c4ad] text-[#1f2430] font-label-md text-label-md transition-colors" type="button" id="skip">
+                  Pular
+                </button>
+<button class="px-6 py-2.5 rounded-lg bg-[#b3392c] hover:bg-[#992f24] text-white font-label-md text-label-md transition-colors shadow-md flex items-center gap-1.5" type="button" id="submit">
+<span>Verificar</span>
+<span class="text-[11px] opacity-75">(Enter)</span>
+</button>
+</div>
+
+</div>
+
+</div>
+
+<!-- Demonstrative Correct Feedback Banner -->
+<div class="rounded-xl bg-[#e4ede1] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm" id="feedback" hidden role="status" aria-live="polite">
+<div class="flex items-center gap-3">
+<!-- Hanko Maru Seal -->
+<div class="w-10 h-10 rounded-full border-2 border-[#b3392c] text-[#b3392c] flex items-center justify-center font-display-lg text-display-lg shrink-0 select-none" id="feedback-seal">
+                ◯
+              </div>
+
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-[#1e4620] font-semibold" id="feedback-title">✓ Correto! 正解です</span>
+</div>
+
+<div class="font-body-sm text-body-sm text-[#2f422e]" id="feedback-detail">
+<span>高い (takai)</span>
+<span class="mx-1">→</span>
+<strong class="font-headline-sm text-[#1e4620]">高くなかったです</strong>
+<span class="text-[#495e48] text-xs ml-1">(takakunakatta desu)</span>
+</div>
+
+</div>
+
+</div>
+
+<button class="self-end sm:self-auto flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#141a31] hover:bg-[#292f47] text-white font-label-md text-label-md shadow-md transition-all" type="button" id="next">
+<span>Próximo exercício</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+
+</div>
+
+<!-- Integrated Study Guide Panel (Interactive Drawer & Quick Reference) -->
+<div class="bg-surface-container-lowest/90 backdrop-blur-md rounded-xl p-space-lg shadow-xl flex flex-col gap-space-md" id="study-guide-drawer" style="scroll-margin-top:88px">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[24px]">school</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Guia Rápido de Conjugação — Formas Polidas (です)</h2>
+</div>
+
+<span class="font-label-sm text-label-sm text-secondary">Consulta N5</span>
+</div>
+
+<!-- Responsive Comparison Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Table 1: い-Adjectives -->
+<div class="bg-[#efe7d6] text-[#1f2430] rounded-lg p-4 shadow-md flex flex-col gap-2">
+<div class="flex items-center justify-between pb-2">
+<span class="font-headline-sm text-headline-sm text-[#b3392c] font-bold">1. Adjetivos い</span>
+<span class="font-label-sm text-label-sm text-[#665d4f]">Ex: たかい (Caro)</span>
+</div>
+
+<ul class="flex flex-col gap-1.5 font-body-sm text-body-sm">
+<li class="flex justify-between items-center py-1">
+<span class="text-[#554d3f]">Pres. Afirmativo:</span>
+<strong class="font-semibold text-[#141a31]">たかいです</strong>
+</li>
+<li class="flex justify-between items-center py-1">
+<span class="text-[#554d3f]">Pres. Negativo:</span>
+<strong class="font-semibold text-[#b3392c]">たかくないです</strong>
+</li>
+<li class="flex justify-between items-center py-1">
+<span class="text-[#554d3f]">Pass. Afirmativo:</span>
+<strong class="font-semibold text-[#141a31]">たかかったです</strong>
+</li>
+<li class="flex justify-between items-center py-1">
+<span class="text-[#554d3f]">Pass. Negativo:</span>
+<strong class="font-semibold text-[#b3392c]">たかくなかったです</strong>
+</li>
+</ul>
+<div class="mt-2 p-2 rounded bg-[#e2d8c3] text-[11px] text-[#554d3f]">
+                Regra: Elimina-se o <strong>い</strong> final antes de aplicar <strong>く</strong>.
+              </div>
+
+</div>
+
+<!-- Table 2: な-Adjectives -->
+<div class="bg-[#efe7d6] text-[#1f2430] rounded-lg p-4 shadow-md flex flex-col gap-2">
+<div class="flex items-center justify-between pb-2">
+<span class="font-headline-sm text-headline-sm text-[#3d5a80] font-bold">2. Adjetivos な</span>
+<span class="font-label-sm text-label-sm text-[#665d4f]">Ex: しずか (Calmo)</span>
+</div>
+
+<ul class="flex flex-col gap-1.5 font-body-sm text-body-sm">
+<li class="flex justify-between items-center py-1">
+<span class="text-[#554d3f]">Pres. Afirmativo:</span>
+<strong class="font-semibold text-[#141a31]">しずかです</strong>
+</li>
+<li class="flex justify-between items-center py-1">
+<span class="text-[#554d3f]">Pres. Negativo:</span>
+<strong class="font-semibold text-[#b3392c]">しずかじゃないです</strong>
+</li>
+<li class="flex justify-between items-center py-1">
+<span class="text-[#554d3f]">Pass. Afirmativo:</span>
+<strong class="font-semibold text-[#141a31]">しずかでした</strong>
+</li>
+<li class="flex justify-between items-center py-1">
+<span class="text-[#554d3f]">Pass. Negativo:</span>
+<strong class="font-semibold text-[#b3392c]">しずかじゃなかったです</strong>
+</li>
+</ul>
+<div class="mt-2 p-2 rounded bg-[#e2d8c3] text-[11px] text-[#554d3f]">
+                Regra: Conjugam-se idênticos a substantivos (copula です / でした).
+              </div>
+
+</div>
+
+<!-- Table 3: Exception いい / よい -->
+<div class="bg-[#efe7d6] text-[#1f2430] rounded-lg p-4 shadow-md flex flex-col gap-2">
+<div class="flex items-center justify-between pb-2">
+<span class="font-headline-sm text-headline-sm text-[#b3392c] font-bold">3. Irregular: いい</span>
+<span class="font-label-sm text-label-sm text-[#665d4f]">Raiz: よい (Bom)</span>
+</div>
+
+<ul class="flex flex-col gap-1.5 font-body-sm text-body-sm">
+<li class="flex justify-between items-center py-1">
+<span class="text-[#554d3f]">Pres. Afirmativo:</span>
+<strong class="font-semibold text-[#141a31]">いいです</strong>
+</li>
+<li class="flex justify-between items-center py-1">
+<span class="text-[#554d3f]">Pres. Negativo:</span>
+<strong class="font-semibold text-[#b3392c]">よくないです</strong>
+</li>
+<li class="flex justify-between items-center py-1">
+<span class="text-[#554d3f]">Pass. Afirmativo:</span>
+<strong class="font-semibold text-[#141a31]">よかったです</strong>
+</li>
+<li class="flex justify-between items-center py-1">
+<span class="text-[#554d3f]">Pass. Negativo:</span>
+<strong class="font-semibold text-[#b3392c]">よくなかったです</strong>
+</li>
+</ul>
+<div class="mt-2 p-2 rounded bg-[#e2d8c3] text-[11px] text-[#554d3f]">
+                Atenção: Apenas o presente afirmativo aceita いい; o restante usa <strong>よ-</strong>.
+              </div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+</div>
+
+<!-- Interactive Micro-Script for Toggling the Class Hint & Study Guide -->
+
+</div>
+</main>
+<footer class="w-full bg-surface-container-lowest border-t border-tertiary/20 py-space-xl"><div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin flex flex-col md:flex-row items-center justify-between gap-space-lg"><div class="flex flex-col items-center md:items-start gap-1"><div class="flex items-center gap-2"><span class="font-headline-sm text-headline-sm text-tertiary">日本語ラボ</span><span class="font-body-sm text-body-sm text-secondary">— Nihongo Lab</span></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center md:text-left">Estudo prático e deliberado da língua japonesa • Estruturado para lusófonos</p></div>
+<div class="flex items-center gap-space-lg font-label-md text-label-md"><a class="text-tertiary hover:underline flex items-center gap-1" data-path="tabela-de-kana" href="../kana/"><span>Tabela de Kana (五十音)</span><span class="material-symbols-outlined text-[14px]">north_east</span></a><span class="text-outline-variant">•</span><span class="text-on-surface-variant">N5 ~ N3 Sistema Guiado</span></div>
+</div>
+</footer>
+<dialog id="keyboard-help" aria-labelledby="keyboard-help-title"><div class="help-heading"><h2 id="keyboard-help-title">Atalhos de teclado</h2><button type="button" id="close-help" aria-label="Fechar ajuda">×</button></div>
+<p>Enter — Verificar / Próximo<br>Ctrl + H — Exibir dica<br>Esc — Fechar ajuda</p></dialog><script src="https://unpkg.com/wanakana"></script><script src="data.js"></script><script src="adjectives.js"></script></body></html>

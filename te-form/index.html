@@ -1,143 +1,524 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>て形ドリル — Forma て</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml" href="../favicon.svg">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4914230912970008" crossorigin="anonymous"></script>
-<style>
-:root{--bg:#171d34;--bg2:#1f2846;--line:#3c4a73;--paper:#efe7d6;--paper2:#e6dcc6;--ink:#2a2318;--soft:#5c5341;--red:#b3392c;--red2:#8f2c22;--gold:#c89b3c;--gold2:#dcc27c;--ok:#4c6b3f}*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:32px 20px 60px;background:radial-gradient(circle at 15% 10%,rgba(200,155,60,.08),transparent 45%),radial-gradient(circle at 85% 90%,rgba(179,57,44,.1),transparent 45%),var(--bg);background-attachment:fixed;font-family:'Zen Kaku Gothic New',sans-serif;color:var(--paper)}.wrap{max-width:1080px;margin:auto}header{text-align:center;margin-bottom:34px}.eyebrow{font:12px 'JetBrains Mono',monospace;letter-spacing:.28em;color:var(--gold2);margin-bottom:10px}h1{font:800 clamp(34px,6vw,56px) 'Shippori Mincho',serif;margin:0 0 8px}.accent{color:var(--gold)}.subtitle{font-size:15px;color:#efe7d6b8;max-width:600px;margin:auto;line-height:1.6}.header-actions{display:flex;justify-content:center;gap:12px;margin-top:16px}.nav-btn,.guide-btn{font:12px 'JetBrains Mono',monospace;background:transparent;border:1px solid var(--gold2);color:var(--gold2);padding:10px 18px;border-radius:9px;cursor:pointer;text-decoration:none}.layout{display:grid;grid-template-columns:300px 1fr;gap:24px;align-items:start}.sidebar{background:linear-gradient(180deg,var(--bg2),#172041);border:1px solid var(--line);border-radius:14px;padding:18px 16px 20px;position:sticky;top:20px}.sidebar h2{font:700 17px 'Shippori Mincho',serif;color:var(--gold2);margin:2px 4px 4px}.sidebar .hint{font-size:11.5px;color:#efe7d68c;margin:0 4px 14px;line-height:1.5}.controls{display:flex;flex-direction:column;gap:8px}.option{display:flex;align-items:flex-start;gap:10px;background:#efe7d60a;border:1px solid #2a3459;border-radius:9px;padding:10px;cursor:pointer;color:#efe7d6d1;font-size:12px;line-height:1.4}.option input{accent-color:var(--gold);margin-top:3px}.option strong{display:block;color:var(--paper)}.main{background:var(--paper);border-radius:16px;padding:26px 26px 30px;color:var(--ink);box-shadow:0 20px 50px #0005;min-height:480px}.scoreboard{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding-bottom:16px;margin-bottom:24px;border-bottom:1px dashed var(--soft)}.scores{display:flex;gap:14px;font:22px 'JetBrains Mono',monospace}.score{text-align:center}.score small{display:block;font-size:9px;letter-spacing:.08em;color:var(--soft)}.correct{color:var(--ok)}.wrong{color:var(--red)}#reset{font:11.5px 'JetBrains Mono',monospace;background:var(--paper2);border:1px solid var(--soft);padding:9px 14px;border-radius:8px;cursor:pointer}.challenge{text-align:center;margin:16px auto 22px}.label{font:11px 'JetBrains Mono',monospace;letter-spacing:.14em;color:var(--soft);text-transform:uppercase;margin-bottom:10px}.target{font:700 clamp(48px,9vw,76px)/1.15 'Shippori Mincho',serif;margin:0}.target ruby rt{font:400 .32em 'Zen Kaku Gothic New',sans-serif;color:var(--soft)}.hide-furigana .target ruby rt{visibility:hidden}.target a{color:inherit;text-decoration:underline dotted var(--soft);text-underline-offset:6px}.target a:hover{color:var(--red)}.target .particle{color:var(--red)}.hint-text{font-size:13px;color:var(--soft);min-height:24px;margin-top:7px}.input-area{display:flex;justify-content:center;gap:10px;max-width:500px;margin:auto}#answer{font:23px 'Shippori Mincho',serif;text-align:center;padding:13px 18px;width:min(350px,100%);border:2px solid var(--soft);border-radius:10px;background:#faf6ea;color:var(--ink);outline:none}#answer:focus{border-color:var(--red)}#answer.correct{border-color:var(--ok)}#answer.incorrect{border-color:var(--red)}button.primary{font-weight:700;background:var(--red);color:var(--paper);border:0;padding:12px 24px;border-radius:9px;cursor:pointer}.secondary{background:transparent;color:var(--soft);border:1px solid var(--soft);padding:11px 18px;border-radius:9px;cursor:pointer}.feedback{text-align:center;min-height:42px;font-size:14px;margin:16px 0}.feedback strong{font:700 19px 'Shippori Mincho',serif;color:var(--red)}.feedback .reason{font-size:13px;line-height:1.5;color:var(--soft);margin-top:5px}.feedback .translation{font-size:13px;color:var(--ink);margin-top:3px}.actions{text-align:center}footer{text-align:center;margin-top:26px;font:11px 'JetBrains Mono',monospace;color:#efe7d65c}.overlay{display:none;position:fixed;inset:0;background:#0a0d1abd;z-index:5;padding:24px 16px;overflow:auto}.overlay.show{display:block}.modal{max-width:760px;margin:auto;background:var(--paper);color:var(--ink);border-radius:16px;overflow:hidden}.modal-head{display:flex;justify-content:space-between;padding:22px 26px;border-bottom:1px dashed var(--soft)}.modal-head h2{font:700 24px 'Shippori Mincho',serif;margin:3px 0}.modal-head p{font-size:13px;color:var(--soft);margin:0}.close{border:1px solid var(--soft);border-radius:50%;background:var(--paper2);width:34px;height:34px;cursor:pointer}.modal-body{padding:20px 26px 26px}.guide{background:#fff6;border:1px solid #2a231822;border-radius:12px;padding:14px;margin-bottom:12px}.guide h3{font:700 18px 'Shippori Mincho',serif;margin:0 0 6px}.guide p{margin:0;color:var(--soft);font-size:13px;line-height:1.6}.guide b{color:var(--red)}@media(max-width:860px){.layout{grid-template-columns:1fr}.sidebar{position:static}}@media(max-width:560px){body{padding:20px 12px 40px}.main{padding:20px 14px 24px}.input-area{flex-wrap:wrap}#answer{width:100%}.modal-body,.modal-head{padding:18px}}
-</style>
-</head>
-<body><div class="wrap">
-<header><div class="eyebrow">te-form drill · て形</div><h1>Forma <span class="accent">て</span></h1><p class="subtitle">Pratique a conjugação dos verbos japoneses para a forma て. Digite em hiragana ou romaji e confira a regra quando precisar.</p><div class="header-actions"><a class="nav-btn" href="../">← Início</a><button class="guide-btn" id="furiganaBtn" type="button" aria-pressed="false">Furigana: ligado</button><button class="guide-btn" id="guideBtn">📖 Guia de estudo</button></div></header>
-<div class="layout"><aside class="sidebar"><h2>動詞 · Grupos verbais</h2><p class="hint">Escolha os grupos que quer praticar. Os irregulares podem ser treinados separadamente.</p><div class="controls">
-<label class="option"><input type="checkbox" name="group" value="godan" checked><span><strong>Grupo 1 · 五段</strong>う・つ・る・む・ぶ・ぬ・く・ぐ・す</span></label>
-<label class="option"><input type="checkbox" name="group" value="ichidan" checked><span><strong>Grupo 2 · 一段</strong>Verbos terminados em る</span></label>
-<label class="option"><input type="checkbox" name="group" value="irregular" checked><span><strong>Irregulares</strong>する・来る・行く</span></label>
-</div></aside>
-<main class="main"><div class="scoreboard"><div class="scores"><div class="score correct"><span id="correctCount">0</span><small>ACERTOS</small></div><div class="score wrong"><span id="wrongCount">0</span><small>ERROS</small></div><div class="score"><span id="totalCount">0</span><small>TOTAL</small></div></div><button id="reset">↺ Reiniciar</button></div>
-<div class="challenge"><div class="label">Conjugue para a forma て</div><p class="target" id="target">食べる<span class="particle"> → ?</span></p><div class="hint-text" id="hintText">Digite em hiragana ou romaji e pressione Enter</div></div>
-<div class="input-area"><input id="answer" placeholder="たべて / tabete" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="primary" id="submit">Verificar</button><button class="secondary" id="hint">Dica</button></div><div class="feedback" id="feedback" aria-live="polite"></div><div class="actions"><button class="primary" id="next" hidden>Próximo verbo →</button></div></main></div>
-<footer>う・つ・る → って　 む・ぶ・ぬ → んで　 く → いて　 ぐ → いで　 す → して</footer></div>
-<div class="overlay" id="overlay"><section class="modal"><div class="modal-head"><div><div class="eyebrow">reference · 参考</div><h2>Como formar a forma て</h2><p>Para conectar ações, fazer pedidos e expressar outros usos, a forma depende da terminação do verbo.</p></div><button class="close" id="close">✕</button></div><div class="modal-body">
-<div class="guide"><h3>Grupo 1 · 五段</h3><p>う・つ・る → <b>って</b> (買う→買って)　|　む・ぶ・ぬ → <b>んで</b> (読む→読んで)<br>く → <b>いて</b> (書く→書いて)　|　ぐ → <b>いで</b> (泳ぐ→泳いで)<br>す → <b>して</b> (話す→話して)</p></div>
-<div class="guide"><h3>Grupo 2 · 一段</h3><p>Remova る e acrescente <b>て</b>: 食べる→食べて、見る→見て。</p></div>
-<div class="guide"><h3>Irregulares e exceção</h3><p>する→して、来る（くる）→来て（きて）。行く→<b>行って（いって）</b> é uma exceção importante: não é 行いて。</p></div>
-</div></section></div>
-<script src="https://unpkg.com/wanakana"></script><script>
-(()=>{
-const verbs=[
-    {v:'浴びる',ruby:'<ruby>浴<rt>あ</rt></ruby>びる',kana:'あびる',te:'あびて',kanji:'浴びて',g:'ichidan',rule:'grupo 2: る → て', translation: 'tomar banho'},
-    {v:'上げる',ruby:'<ruby>上<rt>あ</rt></ruby>げる',kana:'あげる',te:'あげて',kanji:'上げて',g:'ichidan',rule:'grupo 2: る → て', translation: 'levantar; elevar; dar'},
-    {v:'開ける',ruby:'<ruby>開<rt>あ</rt></ruby>ける',kana:'あける',te:'あけて',kanji:'開けて',g:'ichidan',rule:'grupo 2: る → て', translation: 'abrir (uma porta, etc.); desembrulhar (pacote); destrancar'},
-    {v:'開く',ruby:'<ruby>開<rt>あ</rt></ruby>く',kana:'あく',te:'あいて',kanji:'開いて',g:'godan',rule:'く → いて', translation: 'abrir (portas, negócios, etc.)'},
-    {v:'洗う',ruby:'<ruby>洗<rt>あら</rt></ruby>う',kana:'あらう',te:'あらって',kanji:'洗って',g:'godan',rule:'う → って', translation: 'lavar'},
-    {v:'ある',kana:'ある',te:'あって',kanji:'ある',g:'godan',rule:'る (grupo 1) → って', translation: 'haver; ter'},
-    {v:'歩く',ruby:'<ruby>歩<rt>ある</rt></ruby>く',kana:'あるく',te:'あるいて',kanji:'歩いて',g:'godan',rule:'く → いて', translation: 'andar'},
-    {v:'遊ぶ',ruby:'<ruby>遊<rt>あそ</rt></ruby>ぶ',kana:'あそぶ',te:'あそんで',kanji:'遊んで',g:'godan',rule:'ぶ → んで', translation: 'brincar; divertir-se'},
-    {v:'会う',ruby:'<ruby>会<rt>あ</rt></ruby>う',kana:'あう',te:'あって',kanji:'会って',g:'godan',rule:'う → って', translation: 'encontrar; ver'},
-    {v:'勉強する',ruby:'<ruby>勉強<rt>べんきょう</rt></ruby>する',kana:'べんきょうする',te:'べんきょうして',kanji:'勉強して',g:'irregular',rule:'する → して', translation: 'estudar'},
-    {v:'違う',ruby:'<ruby>違<rt>ちが</rt></ruby>う',kana:'ちがう',te:'ちがって',kanji:'違って',g:'godan',rule:'う → って', translation: 'diferir'},
-    {v:'出す',ruby:'<ruby>出<rt>だ</rt></ruby>す',kana:'だす',te:'だして',kanji:'出して',g:'godan',rule:'す → して', translation: 'tirar; retirar; colocar para fora; revelar'},
-    {v:'出かける',ruby:'<ruby>出<rt>で</rt></ruby>かける',kana:'でかける',te:'でかけて',kanji:'出かけて',g:'ichidan',rule:'grupo 2: る → て', translation: 'sair; partir'},
-    {v:'電話する',ruby:'<ruby>電話<rt>でんわ</rt></ruby>する',kana:'でんわする',te:'でんわして',kanji:'電話して',g:'irregular',rule:'する → して', translation: 'telefonar; ligar'},
-    {v:'出る',ruby:'<ruby>出<rt>で</rt></ruby>る',kana:'でる',te:'でて',kanji:'出て',g:'ichidan',rule:'grupo 2: る → て', translation: 'sair; aparecer'},
-    {v:'吹く',ruby:'<ruby>吹<rt>ふ</rt></ruby>く',kana:'ふく',te:'ふいて',kanji:'吹いて',g:'godan',rule:'く → いて', translation: 'soprar (vento)'},
-    {v:'降る',ruby:'<ruby>降<rt>ふ</rt></ruby>る',kana:'ふる',te:'ふって',kanji:'降って',g:'godan',rule:'る (grupo 1) → って', translation: 'cair (chuva, neve)'},
-    {v:'入る',ruby:'<ruby>入<rt>はい</rt></ruby>る',kana:'はいる',te:'はいって',kanji:'入って',g:'godan',rule:'る (grupo 1) → って', translation: 'entrar'},
-    {v:'始まる',ruby:'<ruby>始<rt>はじ</rt></ruby>まる',kana:'はじまる',te:'はじまって',kanji:'始まって',g:'godan',rule:'る (grupo 1) → って', translation: 'começar'},
-    {v:'履く',ruby:'<ruby>履<rt>は</rt></ruby>く',kana:'はく',te:'はいて',kanji:'履いて',g:'godan',rule:'く → いて', translation: 'vestir (calças, sapatos)'},
-    {v:'話す',ruby:'<ruby>話<rt>はな</rt></ruby>す',kana:'はなす',te:'はなして',kanji:'話して',g:'godan',rule:'す → して', translation: 'falar; conversar'},
-    {v:'晴れる',ruby:'<ruby>晴<rt>は</rt></ruby>れる',kana:'はれる',te:'はれて',kanji:'晴れて',g:'ichidan',rule:'grupo 2: る → て', translation: 'ficar ensolarado'},
-    {v:'貼る',ruby:'<ruby>貼<rt>は</rt></ruby>る',kana:'はる',te:'はって',kanji:'貼って',g:'godan',rule:'る (grupo 1) → って', translation: 'colar; pregar'},
-    {v:'走る',ruby:'<ruby>走<rt>はし</rt></ruby>る',kana:'はしる',te:'はしって',kanji:'走って',g:'godan',rule:'る (grupo 1) → って', translation: 'correr'},
-    {v:'働く',ruby:'<ruby>働<rt>はたら</rt></ruby>く',kana:'はたらく',te:'はたらいて',kanji:'働いて',g:'godan',rule:'く → いて', translation: 'trabalhar'},
-    {v:'引く',ruby:'<ruby>引<rt>ひ</rt></ruby>く',kana:'ひく',te:'ひいて',kanji:'引いて',g:'godan',rule:'く → いて', translation: 'puxar'},
-    {v:'弾く',ruby:'<ruby>弾<rt>ひ</rt></ruby>く',kana:'ひく',te:'ひいて',kanji:'弾いて',g:'godan',rule:'く → いて', translation: 'tocar (instrumento)'},
-    {v:'行く',ruby:'<ruby>行<rt>い</rt></ruby>く',kana:'いく',te:'いって',kanji:'行って',g:'irregular',rule:'exceção: 行く → 行って', translation: 'ir; mover-se'},
-    {v:'入れる',ruby:'<ruby>入<rt>い</rt></ruby>れる',kana:'いれる',te:'いれて',kanji:'入れて',g:'ichidan',rule:'grupo 2: る → て', translation: 'colocar; inserir; instalar'},
-    {v:'要る',ruby:'<ruby>要<rt>い</rt></ruby>る',kana:'いる',te:'いって',kanji:'要って',g:'godan',rule:'る (grupo 1) → って', translation: 'ser necessário'},
-    {v:'居る',ruby:'<ruby>居<rt>い</rt></ruby>る',kana:'いる',te:'いて',kanji:'居て',g:'ichidan',rule:'grupo 2: る → て', translation: 'estar; ter'},
-    {v:'言う',ruby:'<ruby>言<rt>い</rt></ruby>う',kana:'いう',te:'いって',kanji:'言って',g:'godan',rule:'う → って', translation: 'dizer; chamar'},
-    {v:'授業する',ruby:'<ruby>授業<rt>じゅぎょう</rt></ruby>する',kana:'じゅぎょうする',te:'じゅぎょうして',kanji:'授業して',g:'irregular',rule:'する → して', translation: 'dar aula; ter aula'},
-    {v:'帰る',ruby:'<ruby>帰<rt>かえ</rt></ruby>る',kana:'かえる',te:'かえって',kanji:'帰って',g:'godan',rule:'る (grupo 1) → って', translation: 'voltar para casa'},
-    {v:'返す',ruby:'<ruby>返<rt>かえ</rt></ruby>す',kana:'かえす',te:'かえして',kanji:'返して',g:'godan',rule:'す → して', translation: 'devolver algo'},
-    {v:'掛かる',ruby:'<ruby>掛<rt>か</rt></ruby>かる',kana:'かかる',te:'かかって',kanji:'掛かって',g:'godan',rule:'る (grupo 1) → って', translation: 'levar (tempo ou dinheiro)'},
-    {v:'掛ける',ruby:'<ruby>掛<rt>か</rt></ruby>ける',kana:'かける',te:'かけて',kanji:'掛けて',g:'ichidan',rule:'grupo 2: る → て', translation: 'pendurar; fazer (uma ligação)'},
-    {v:'書く',ruby:'<ruby>書<rt>か</rt></ruby>く',kana:'かく',te:'かいて',kanji:'書いて',g:'godan',rule:'く → いて', translation: 'escrever; compor; desenhar'},
-    {v:'借りる',ruby:'<ruby>借<rt>か</rt></ruby>りる',kana:'かりる',te:'かりて',kanji:'借りて',g:'ichidan',rule:'grupo 2: る → て', translation: 'emprestar'},
-    {v:'貸す',ruby:'<ruby>貸<rt>か</rt></ruby>す',kana:'かす',te:'かして',kanji:'貸して',g:'godan',rule:'す → して', translation: 'emprestar; conceder'},
-    {v:'買う',ruby:'<ruby>買<rt>か</rt></ruby>う',kana:'かう',te:'かって',kanji:'買って',g:'godan',rule:'う → って', translation: 'comprar'},
-    {v:'結婚する',ruby:'<ruby>結婚<rt>けっこん</rt></ruby>する',kana:'けっこんする',te:'けっこんして',kanji:'結婚して',g:'irregular',rule:'する → して', translation: 'casar'},
-    {v:'消す',ruby:'<ruby>消<rt>け</rt></ruby>す',kana:'けす',te:'けして',kanji:'消して',g:'godan',rule:'す → して', translation: 'apagar; desligar (energia)'},
-    {v:'消える',ruby:'<ruby>消<rt>き</rt></ruby>える',kana:'きえる',te:'きえて',kanji:'消えて',g:'ichidan',rule:'grupo 2: る → て', translation: 'desaparecer'},
-    {v:'聞く',ruby:'<ruby>聞<rt>き</rt></ruby>く',kana:'きく',te:'きいて',kanji:'聞いて',g:'godan',rule:'く → いて', translation: 'ouvir; escutar; perguntar; aprender'},
-    {v:'切る',ruby:'<ruby>切<rt>き</rt></ruby>る',kana:'きる',te:'きって',kanji:'切って',g:'godan',rule:'る (grupo 1) → って', translation: 'cortar'},
-    {v:'着る',ruby:'<ruby>着<rt>き</rt></ruby>る',kana:'きる',te:'きて',kanji:'着て',g:'ichidan',rule:'grupo 2: る → て', translation: 'vestir (roupas)'},
-    {v:'困る',ruby:'<ruby>困<rt>こま</rt></ruby>る',kana:'こまる',te:'こまって',kanji:'困って',g:'godan',rule:'る (grupo 1) → って', translation: 'estar com problemas'},
-    {v:'コピーする',kana:'こぴーする',te:'こぴーして',kanji:'コピーして',g:'irregular',rule:'する → して', translation: 'copiar; fotocopiar'},
-    {v:'答える',ruby:'<ruby>答<rt>こた</rt></ruby>える',kana:'こたえる',te:'こたえて',kanji:'答えて',g:'ichidan',rule:'grupo 2: る → て', translation: 'responder'},
-    {v:'曇る',ruby:'<ruby>曇<rt>くも</rt></ruby>る',kana:'くもる',te:'くもって',kanji:'曇って',g:'godan',rule:'る (grupo 1) → って', translation: 'ficar nublado; ficar embaçado'},
-    {v:'来る',ruby:'<ruby>来<rt>く</rt></ruby>る',kana:'くる',te:'きて',kanji:'来て',g:'irregular',rule:'来る（くる）→ 来て（きて）', translation: 'vir'},
-    {v:'曲がる',ruby:'<ruby>曲<rt>ま</rt></ruby>がる',kana:'まがる',te:'まがって',kanji:'曲がって',g:'godan',rule:'る (grupo 1) → って', translation: 'virar; dobrar'},
-    {v:'待つ',ruby:'<ruby>待<rt>ま</rt></ruby>つ',kana:'まつ',te:'まって',kanji:'待って',g:'godan',rule:'つ → って', translation: 'esperar'},
-    {v:'磨く',ruby:'<ruby>磨<rt>みが</rt></ruby>く',kana:'みがく',te:'みがいて',kanji:'磨いて',g:'godan',rule:'く → いて', translation: 'polir; lustrar; escovar (dentes)'},
-    {v:'見る',ruby:'<ruby>見<rt>み</rt></ruby>る',kana:'みる',te:'みて',kanji:'見て',g:'ichidan',rule:'grupo 2: る → て', translation: 'ver; olhar; assistir; observar'},
-    {v:'見せる',ruby:'<ruby>見<rt>み</rt></ruby>せる',kana:'みせる',te:'みせて',kanji:'見せて',g:'ichidan',rule:'grupo 2: る → て', translation: 'mostrar; exibir'},
-    {v:'持つ',ruby:'<ruby>持<rt>も</rt></ruby>つ',kana:'もつ',te:'もって',kanji:'持って',g:'godan',rule:'つ → って', translation: 'segurar; ter'},
-    {v:'鳴く',ruby:'<ruby>鳴<rt>な</rt></ruby>く',kana:'なく',te:'ないて',kanji:'鳴いて',g:'godan',rule:'く → いて', translation: 'fazer barulho de animal; piar'},
-    {v:'無くす',ruby:'<ruby>無<rt>な</rt></ruby>くす',kana:'なくす',te:'なくして',kanji:'無くして',g:'godan',rule:'す → して', translation: 'perder (algo)'},
-    {v:'並べる',ruby:'<ruby>並<rt>なら</rt></ruby>べる',kana:'ならべる',te:'ならべて',kanji:'並べて',g:'ichidan',rule:'grupo 2: る → て', translation: 'alinhar; organizar'},
-    {v:'並ぶ',ruby:'<ruby>並<rt>なら</rt></ruby>ぶ',kana:'ならぶ',te:'ならんで',kanji:'並んで',g:'godan',rule:'ぶ → んで', translation: 'alinhar-se; ficar em fila'},
-    {v:'習う',ruby:'<ruby>習<rt>なら</rt></ruby>う',kana:'ならう',te:'ならって',kanji:'習って',g:'godan',rule:'う → って', translation: 'aprender (com um professor)'},
-    {v:'寝る',ruby:'<ruby>寝<rt>ね</rt></ruby>る',kana:'ねる',te:'ねて',kanji:'寝て',g:'ichidan',rule:'grupo 2: る → て', translation: 'dormir; ir para a cama; deitar-se'},
-    {v:'登る',ruby:'<ruby>登<rt>のぼ</rt></ruby>る',kana:'のぼる',te:'のぼって',kanji:'登って',g:'godan',rule:'る (grupo 1) → って', translation: 'subir; escalar'},
-    {v:'飲む',ruby:'<ruby>飲<rt>の</rt></ruby>む',kana:'のむ',te:'のんで',kanji:'飲んで',g:'godan',rule:'む → んで', translation: 'beber'},
-    {v:'乗る',ruby:'<ruby>乗<rt>の</rt></ruby>る',kana:'のる',te:'のって',kanji:'乗って',g:'godan',rule:'る (grupo 1) → って', translation: 'embarcar (em trem, avião, ônibus, navio, etc.)'},
-    {v:'脱ぐ',ruby:'<ruby>脱<rt>ぬ</rt></ruby>ぐ',kana:'ぬぐ',te:'ぬいで',kanji:'脱いで',g:'godan',rule:'ぐ → いで', translation: 'tirar (roupas)'},
-    {v:'覚える',ruby:'<ruby>覚<rt>おぼ</rt></ruby>える',kana:'おぼえる',te:'おぼえて',kanji:'覚えて',g:'ichidan',rule:'grupo 2: る → て', translation: 'lembrar; memorizar'},
-    {v:'起きる',ruby:'<ruby>起<rt>お</rt></ruby>きる',kana:'おきる',te:'おきて',kanji:'起きて',g:'ichidan',rule:'grupo 2: る → て', translation: 'levantar; acordar'},
-    {v:'置く',ruby:'<ruby>置<rt>お</rt></ruby>く',kana:'おく',te:'おいて',kanji:'置いて',g:'godan',rule:'く → いて', translation: 'colocar; pôr'},
-    {v:'降りる',ruby:'<ruby>降<rt>お</rt></ruby>りる',kana:'おりる',te:'おりて',kanji:'降りて',g:'ichidan',rule:'grupo 2: る → て', translation: 'descer'},
-    {v:'教える',ruby:'<ruby>教<rt>おし</rt></ruby>える',kana:'おしえる',te:'おしえて',kanji:'教えて',g:'ichidan',rule:'grupo 2: る → て', translation: 'ensinar'},
-    {v:'押す',ruby:'<ruby>押<rt>お</rt></ruby>す',kana:'おす',te:'おして',kanji:'押して',g:'godan',rule:'す → して', translation: 'empurrar; pressionar'},
-    {v:'終わる',ruby:'<ruby>終<rt>お</rt></ruby>わる',kana:'おわる',te:'おわって',kanji:'終わって',g:'godan',rule:'る (grupo 1) → って', translation: 'terminar; acabar'},
-    {v:'泳ぐ',ruby:'<ruby>泳<rt>およ</rt></ruby>ぐ',kana:'およぐ',te:'およいで',kanji:'泳いで',g:'godan',rule:'ぐ → いで', translation: 'nadar'},
-    {v:'練習する',ruby:'<ruby>練習<rt>れんしゅう</rt></ruby>する',kana:'れんしゅうする',te:'れんしゅうして',kanji:'練習して',g:'irregular',rule:'する → して', translation: 'praticar'},
-    {v:'旅行する',ruby:'<ruby>旅行<rt>りょこう</rt></ruby>する',kana:'りょこうする',te:'りょこうして',kanji:'旅行して',g:'irregular',rule:'する → して', translation: 'viajar; fazer uma viagem'},
-    {v:'料理する',ruby:'<ruby>料理<rt>りょうり</rt></ruby>する',kana:'りょうりする',te:'りょうりして',kanji:'料理して',g:'irregular',rule:'する → して', translation: 'cozinhar'},
-    {v:'咲く',ruby:'<ruby>咲<rt>さ</rt></ruby>く',kana:'さく',te:'さいて',kanji:'咲いて',g:'godan',rule:'く → いて', translation: 'florescer'},
-    {v:'散歩する',ruby:'<ruby>散歩<rt>さんぽ</rt></ruby>する',kana:'さんぽする',te:'さんぽして',kanji:'散歩して',g:'irregular',rule:'する → して', translation: 'caminhar; passear'},
-    {v:'差す',ruby:'<ruby>差<rt>さ</rt></ruby>す',kana:'さす',te:'さして',kanji:'差して',g:'godan',rule:'す → して', translation: 'estender as mãos; levantar um guarda-chuva'},
-    {v:'洗濯する',ruby:'<ruby>洗濯<rt>せんたく</rt></ruby>する',kana:'せんたくする',te:'せんたくして',kanji:'洗濯して',g:'irregular',rule:'する → して', translation: 'lavar roupa; fazer a lavanderia'},
-    {v:'仕事する',ruby:'<ruby>仕事<rt>しごと</rt></ruby>する',kana:'しごとする',te:'しごとして',kanji:'仕事して',g:'irregular',rule:'する → して', translation: 'trabalhar; fazer um trabalho'},
-    {v:'閉まる',ruby:'<ruby>閉<rt>し</rt></ruby>まる',kana:'しまる',te:'しまって',kanji:'閉まって',g:'godan',rule:'る (grupo 1) → って', translation: 'fechar-se; estar fechado'},
-    {v:'閉める',ruby:'<ruby>閉<rt>し</rt></ruby>める',kana:'しめる',te:'しめて',kanji:'閉めて',g:'ichidan',rule:'grupo 2: る → て', translation: 'fechar; trancar'},
-    {v:'締める',ruby:'<ruby>締<rt>し</rt></ruby>める',kana:'しめる',te:'しめて',kanji:'締めて',g:'ichidan',rule:'grupo 2: る → て', translation: 'amarrar; apertar'},
-    {v:'死ぬ',ruby:'<ruby>死<rt>し</rt></ruby>ぬ',kana:'しぬ',te:'しんで',kanji:'死んで',g:'godan',rule:'ぬ → んで', translation: 'morrer'},
-    {v:'知る',ruby:'<ruby>知<rt>し</rt></ruby>る',kana:'しる',te:'しって',kanji:'知って',g:'godan',rule:'る (grupo 1) → って', translation: 'saber; conhecer'},
-    {v:'質問する',ruby:'<ruby>質問<rt>しつもん</rt></ruby>する',kana:'しつもんする',te:'しつもんして',kanji:'質問して',g:'irregular',rule:'する → して', translation: 'perguntar; fazer uma pergunta'},
-    {v:'掃除する',ruby:'<ruby>掃除<rt>そうじ</rt></ruby>する',kana:'そうじする',te:'そうじして',kanji:'掃除して',g:'irregular',rule:'する → して', translation: 'limpar; varrer'},
-    {v:'住む',ruby:'<ruby>住<rt>す</rt></ruby>む',kana:'すむ',te:'すんで',kanji:'住んで',g:'godan',rule:'む → んで', translation: 'morar; residir'},
-    {v:'吸う',ruby:'<ruby>吸<rt>す</rt></ruby>う',kana:'すう',te:'すって',kanji:'吸って',g:'godan',rule:'う → って', translation: 'fumar; sugar'},
-    {v:'座る',ruby:'<ruby>座<rt>すわ</rt></ruby>る',kana:'すわる',te:'すわって',kanji:'座って',g:'godan',rule:'る (grupo 1) → って', translation: 'sentar'},
-    {v:'食べる',ruby:'<ruby>食<rt>た</rt></ruby>べる',kana:'たべる',te:'たべて',kanji:'食べて',g:'ichidan',rule:'grupo 2: る → て', translation: 'comer'},
-    {v:'頼む',ruby:'<ruby>頼<rt>たの</rt></ruby>む',kana:'たのむ',te:'たのんで',kanji:'頼んで',g:'godan',rule:'む → んで', translation: 'pedir'},
-    {v:'立つ',ruby:'<ruby>立<rt>た</rt></ruby>つ',kana:'たつ',te:'たって',kanji:'立って',g:'godan',rule:'つ → って', translation: 'ficar em pé; levantar'},
-    {v:'テストする',kana:'てすとする',te:'てすとして',kanji:'テストして',g:'irregular',rule:'する → して', translation: 'fazer um teste; testar'},
-    {v:'飛ぶ',ruby:'<ruby>飛<rt>と</rt></ruby>ぶ',kana:'とぶ',te:'とんで',kanji:'飛んで',g:'godan',rule:'ぶ → んで', translation: 'voar; pular'},
-    {v:'止まる',ruby:'<ruby>止<rt>と</rt></ruby>まる',kana:'とまる',te:'とまって',kanji:'止まって',g:'godan',rule:'る (grupo 1) → って', translation: 'parar; deter-se'}
-];
-const $=id=>document.getElementById(id); let current,locked=false,correct=0,wrong=0,previous=null;
-if(window.wanakana)wanakana.bind($('answer'),{IMEMode:'toHiragana'});
-const selected=()=>[...document.querySelectorAll('input[name="group"]:checked')].map(x=>x.value);
-function groupHint(v){if(v.g==='ichidan')return 'grupo 2: る → て';if(v.v==='行く')return 'irregular: 行く → 行って';if(v.v==='来る')return 'irregular: 来る → 来て';if(v.v.endsWith('する'))return 'irregular: する → して';const ending=v.kana.slice(-1);if('うつる'.includes(ending))return 'grupo 1: う・つ・る → って';if('むぶぬ'.includes(ending))return 'grupo 1: む・ぶ・ぬ → んで';if(ending==='く')return 'grupo 1: く → いて';if(ending==='ぐ')return 'grupo 1: ぐ → いで';return 'grupo 1: す → して'}
-function nextQuestion(){let pool=verbs.filter(x=>selected().includes(x.g));if(!pool.length){document.querySelector('input[value="godan"]').checked=true;pool=verbs.filter(x=>x.g==='godan')}let choices=pool.filter(x=>x!==previous);current=choices[Math.floor(Math.random()*choices.length)]||pool[0];previous=current;$('target').innerHTML=`<a href="https://jisho.hlorenzi.com/search/${encodeURIComponent(current.v)}" target="_blank" rel="noopener noreferrer" title="Buscar ${current.v} no Jisho">${current.ruby ? current.ruby : current.v}</a><span class="particle"> → ?</span>`;$('answer').value='';$('answer').className='';$('answer').disabled=false;$('feedback').innerHTML='';$('hintText').textContent='Digite em hiragana ou romaji e pressione Enter';$('next').hidden=true;$('answer').focus();locked=false}
-function explain(v){if(v.g==='ichidan')return `Este é um verbo do grupo 2: retire る e acrescente て. ${v.kana} → ${v.te}.`;if(v.v==='する')return 'する é irregular: sua forma て é して.';if(v.v==='来る')return '来る（くる）é irregular: sua forma て é 来て（きて）.';if(v.v==='行く')return '行く é uma exceção: embora termine em く, sua forma て é 行って（いって）, não 行いて.';let end=v.kana.slice(-1);if('うつる'.includes(end))return `Este verbo do grupo 1 termina em ${end}. Verbos terminados em う・つ・る mudam essa terminação para って: ${v.kana} → ${v.te}.`;if('むぶぬ'.includes(end))return `Este verbo do grupo 1 termina em ${end}. Verbos terminados em む・ぶ・ぬ mudam para んで: ${v.kana} → ${v.te}.`;if(end==='く')return `Este verbo do grupo 1 termina em く, que muda para いて: ${v.kana} → ${v.te}.`;if(end==='ぐ')return `Este verbo do grupo 1 termina em ぐ, que muda para いで: ${v.kana} → ${v.te}.`;return `Este verbo do grupo 1 termina em す, que muda para して: ${v.kana} → ${v.te}.`}
-function check(){if(locked)return;let raw=$('answer').value.trim().toLowerCase();if(!raw)return;let kana=window.wanakana?wanakana.toHiragana(raw):raw;let ok=kana===current.te||raw===current.kanji.toLowerCase();$('answer').className=ok?'correct':'incorrect';$('feedback').innerHTML=ok?`Correto! <strong>${current.kanji}</strong>`:`A forma correta é <strong>${current.kanji}（${current.te}）</strong>.`;$('hintText').textContent=`Tradução: ${current.translation||'não disponível'} · ${groupHint(current)} · ${current.kana}`;$('feedback').className='feedback '+(ok?'correct':'wrong');if(ok)correct++;else wrong++;$('correctCount').textContent=correct;$('wrongCount').textContent=wrong;$('totalCount').textContent=correct+wrong;$('next').hidden=false;locked=true}
-document.querySelectorAll('input[name="group"]').forEach(x=>x.addEventListener('change',()=>{if(!selected().length)x.checked=true;nextQuestion()}));$('submit').onclick=check;$('answer').addEventListener('keydown',e=>{if(e.key==='Enter'){if(locked)nextQuestion();else check()}});$('next').onclick=nextQuestion;$('hint').onclick=()=>{if(current)$('hintText').textContent=`Tradução: ${current.translation||'não disponível'} · ${current.rule} · ${current.kana}`};$('reset').onclick=()=>{correct=wrong=0;$('correctCount').textContent=$('wrongCount').textContent=$('totalCount').textContent='0';previous=null;nextQuestion()};$('furiganaBtn').onclick=()=>{const hidden=document.body.classList.toggle('hide-furigana');$('furiganaBtn').textContent=hidden?'Furigana: desligado':'Furigana: ligado';$('furiganaBtn').setAttribute('aria-pressed',String(hidden))};$('guideBtn').onclick=()=>$('overlay').classList.add('show');$('close').onclick=()=>$('overlay').classList.remove('show');$('overlay').onclick=e=>{if(e.target===$('overlay'))$('overlay').classList.remove('show')};nextQuestion();
-})();
-</script></body></html>
+
+
+<html class="dark" lang="pt-BR"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Serif:wght@500;600&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-primary":"#292f47","outline-variant":"#46464d","on-surface":"#ffdad5","surface-container-low":"#410000","error-container":"#93000a","tertiary":"#f0bf5c","on-tertiary-fixed":"#261900","surface-bright":"#760a06","primary":"#c0c5e4","surface-container-lowest":"#280000","on-secondary":"#343025","inverse-primary":"#575d78","secondary-fixed-dim":"#cdc6b6","on-error-container":"#ffdad6","surface-dim":"#310000","primary-fixed-dim":"#c0c5e4","on-primary-fixed":"#141a31","on-tertiary":"#412d00","surface-variant":"#700403","outline":"#909097","surface-container-high":"#5c0001","error":"#ffb4ab","on-primary-container":"#7f85a1","on-secondary-fixed":"#1f1b11","secondary-container":"#4d493c","inverse-surface":"#ffdad5","on-primary-fixed-variant":"#40465f","tertiary-fixed":"#ffdea4","on-error":"#690005","on-surface-variant":"#c7c6ce","on-secondary-fixed-variant":"#4b463a","secondary-fixed":"#eae2d1","tertiary-container":"#2a1c00","surface-tint":"#c0c5e4","on-tertiary-fixed-variant":"#5d4200","on-secondary-container":"#bfb8a8","tertiary-fixed-dim":"#f0bf5c","surface":"#310000","background":"#310000","surface-container-highest":"#700403","on-tertiary-container":"#a97f22","primary-container":"#171d34","surface-container":"#490000","on-background":"#ffdad5","inverse-on-surface":"#690001","primary-fixed":"#dce1ff","secondary":"#cdc6b6"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-xl":"2.5rem","space-lg":"1.5rem","space-sm":"0.5rem","space-xs":"0.25rem","space-md":"1rem","gutter-mobile":"1rem","gutter":"1.5rem","margin-mobile":"1.25rem","margin":"2.5rem"},fontFamily:{"body-sm":["Inter"],"label-md":["JetBrains Mono"],"headline-sm":["Noto Serif"],"headline-md":["Noto Serif"],"label-lg":["JetBrains Mono"],"headline-lg-mobile":["Noto Serif"],"headline-lg":["Noto Serif"],"body-md":["Inter"],"display-lg-mobile":["Noto Serif"],"body-lg":["Inter"],"label-sm":["JetBrains Mono"],"display-lg":["Noto Serif"]},fontSize:{"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"500"}],"headline-sm":["20px",{"lineHeight":"28px","fontWeight":"500"}],"headline-md":["24px",{"lineHeight":"32px","fontWeight":"500"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.05em","fontWeight":"500"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"40px","fontWeight":"600"}],"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}],"display-lg-mobile":["32px",{"lineHeight":"40px","fontWeight":"600"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.06em","fontWeight":"500"}],"display-lg":["48px",{"lineHeight":"56px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}}</script><title>Forma て — Nihongo Lab</title><link rel="icon" type="image/svg+xml" href="../favicon.svg"><link rel="stylesheet" href="te-form.css"></head><body class="bg-primary-container font-body-md text-on-surface antialiased selection:bg-tertiary-container selection:text-tertiary"><header class="fixed top-0 left-0 w-full z-50 bg-primary-container/95 backdrop-blur-md border-b border-tertiary/20"><div class="h-16 max-w-7xl mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md shrink-0"><img alt="Nihongo Lab Logo" class="h-8 w-auto object-contain" src="../assets/nihongo-lab.svg"><div class="hidden sm:flex flex-col"><span class="font-headline-sm text-headline-sm text-primary-fixed tracking-tight leading-none">日本語ラボ</span><span class="font-label-sm text-label-sm text-tertiary tracking-wider uppercase mt-0.5">Prática deliberada e drills</span></div>
+</div>
+<nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-surface-container-high text-on-surface font-semibold rounded" id="te-navigation" aria-label="Navegação principal"><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="inicio-modulos" href="../">Início / Módulos</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="adjetivos-keiyoushi" href="../adjectives/">Adjetivos 形容詞</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="forma-te" href="./" aria-current="page">Forma て</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="contadores-josuushi" href="../counters/">Contadores 助数詞</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="dias-hinichi" href="../calendar/">Dias 日にち</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="rastro-de-leitura-kana" href="../speed-reader/">Rastro de Leitura 仮名</a></nav>
+<div class="flex items-center gap-space-md shrink-0"><div class="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container-low/80 border border-outline-variant/30"><span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span><span class="font-label-sm text-label-sm text-tertiary">Modo Estudo</span></div>
+<button class="flex items-center px-2 py-0.5 rounded bg-surface-container-lowest border border-outline-variant/40" type="button" id="help-button" aria-label="Abrir ajuda de teclado"><span class="font-label-sm text-label-sm text-secondary-fixed-dim">?</span></button><button type="button" id="menu-button" class="xl:hidden w-8 h-8 text-tertiary" aria-controls="te-navigation" aria-expanded="false" aria-label="Abrir navegação"><span class="material-symbols-outlined" aria-hidden="true">menu</span></button></div>
+</div>
+</header>
+<main class="w-full pt-16 bg-primary-container min-h-screen"><div class="flex flex-col w-full">
+<!-- Sub-cabeçalho de navegação contextual -->
+<section class="w-full bg-primary-container/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin py-4 flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-4">
+<a class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-high/60 hover:bg-surface-container-high text-secondary hover:text-on-surface transition-all font-body-sm text-body-sm group" data-path="inicio-modulos" href="../">
+<span class="material-symbols-outlined text-[18px] group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
+<span>Início</span>
+</a>
+<div class="h-5 w-px bg-outline-variant/30 hidden sm:block"></div>
+
+<div class="flex items-center gap-3">
+<h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight flex items-center gap-2.5">
+<span>Forma て</span>
+<span class="font-body-md text-body-md text-secondary-fixed-dim">(動詞のて形活用)</span>
+</h1>
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-sm text-label-sm bg-tertiary-container text-tertiary font-semibold tracking-wider">
+            N5 ~ N4
+          </span>
+</div>
+
+</div>
+
+<div class="flex items-center gap-3">
+<button class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-tertiary hover:text-tertiary-fixed font-label-md text-label-md transition-colors shadow-sm cursor-pointer" id="toggleGuideBtn" type="button">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+<span>Guia de Terminações (Gramática)</span>
+<span class="material-symbols-outlined text-[16px] transition-transform duration-200" id="guideChevron">expand_more</span>
+</button>
+</div>
+
+</div>
+
+</section>
+
+<!-- Corpo Principal: Layout de 2 Colunas -->
+<section class="w-full max-w-7xl mx-auto px-margin-mobile lg:px-margin py-6">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Painel Lateral Esquerdo (4 Colunas) -->
+<aside class="lg:col-span-4 flex flex-col gap-5">
+<!-- Bloco 1: Configuração do Drill -->
+<div class="rounded-xl bg-surface-container-lowest p-5 shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-tertiary">tune</span>
+              Configuração do Drill
+            </span>
+<span class="font-label-sm text-label-sm text-outline">Filtro Ativo</span>
+</div>
+
+<div class="flex flex-col gap-2.5">
+<label class="font-label-md text-label-md text-on-surface-variant font-medium">Grupos Verbais</label>
+<div class="flex flex-col gap-2">
+<label class="flex items-center gap-3 p-2 rounded-lg bg-surface-container-low/50 hover:bg-surface-container-low transition-colors cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded text-tertiary focus:ring-0 accent-[#f0bf5c] cursor-pointer" type="checkbox" name="group" value="godan">
+<span class="font-body-sm text-body-sm text-on-surface">Grupo 1: 五段 <span class="text-secondary">(Godan)</span></span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg bg-surface-container-low/50 hover:bg-surface-container-low transition-colors cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded text-tertiary focus:ring-0 accent-[#f0bf5c] cursor-pointer" type="checkbox" name="group" value="ichidan">
+<span class="font-body-sm text-body-sm text-on-surface">Grupo 2: 一段 <span class="text-secondary">(Ichidan)</span></span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg bg-surface-container-low/50 hover:bg-surface-container-low transition-colors cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded text-tertiary focus:ring-0 accent-[#f0bf5c] cursor-pointer" type="checkbox" name="group" value="irregular">
+<span class="font-body-sm text-body-sm text-on-surface">Irregulares: する / くる</span>
+</label>
+</div>
+
+</div>
+
+<div class="flex flex-col gap-2 pt-1">
+<label class="font-label-md text-label-md text-on-surface-variant font-medium" for="focusSelect">Foco do Treino</label>
+<div class="relative">
+<select class="w-full appearance-none rounded-lg bg-surface-container-low px-3 py-2 pr-8 font-body-sm text-body-sm text-on-surface focus:outline-none focus:bg-surface-container cursor-pointer" id="focusSelect">
+<option selected="" value="all">Todas as terminações</option>
+<option value="sound">Mudanças sonoras (Godan)</option>
+<option value="exceptions">Apenas irregulares e exceções (ex: 行く → 行って)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-[18px] text-secondary pointer-events-none">unfold_more</span>
+</div>
+
+</div>
+
+<div class="pt-2">
+<label class="flex items-center justify-between p-2 rounded-lg bg-surface-container-low/30 hover:bg-surface-container-low/60 transition-colors cursor-pointer select-none">
+<span class="font-body-sm text-body-sm text-on-surface">Mostrar dica de terminação</span>
+<div class="relative inline-flex items-center">
+<input checked="" class="sr-only peer" id="toggleHint" type="checkbox">
+<div class="w-9 h-5 bg-surface-container-high rounded-full peer peer-checked:bg-tertiary transition-colors"></div>
+
+<div class="absolute left-0.5 top-0.5 bg-on-primary w-4 h-4 rounded-full transition-transform peer-checked:translate-x-4"></div>
+
+</div>
+
+</label>
+</div>
+
+</div>
+
+<!-- Bloco 2: Estatísticas da Sessão -->
+<div class="rounded-xl bg-surface-container-lowest p-5 shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-tertiary">analytics</span>
+              Estatísticas da Sessão
+            </span>
+<span class="font-label-sm text-label-sm text-tertiary font-semibold flex items-center gap-0.5">
+<span id="streak">0</span>
+<span class="text-base leading-none">🔥</span>
+</span>
+</div>
+
+<div class="grid grid-cols-3 gap-2 text-center">
+<div class="rounded-lg bg-surface-container-low p-2.5">
+<span class="font-label-sm text-label-sm text-secondary block">Acertos</span>
+<span class="font-headline-sm text-headline-sm text-tertiary font-semibold" id="correctCounter">0</span>
+</div>
+
+<div class="rounded-lg bg-surface-container-low p-2.5">
+<span class="font-label-sm text-label-sm text-secondary block">Erros</span>
+<span class="font-headline-sm text-headline-sm text-error font-semibold" id="incorrectCounter">0</span>
+</div>
+
+<div class="rounded-lg bg-surface-container-low p-2.5">
+<span class="font-label-sm text-label-sm text-secondary block">Aproveit.</span>
+<span class="font-headline-sm text-headline-sm text-primary font-semibold" id="accuracy">—</span>
+</div>
+
+</div>
+
+<!-- Barra de Progresso Elegante -->
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-center font-label-sm text-label-sm text-secondary">
+<span id="goalLabel">Meta do bloco (0 / 25)</span>
+<span id="goalPercent">0%</span>
+</div>
+
+<div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-tertiary rounded-full" style="width:0%" id="goalFill"></div>
+
+</div>
+
+</div>
+
+<div class="flex items-center justify-between pt-1 font-label-sm text-label-sm text-secondary">
+<span>Total: <span id="totalCount">0</span> verbos respondidos</span>
+<button class="text-tertiary hover:underline hover:text-tertiary-fixed transition-colors cursor-pointer" type="button" id="reset">
+              Reiniciar sessão
+            </button>
+</div>
+
+</div>
+
+<!-- Bloco 3: Atalhos de Teclado -->
+<div class="rounded-xl bg-surface-container-lowest/80 p-4 shadow-sm flex flex-col gap-2.5">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px]">keyboard</span>
+            Atalhos de Teclado
+          </span>
+<div class="flex flex-col gap-1.5 font-label-sm text-label-sm text-secondary-fixed-dim">
+<div class="flex justify-between items-center">
+<span>Validar / Próximo</span>
+<kbd class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-label-sm">Enter</kbd>
+</div>
+
+<div class="flex justify-between items-center">
+<span>Dica da Regra</span>
+<kbd class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-label-sm">Ctrl + H</kbd>
+</div>
+
+
+</div>
+
+</div>
+
+</aside>
+
+<!-- Área Principal do Exercício (Card em Papel Washi Claro #EFE7D6) (8 Colunas) -->
+<section class="lg:col-span-8 flex flex-col gap-5" aria-label="Exercício da forma て">
+<div class="rounded-2xl bg-[#EFE7D6] text-[#1F2430] p-6 sm:p-10 shadow-xl relative overflow-hidden transition-all duration-300">
+<!-- Selo Hanko de Autenticidade no Canto Superior Direito -->
+<div class="absolute -right-3 -top-3 w-24 h-24 pointer-events-none opacity-20 select-none flex items-center justify-center -rotate-12">
+<div class="w-20 h-20 rounded-lg flex items-center justify-center p-1 text-center" style="box-shadow: inset 0 0 0 2px #B3392C;">
+<span class="font-headline-sm text-headline-sm text-[#B3392C] font-semibold leading-tight tracking-wider">練習<br>印</span>
+</div>
+
+</div>
+
+<!-- Topo do Card: Badge do Drill & Categoria -->
+<div class="flex flex-wrap items-center justify-between gap-3 relative z-10">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#E4DCB] text-[#B3392C] font-label-sm text-label-sm font-semibold tracking-wider" style="background-color: #E2D9C5;" id="drill-label"><span class="w-1.5 h-1.5 rounded-full bg-[#B3392C]"></span> DRILL · CONJUGAÇÃO VERBAL</span>
+</div>
+
+<div class="inline-flex items-center px-3 py-1 rounded-md bg-[#DFD6C1] text-[#423C32] font-label-sm text-label-sm font-medium" id="verbGroup">
+              Grupo: 五段動詞 (Godan - ku)
+            </div>
+
+<button id="furiganaBtn" type="button" class="px-3 py-1 rounded-md bg-[#DFD6C1] text-[#423C32] font-label-sm text-label-sm" aria-pressed="true">Furigana: ligado</button></div>
+
+<!-- Enunciado Central em Destaque -->
+<div class="flex flex-col items-center justify-center my-8 text-center relative z-10">
+<div class="mb-2">
+<div class="font-headline-lg text-[64px] sm:text-[76px] leading-tight font-headline-lg text-[#1F2430] tracking-wide inline-block" id="verbTarget"></div>
+
+</div>
+
+<div class="flex items-center justify-center gap-3 mt-1">
+<span class="font-headline-sm text-headline-sm text-[#3E465B] font-medium tracking-normal" id="verbTranslation"></span>
+
+</div>
+
+</div>
+
+<!-- Tag de Solicitação Estilizada -->
+<div class="flex items-center justify-center mb-5 relative z-10">
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#E2D9C5] text-[#2C344D] font-label-sm text-label-sm uppercase tracking-wider font-semibold">
+<span class="material-symbols-outlined text-[15px] text-[#B3392C]">edit_note</span>
+              Forma Solicitada: Conjugar para Forma て (Te-form)
+            </span>
+</div>
+
+<!-- Campo de Digitação em Papel Suave -->
+<div class="max-w-md mx-auto mb-6 relative z-10">
+<div class="relative flex items-center">
+<input autocomplete="off" class="w-full rounded-xl bg-[#E6DEC9] text-[#1F2430] placeholder-[#797262] font-headline-sm text-headline-sm px-5 py-4 focus:outline-none focus:bg-[#E2D8C0] transition-all shadow-inner tracking-wider" id="verbInput" placeholder="Digite em kana (かいて) ou romaji (kaite)..." spellcheck="false" style="box-shadow: inset 0 2px 4px rgba(44, 52, 77, 0.08);" type="text" autocapitalize="off" aria-label="Resposta em hiragana ou romaji">
+<div class="absolute right-3.5 flex items-center gap-2">
+<span class="hidden sm:inline-block font-label-sm text-label-sm text-[#797262] px-2 py-0.5 rounded bg-[#DFD6C1]">
+                  かな / Kana
+                </span>
+<button class="text-[#797262] hover:text-[#1F2430] p-1 rounded transition-colors" id="clearInputBtn" title="Limpar" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+
+</div>
+
+</div>
+
+<!-- Caixa de Dica da Regra (Dica de conjugação) -->
+<div class="max-w-xl mx-auto rounded-xl bg-[#E6DEC9]/80 p-4 mb-6 transition-all relative z-10" id="ruleHintBox">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[20px] text-[#C89B3C] shrink-0 mt-0.5">lightbulb</span>
+<div class="flex flex-col gap-1">
+<span class="font-label-md text-label-md font-semibold text-[#1F2430]" id="ruleTitle">
+                  Regra Godan (~く):
+                </span>
+<p class="font-body-sm text-body-sm text-[#423C32] leading-relaxed" id="ruleDescription">
+                  Substitui-se <strong>く</strong> por <strong>いて</strong> (exceção crítica: 行く vira 行って).<br>
+                  Exemplo prático: <span class="font-medium text-[#1F2430]">かく (kaku) → かいて (kaite)</span>
+</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- Linha de Botões de Ação -->
+<div class="flex flex-wrap items-center justify-between gap-3 pt-2 relative z-10">
+<button class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-transparent hover:bg-[#E2D9C5] text-[#2C344D] font-body-sm text-body-sm font-medium transition-colors cursor-pointer" id="toggleHintAction" type="button">
+<span class="material-symbols-outlined text-[18px]">tips_and_updates</span>
+<span>Dica (Ctrl+H)</span>
+</button>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2.5 rounded-lg bg-transparent hover:bg-[#E2D9C5] text-[#554E41] font-body-sm text-body-sm font-medium transition-colors cursor-pointer" id="skipBtn" type="button">
+                Pular
+              </button>
+<button class="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-[#B3392C] hover:bg-[#992F24] active:scale-98 text-white font-body-sm text-body-sm font-semibold tracking-wide transition-all shadow-md cursor-pointer" id="verifyBtn" type="button">
+<span>Verificar (Enter)</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+
+</div>
+
+<!-- Estado de Resposta Correta Detalhado (Feedback Visual) -->
+<div class="mt-8 rounded-xl bg-[#E4EDE1] p-5 relative z-10 transition-all" id="feedbackBanner" hidden role="status" aria-live="polite">
+<div class="flex flex-col sm:flex-row items-center sm:items-start justify-between gap-4">
+<div class="flex items-start gap-4 text-center sm:text-left">
+<!-- Selo Circular Vermelho Maru (◯) -->
+<div class="w-12 h-12 rounded-full flex items-center justify-center shrink-0 mx-auto sm:mx-0 shadow-sm" style="box-shadow: inset 0 0 0 2px #B3392C; background-color: #F8EDE9;">
+<span class="font-headline-md text-headline-md text-[#B3392C] font-bold leading-none select-none" id="feedbackSeal">◯</span>
+</div>
+
+<div class="flex flex-col gap-1">
+<div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+<span class="font-headline-sm text-headline-sm text-[#1F2430] font-semibold" id="feedbackTitle">
+                      ✓ Correto! 正解です
+                    </span>
+
+</div>
+
+<p class="font-body-md text-body-md text-[#2B3B28]" id="feedbackDetail">
+<strong>書く</strong> (kaku) → <span class="font-semibold underline decoration-2 decoration-[#B3392C]">書いて</span> (kaite)
+                  </p>
+<span class="font-body-sm text-body-sm text-[#52634E] mt-0.5" id="feedbackRule">
+                    Excelente! Godan com terminação [く] troca sempre por [いて].
+                  </span>
+</div>
+
+</div>
+
+<button class="shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-[#2E5E28] hover:bg-[#23491E] active:scale-98 text-white font-body-sm text-body-sm font-semibold transition-all shadow-md cursor-pointer" id="nextVerbBtn" type="button">
+<span>Próximo verbo</span>
+<span class="material-symbols-outlined text-[18px]">east</span>
+</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+</section>
+
+<!-- Guia de Consulta Rápida na Parte Inferior (Acordeão / Seção Expansível Aberta) -->
+<section class="w-full max-w-7xl mx-auto px-margin-mobile lg:px-margin pt-2 pb-12 transition-all" id="terminationsGuideSection">
+<div class="rounded-2xl bg-surface-container-lowest p-6 lg:p-8 shadow-md">
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 gap-2">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[24px]">table_chart</span>
+</div>
+
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">
+              Guia de Terminações da Forma て (動詞て形まとめ)
+            </h2>
+<span class="font-label-sm text-label-sm text-secondary">
+              N5 / N4 • Mapeamento fonético das 4 famílias de conjugação verbal
+            </span>
+</div>
+
+</div>
+
+<span class="px-3 py-1 rounded bg-surface-container-high text-tertiary font-label-sm text-label-sm">
+          Referência Rápida
+        </span>
+</div>
+
+<!-- Grid com 4 Colunas Organizadas -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Coluna 1: Godan: う, つ, る -->
+<div class="rounded-xl bg-surface-container-low p-4 flex flex-col justify-between">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Godan • Família 1</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-tertiary font-label-sm font-semibold">っ + て</span>
+</div>
+
+<div class="font-headline-sm text-headline-sm text-on-surface">
+              う, つ, る → <span class="text-tertiary font-bold">〜って</span>
+</div>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">う・つ・る → って. Para verbos em す, use して: 話す → 話して.</p>
+</div>
+
+<div class="pt-4 flex flex-col gap-2 font-body-sm text-body-sm">
+<div class="flex justify-between items-center p-2 rounded bg-surface-container-high/60">
+<span class="text-on-surface">買<ruby>う<rt>u</rt></ruby> (comprar)</span>
+<span class="font-semibold text-tertiary">買っ<ruby>て<rt>te</rt></ruby></span>
+</div>
+
+<div class="flex justify-between items-center p-2 rounded bg-surface-container-high/60">
+<span class="text-on-surface">待<ruby>つ<rt>tsu</rt></ruby> (esperar)</span>
+<span class="font-semibold text-tertiary">待っ<ruby>て<rt>te</rt></ruby></span>
+</div>
+
+<div class="flex justify-between items-center p-2 rounded bg-surface-container-high/60">
+<span class="text-on-surface">取<ruby>る<rt>ru</rt></ruby> (pegar)</span>
+<span class="font-semibold text-tertiary">取っ<ruby>て<rt>te</rt></ruby></span>
+</div>
+
+</div>
+
+</div>
+
+<!-- Coluna 2: Godan: む, ぶ, ぬ -->
+<div class="rounded-xl bg-surface-container-low p-4 flex flex-col justify-between">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Godan • Família 2</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-tertiary font-label-sm font-semibold">ん + で</span>
+</div>
+
+<div class="font-headline-sm text-headline-sm text-on-surface">
+              む, ぶ, ぬ → <span class="text-tertiary font-bold">〜んで</span>
+</div>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Terminações nasais viram nasal com sonorização dakuten no sufixo.
+            </p>
+</div>
+
+<div class="pt-4 flex flex-col gap-2 font-body-sm text-body-sm">
+<div class="flex justify-between items-center p-2 rounded bg-surface-container-high/60">
+<span class="text-on-surface">飲<ruby>む<rt>mu</rt></ruby> (beber)</span>
+<span class="font-semibold text-tertiary">飲ん<ruby>で<rt>de</rt></ruby></span>
+</div>
+
+<div class="flex justify-between items-center p-2 rounded bg-surface-container-high/60">
+<span class="text-on-surface">遊<ruby>ぶ<rt>bu</rt></ruby> (brincar)</span>
+<span class="font-semibold text-tertiary">遊ん<ruby>で<rt>de</rt></ruby></span>
+</div>
+
+<div class="flex justify-between items-center p-2 rounded bg-surface-container-high/60">
+<span class="text-on-surface">死<ruby>ぬ<rt>nu</rt></ruby> (morrer)</span>
+<span class="font-semibold text-tertiary">死ん<ruby>で<rt>de</rt></ruby></span>
+</div>
+
+</div>
+
+</div>
+
+<!-- Coluna 3: Godan: く, ぐ + EXCEÇÃO CRÍTICA -->
+<div class="rounded-xl bg-surface-container-low p-4 flex flex-col justify-between">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Godan • Família 3</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-tertiary font-label-sm font-semibold">いて / いで</span>
+</div>
+
+<div class="font-headline-sm text-headline-sm text-on-surface">
+              く → <span class="text-tertiary font-bold">〜いて</span> | ぐ → <span class="text-tertiary font-bold">〜いで</span>
+</div>
+
+<!-- Exceção Crítica Destacada -->
+<div class="p-2 rounded bg-surface-variant/40 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-error">warning</span>
+<span class="font-label-sm text-label-sm text-on-surface">
+<strong>EXCEÇÃO:</strong> 行く (iku) vira <strong>行って</strong> (itte)
+              </span>
+</div>
+
+</div>
+
+<div class="pt-4 flex flex-col gap-2 font-body-sm text-body-sm">
+<div class="flex justify-between items-center p-2 rounded bg-surface-container-high/60">
+<span class="text-on-surface">書<ruby>く<rt>ku</rt></ruby> (escrever)</span>
+<span class="font-semibold text-tertiary">書い<ruby>て<rt>te</rt></ruby></span>
+</div>
+
+<div class="flex justify-between items-center p-2 rounded bg-surface-container-high/60">
+<span class="text-on-surface">泳<ruby>ぐ<rt>gu</rt></ruby> (nadar)</span>
+<span class="font-semibold text-tertiary">泳い<ruby>で<rt>de</rt></ruby></span>
+</div>
+
+<div class="flex justify-between items-center p-2 rounded bg-surface-variant/70">
+<span class="text-on-surface">行<ruby>く<rt>iku</rt></ruby> (ir - exc.)</span>
+<span class="font-semibold text-error">行っ<ruby>て<rt>itte</rt></ruby></span>
+</div>
+
+</div>
+
+</div>
+
+<!-- Coluna 4: Ichidan & Irregulares -->
+<div class="rounded-xl bg-surface-container-low p-4 flex flex-col justify-between">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Ichidan &amp; Irreg.</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-tertiary font-label-sm font-semibold">る → て</span>
+</div>
+
+<div class="font-headline-sm text-headline-sm text-on-surface">
+              一段: <span class="text-tertiary font-bold">〜て</span> | 不規則
+            </div>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Em Ichidan, apenas remove-se o [る] final e adiciona-se o [て].
+            </p>
+</div>
+
+<div class="pt-4 flex flex-col gap-2 font-body-sm text-body-sm">
+<div class="flex justify-between items-center p-2 rounded bg-surface-container-high/60">
+<span class="text-on-surface">食<ruby>べる<rt>beru</rt></ruby> (comer)</span>
+<span class="font-semibold text-tertiary">食べ<ruby>て<rt>te</rt></ruby></span>
+</div>
+
+<div class="flex justify-between items-center p-2 rounded bg-surface-container-high/60">
+<span class="text-on-surface">見<ruby>る<rt>miru</rt></ruby> (ver)</span>
+<span class="font-semibold text-tertiary">見<ruby>て<rt>te</rt></ruby></span>
+</div>
+
+<div class="flex justify-between items-center p-2 rounded bg-surface-container-high/60">
+<span class="text-on-surface">する / くる (vir)</span>
+<span class="font-semibold text-tertiary">して / きて</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Script Inline para Micro-interações do Exercício -->
+
+</div>
+</main>
+<footer class="w-full bg-surface-container-lowest border-t border-tertiary/20 py-space-xl"><div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin flex flex-col md:flex-row items-center justify-between gap-space-lg"><div class="flex flex-col items-center md:items-start gap-1"><div class="flex items-center gap-2"><span class="font-headline-sm text-headline-sm text-tertiary">日本語ラボ</span><span class="font-body-sm text-body-sm text-secondary">— Nihongo Lab</span></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center md:text-left">Estudo prático e deliberado da língua japonesa • Estruturado para lusófonos</p></div>
+<div class="flex items-center gap-space-lg font-label-md text-label-md"><a class="text-tertiary hover:underline flex items-center gap-1" data-path="tabela-de-kana" href="../kana/"><span>Tabela de Kana (五十音)</span><span class="material-symbols-outlined text-[14px]">north_east</span></a><span class="text-outline-variant">•</span><span class="text-on-surface-variant">N5 ~ N3 Sistema Guiado</span></div>
+</div>
+</footer>
+<dialog id="keyboard-help" aria-labelledby="help-title"><div class="help-heading"><h2 id="help-title">Atalhos de teclado</h2><button type="button" id="close-help" aria-label="Fechar ajuda">×</button></div>
+<p>Enter — Verificar / Próximo<br>Ctrl + H — Dica da regra<br>Esc — Fechar ajuda</p></dialog><script src="https://unpkg.com/wanakana"></script><script src="data.js"></script><script src="te-form.js"></script></body></html>

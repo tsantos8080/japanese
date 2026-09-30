@@ -1,376 +1,428 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>日本語ラボ — Utilitários & Desafios de Japonês</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4914230912970008" crossorigin="anonymous"></script>
-<style>
-  :root {
-    --bg-indigo: #171d34;
-    --bg-indigo-2: #1f2846;
-    --indigo-line: #3c4a73;
-    --indigo-line-soft: #2a3459;
-    --paper: #efe7d6;
-    --paper-2: #e6dcc6;
-    --ink: #2a2318;
-    --ink-soft: #5c5341;
-    --hanko: #b3392c;
-    --hanko-dark: #8f2c22;
-    --gold: #c89b3c;
-    --gold-soft: #dcc27c;
-    --ok: #4c6b3f;
-  }
 
-  * { box-sizing: border-box; }
 
-  html, body { height: 100%; }
+<html class="dark" lang="pt-BR"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Serif:wght@500;600&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-primary":"#292f47","outline-variant":"#46464d","on-surface":"#ffdad5","surface-container-low":"#410000","error-container":"#93000a","tertiary":"#f0bf5c","on-tertiary-fixed":"#261900","surface-bright":"#760a06","primary":"#c0c5e4","surface-container-lowest":"#280000","on-secondary":"#343025","inverse-primary":"#575d78","secondary-fixed-dim":"#cdc6b6","on-error-container":"#ffdad6","surface-dim":"#310000","primary-fixed-dim":"#c0c5e4","on-primary-fixed":"#141a31","on-tertiary":"#412d00","surface-variant":"#700403","outline":"#909097","surface-container-high":"#5c0001","error":"#ffb4ab","on-primary-container":"#7f85a1","on-secondary-fixed":"#1f1b11","secondary-container":"#4d493c","inverse-surface":"#ffdad5","on-primary-fixed-variant":"#40465f","tertiary-fixed":"#ffdea4","on-error":"#690005","on-surface-variant":"#c7c6ce","on-secondary-fixed-variant":"#4b463a","secondary-fixed":"#eae2d1","tertiary-container":"#2a1c00","surface-tint":"#c0c5e4","on-tertiary-fixed-variant":"#5d4200","on-secondary-container":"#bfb8a8","tertiary-fixed-dim":"#f0bf5c","surface":"#310000","background":"#310000","surface-container-highest":"#700403","on-tertiary-container":"#a97f22","primary-container":"#171d34","surface-container":"#490000","on-background":"#ffdad5","inverse-on-surface":"#690001","primary-fixed":"#dce1ff","secondary":"#cdc6b6"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-xl":"2.5rem","space-lg":"1.5rem","space-sm":"0.5rem","space-xs":"0.25rem","space-md":"1rem","gutter-mobile":"1rem","gutter":"1.5rem","margin-mobile":"1.25rem","margin":"2.5rem"},fontFamily:{"body-sm":["Inter"],"label-md":["JetBrains Mono"],"headline-sm":["Noto Serif"],"headline-md":["Noto Serif"],"label-lg":["JetBrains Mono"],"headline-lg-mobile":["Noto Serif"],"headline-lg":["Noto Serif"],"body-md":["Inter"],"display-lg-mobile":["Noto Serif"],"body-lg":["Inter"],"label-sm":["JetBrains Mono"],"display-lg":["Noto Serif"]},fontSize:{"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"500"}],"headline-sm":["20px",{"lineHeight":"28px","fontWeight":"500"}],"headline-md":["24px",{"lineHeight":"32px","fontWeight":"500"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.05em","fontWeight":"500"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"40px","fontWeight":"600"}],"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}],"display-lg-mobile":["32px",{"lineHeight":"40px","fontWeight":"600"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.06em","fontWeight":"500"}],"display-lg":["48px",{"lineHeight":"56px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}}</script><title>Nihongo Lab — Prática de Japonês</title><meta name="description" content="Pratique japonês com exercícios de adjetivos, forma て, contadores, dias do mês e leitura de kana."><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="home.css"></head><body class="bg-primary-container font-body-md text-on-surface antialiased selection:bg-tertiary-container selection:text-tertiary"><header class="fixed top-0 left-0 w-full z-50 bg-primary-container/95 backdrop-blur-md border-b border-tertiary/20"><div class="h-16 max-w-7xl mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md shrink-0"><img alt="Nihongo Lab" class="h-8 w-auto object-contain" src="assets/nihongo-lab.svg"><div class="hidden sm:flex flex-col"><span class="font-headline-sm text-headline-sm text-primary-fixed tracking-tight leading-none">日本語ラボ</span><span class="font-label-sm text-label-sm text-tertiary tracking-wider uppercase mt-0.5">Prática deliberada e drills</span></div>
+</div>
+<nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-surface-container-high text-on-surface font-semibold rounded" id="home-navigation" aria-label="Navegação principal"><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="inicio-modulos" href="./" aria-current="page">Início / Módulos</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="adjetivos-keiyoushi" href="./adjectives/">Adjetivos 形容詞</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="forma-te" href="./te-form/">Forma て</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="contadores-josuushi" href="./counters/">Contadores 助数詞</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="dias-hinichi" href="./calendar/">Dias 日にち</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors" data-path="rastro-de-leitura-kana" href="./speed-reader/">Rastro de Leitura 仮名</a></nav>
+<div class="flex items-center gap-space-md shrink-0"><div class="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container-low/80 border border-outline-variant/30"><span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span><span class="font-label-sm text-label-sm text-tertiary">Modo Estudo</span></div>
+<button class="flex items-center px-2 py-0.5 rounded bg-surface-container-lowest border border-outline-variant/40" type="button" data-open="help-reference" aria-label="Abrir ajuda de teclado"><span class="font-label-sm text-label-sm text-secondary-fixed-dim">?</span></button><button class="menu-button xl:hidden w-8 h-8 flex items-center justify-center text-tertiary" type="button" aria-expanded="false" aria-controls="home-navigation" aria-label="Abrir navegação"><span class="material-symbols-outlined" aria-hidden="true">menu</span></button></div>
+</div>
+</header>
+<main class="w-full pt-16 bg-primary-container min-h-screen"><div class="flex flex-col w-full">
+<div class="relative w-full overflow-hidden pb-space-xl">
+<div class="absolute -top-32 right-[-5%] w-[480px] h-[480px] rounded-full bg-tertiary-container/30 blur-[120px] pointer-events-none"></div>
 
-  body {
-    margin: 0;
-    min-height: 100vh;
-    background:
-      radial-gradient(circle at 15% 10%, rgba(200,155,60,0.08), transparent 45%),
-      radial-gradient(circle at 85% 90%, rgba(179,57,44,0.10), transparent 45%),
-      var(--bg-indigo);
-    background-attachment: fixed;
-    font-family: 'Zen Kaku Gothic New', sans-serif;
-    color: var(--paper);
-    padding: 32px 20px 60px;
-  }
+<div class="absolute top-96 left-[-10%] w-[420px] h-[420px] rounded-full bg-surface-container-high/20 blur-[130px] pointer-events-none"></div>
 
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.35;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.06'/></svg>");
-    mix-blend-mode: overlay;
-  }
+<div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin pt-space-lg w-full">
+<!-- HERO / EDITORIAL WELCOME BAR -->
+<section class="relative w-full rounded-xl bg-surface-container-lowest shadow-xl p-space-lg lg:p-space-xl overflow-hidden mb-space-lg">
+<div class="absolute inset-0 bg-gradient-to-r from-surface-container-lowest via-surface-container-lowest/90 to-primary-container/40 pointer-events-none"></div>
 
-  .wrap {
-    max-width: 1080px;
-    margin: 0 auto;
-    position: relative;
-  }
-
-  /* Header */
-  header.top {
-    text-align: center;
-    margin-bottom: 48px;
-  }
-
-  .eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--gold-soft);
-    margin-bottom: 10px;
-  }
-
-  h1 {
-    font-family: 'Shippori Mincho', serif;
-    font-weight: 800;
-    font-size: clamp(36px, 6vw, 62px);
-    margin: 0 0 12px;
-    letter-spacing: 0.04em;
-    color: var(--paper);
-    text-shadow: 0 2px 0 rgba(0,0,0,0.25);
-  }
-
-  h1 .accent { color: var(--gold); }
-
-  .subtitle {
-    font-size: 16px;
-    color: rgba(239,231,214,0.75);
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-
-  .jp-sub {
-    font-family: 'Shippori Mincho', serif;
-    font-size: 13px;
-    letter-spacing: 0.12em;
-    color: rgba(220, 194, 124, 0.6);
-    margin-top: 6px;
-  }
-
-  /* Grid de Desafios */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-    gap: 24px;
-    margin-bottom: 40px;
-  }
-
-  .ad-unit {
-    max-width: 900px;
-    margin: 0 auto 28px;
-  }
-
-  /* Card de Desafio com estática do papel Washi */
-  .card {
-    background: var(--paper);
-    background-image:
-      radial-gradient(circle at 10% 10%, rgba(179,57,44,0.03), transparent 40%),
-      radial-gradient(circle at 90% 90%, rgba(60,74,115,0.05), transparent 40%);
-    border-radius: 16px;
-    padding: 24px 26px;
-    color: var(--ink);
-    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-decoration: none;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-    border: 2px solid transparent;
-  }
-
-  .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 45px rgba(0,0,0,0.35);
-    border-color: var(--gold);
-  }
-
-  .card-top {
-    margin-bottom: 20px;
-  }
-
-  .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 12px;
-  }
-
-  .card-kanji {
-    font-family: 'Shippori Mincho', serif;
-    font-size: 32px;
-    font-weight: 800;
-    color: var(--hanko);
-    line-height: 1;
-  }
-
-  .card-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    background: rgba(42,35,24,0.08);
-    color: var(--ink-soft);
-    padding: 4px 8px;
-    border-radius: 6px;
-  }
-
-  .card-title {
-    font-family: 'Shippori Mincho', serif;
-    font-size: 20px;
-    font-weight: 700;
-    margin: 0 0 6px;
-    color: var(--ink);
-  }
-
-  .card-desc {
-    font-size: 13px;
-    color: var(--ink-soft);
-    line-height: 1.5;
-    margin: 0;
-  }
-
-  /* Selo / Hanko decorativo */
-  .card-hanko {
-    position: absolute;
-    right: -10px;
-    bottom: -10px;
-    width: 70px;
-    height: 70px;
-    border: 2px solid rgba(179,57,44,0.15);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Shippori Mincho', serif;
-    font-size: 22px;
-    font-weight: 800;
-    color: rgba(179,57,44,0.15);
-    transform: rotate(-15deg);
-    pointer-events: none;
-    transition: color 0.2s ease, border-color 0.2s ease;
-  }
-
-  .card:hover .card-hanko {
-    color: rgba(179,57,44,0.3);
-    border-color: rgba(179,57,44,0.3);
-  }
-
-  .card-action {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--hanko);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 10px;
-  }
-
-  .card-action span {
-    transition: transform 0.2s ease;
-  }
-
-  .card:hover .card-action span {
-    transform: translateX(4px);
-  }
-
-  /* Cards desativados / Em breve */
-  .card.disabled {
-    opacity: 0.55;
-    pointer-events: none;
-    user-select: none;
-    filter: grayscale(0.2);
-  }
-
-  .card.disabled .card-kanji {
-    color: var(--ink-soft);
-  }
-
-  .card.disabled .card-action {
-    color: var(--ink-soft);
-  }
-
-  footer {
-    text-align: center;
-    margin-top: 40px;
-    font-size: 11px;
-    color: rgba(239,231,214,0.35);
-    font-family: 'JetBrains Mono', monospace;
-  }
-</style>
-</head>
-<body>
-
-<div class="wrap">
-  <header class="top">
-    <div class="eyebrow">nihongo lab · 日本語の練習</div>
-    <h1>日本語<span class="accent">ラボ</span></h1>
-    <p class="subtitle">Coleção de utilitários interativos e treinos práticos para acelerar seu aprendizado do idioma japonês.</p>
-    <div class="jp-sub">毎日少しずつ、日本語を練習しましょう。</div>
-  </header>
-
-  <div class="ad-unit" aria-label="Publicidade">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-4914230912970008"
-         data-ad-slot="6079369285"
-         data-ad-format="horizontal"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-  </div>
-
-  <main class="grid">
-
-    <!-- Card ATIVO: Treino de Contadores -->
-    <a href="./counters/" class="card">
-      <div class="card-top">
-        <div class="card-header">
-          <span class="card-kanji">助数詞</span>
-          <span class="card-tag">Quiz Interativo</span>
+<div class="absolute right-6 -bottom-8 select-none pointer-events-none opacity-5 font-headline-lg text-[180px] text-tertiary leading-none font-semibold">
+          学
         </div>
-        <h2 class="card-title">Treino de Contadores</h2>
-        <p class="card-desc">Pratique a leitura em hiragana dos contadores japoneses (1 a 100) com feedback imediato, regras de alteração sonora e guia de consulta.</p>
-      </div>
-      <div class="card-action">
-        Iniciar treino <span>→</span>
-      </div>
-      <div class="card-hanko">合</div>
-    </a>
 
-    <!-- Card ATIVO: Rastro de Leitura -->
-    <a href="./speed-reader/" class="card">
-      <div class="card-top">
-        <div class="card-header">
-          <span class="card-kanji">仮名</span>
-          <span class="card-tag">Speed Reader</span>
-        </div>
-        <h2 class="card-title">Rastro de Leitura</h2>
-        <p class="card-desc">Treine a leitura fluida de frases em Hiragana e Katakana estilo Monkeytype com digitação em Romaji, CPM e acurácia.</p>
-      </div>
-      <div class="card-action">
-        Iniciar treino <span>→</span>
-      </div>
-      <div class="card-hanko">速</div>
-    </a>
-
-    <!-- Card ATIVO: Treino de Dias (Calendário) -->
-    <a href="./calendar/" class="card">
-      <div class="card-top">
-        <div class="card-header">
-          <span class="card-kanji">日にち</span>
-          <span class="card-tag">Calendário</span>
-        </div>
-        <h2 class="card-title">Treino de Dias</h2>
-        <p class="card-desc">Pratique a leitura dos dias do mês (1 a 31) em hiragana com suporte de calendário visual e foco em exceções e leituras irregulares.</p>
-      </div>
-      <div class="card-action">
-        Iniciar treino <span>→</span>
-      </div>
-      <div class="card-hanko">日</div>
-    </a>
-
-    <a href="./te-form/" class="card">
-      <div class="card-top">
-        <div class="card-header">
-          <span class="card-kanji">て形</span>
-          <span class="card-tag">Conjugação</span>
-        </div>
-        <h2 class="card-title">Treino da Forma て</h2>
-        <p class="card-desc">Pratique a conjugação de verbos para a forma て, com filtros por grupo, dicas de regra e guia de consulta.</p>
-      </div>
-      <div class="card-action">Iniciar treino <span>→</span></div>
-      <div class="card-hanko">て</div>
-    </a>
-
-    <a href="./adjectives/" class="card">
-      <div class="card-top">
-        <div class="card-header">
-          <span class="card-kanji">形容詞</span>
-          <span class="card-tag">Conjugação</span>
-        </div>
-        <h2 class="card-title">Flexão de Adjetivos</h2>
-        <p class="card-desc">Pratique adjetivos い e な no presente e passado, nas formas afirmativa e negativa.</p>
-      </div>
-      <div class="card-action">Iniciar treino <span>→</span></div>
-      <div class="card-hanko">形</div>
-    </a>
-
-    <!-- Card DISABLED: Seleção de Kanjis -->
-    <div class="card disabled">
-      <div class="card-top">
-        <div class="card-header">
-          <span class="card-kanji">漢字</span>
-          <span class="card-tag">Em Breve</span>
-        </div>
-        <h2 class="card-title">Seleção de Kanjis JLPT</h2>
-        <p class="card-desc">Quiz de significados, leitura Kun'yomi e On'yomi filtrado por níveis do JLPT (N5 a N3).</p>
-      </div>
-      <div class="card-action">
-        Em breve...
-      </div>
-      <div class="card-hanko">未</div>
-    </div>
-
-  </main>
-
-  <footer>日本語ラボ · HTML/CSS/JS Estático · Github Pages</footer>
+<div class="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-space-lg">
+<div class="max-w-3xl space-y-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="px-2 py-0.5 rounded bg-tertiary-container text-tertiary font-label-sm text-label-sm tracking-widest uppercase">
+                Laboratório N5〜N3
+              </span>
+<span class="text-outline-variant font-label-sm text-label-sm">/</span>
+<span class="text-secondary-fixed-dim font-label-sm text-label-sm tracking-wider">
+                プラクティス・ハブ
+              </span>
 </div>
 
-</body>
-</html>
+<div class="space-y-1">
+<div class="flex items-baseline gap-space-sm flex-wrap">
+<h1 class="font-headline-lg text-headline-lg text-primary-fixed tracking-tight font-semibold">
+                  日本語ラボ
+                </h1>
+<span class="font-label-lg text-label-lg text-tertiary tracking-[0.22em] uppercase font-semibold">
+                  Nihongo Lab
+                </span>
+</div>
+
+<p class="font-headline-sm text-headline-sm text-secondary-fixed font-medium pt-1">
+                Seja bem-vindo ao seu laboratório de prática deliberada de japonês.
+              </p>
+</div>
+
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl leading-relaxed">
+              Drills objetivos e repetitivos para fixar conjugações, leituras e velocidade sem distrações visuais ou gamificação superficial.
+            </p>
+</div>
+
+<!-- SESSION STATS PILLS -->
+<div class="flex flex-wrap lg:flex-col items-start lg:items-end gap-space-xs shrink-0 pt-2 lg:pt-0">
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low text-secondary-fixed font-label-md text-label-md shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-tertiary">stylus_note</span>
+<span><strong class="text-tertiary font-semibold">—</strong> cards praticados hoje</span>
+</div>
+
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low text-secondary-fixed font-label-md text-label-md shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-tertiary">target</span>
+<span>Precisão média: <strong class="text-tertiary font-semibold">—</strong></span>
+</div>
+
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low text-secondary-fixed font-label-md text-label-md shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-tertiary">timer</span>
+<span>Sessão ativa: <strong class="text-tertiary font-semibold">—</strong></span>
+</div>
+
+</div>
+
+</div>
+
+<!-- AMBIENT INLINE SVG METRIC SPARK -->
+<div class="relative mt-space-md pt-space-sm flex flex-col md:flex-row items-center justify-between gap-space-md text-secondary-fixed-dim font-label-sm text-label-sm">
+<div class="flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-ping"></span>
+<span class="text-on-surface-variant">Histórico da prática ainda não disponível</span>
+</div>
+
+<div class="flex items-center gap-4">
+<span class="text-on-surface-variant">Conjugação: <span class="text-tertiary">—</span></span>
+<span class="text-on-surface-variant">Contadores: <span class="text-tertiary">—</span></span>
+<span class="text-on-surface-variant">Velocidade: <span class="text-tertiary">—</span></span>
+</div>
+
+</div>
+
+</section>
+
+<!-- ADVERTISEMENT SLOT (DISCREET & EDITORIAL) -->
+<aside aria-label="Publicidade Institucional" class="w-full mb-space-lg rounded-lg bg-surface-container shadow-md p-space-sm md:p-space-md flex flex-col md:flex-row items-center justify-between gap-space-md" hidden><!-- Publicidade desativada até a configuração. --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4914230912970008" data-ad-slot="6079369285" data-ad-format="horizontal" data-full-width-responsive="true"></ins></aside>
+
+<!-- SECTION TITLE -->
+<div class="flex items-end justify-between mb-space-md">
+<div>
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest block mb-1">Currículo Prático</span>
+<h2 class="font-headline-md text-headline-md text-primary-fixed font-semibold tracking-tight" id="modules">Módulos de Drill Deliberado</h2>
+</div>
+
+<div class="hidden sm:flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span>Pressione número (1–5) para iniciar rapidamente</span>
+</div>
+
+</div>
+
+<!-- DRILL CARDS GRID -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md lg:gap-space-lg items-stretch">
+<!-- CARD 1: ADJETIVOS (HIGHLIGHTED WASHI CARD) -->
+<a href="./adjectives/" data-path="adjetivos-keiyoushi" class="relative flex flex-col justify-between rounded-xl bg-[#efe7d6] text-[#1f2430] p-space-md lg:p-space-lg shadow-xl hover:-translate-y-1 transition-all duration-300 md:col-span-2 lg:col-span-2 overflow-hidden group">
+<!-- Hanko seal accent background watermark -->
+<div class="absolute -right-4 -bottom-6 w-36 h-36 rounded-full border-2 border-[#b3392c]/20 flex items-center justify-center pointer-events-none select-none rotate-[-6deg]">
+<span class="font-headline-lg text-[70px] text-[#b3392c]/25 font-semibold">形</span>
+</div>
+
+<div class="relative z-10">
+<!-- Badges line -->
+<div class="flex items-center justify-between gap-space-sm mb-space-sm">
+<div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded border border-[#b3392c] bg-[#b3392c]/10 text-[#b3392c] font-label-sm text-label-sm font-semibold rotate-[-1deg]">
+<span class="material-symbols-outlined text-[13px]">verified</span>
+<span>Gramática &amp; Flexão</span>
+</div>
+
+<span class="font-label-sm text-label-sm text-[#4d493c] bg-[#e6dec9] px-2 py-0.5 rounded">Drill Recomendado #1</span>
+</div>
+
+<!-- Header with Kanji & Furigana -->
+<div class="mt-2 mb-space-sm">
+<div class="text-[#2c344d] font-label-md text-label-md tracking-wider">
+<ruby class="font-headline-lg text-headline-lg font-bold text-[#1f2430]">
+                  形容詞<rt class="font-label-sm text-[11px] text-[#5d4200] font-normal">けいようし</rt>
+</ruby>
+<span class="font-headline-lg text-headline-lg font-bold text-[#1f2430]">の</span>
+<ruby class="font-headline-lg text-headline-lg font-bold text-[#1f2430]">
+                  活用<rt class="font-label-sm text-[11px] text-[#5d4200] font-normal">かつよう</rt>
+</ruby>
+</div>
+
+<h3 class="font-headline-sm text-headline-sm text-[#2a1c00] font-semibold mt-1">
+                Flexão de Adjetivos — 形容詞
+              </h3>
+</div>
+
+<p class="font-body-md text-body-md text-[#343025] leading-relaxed max-w-xl">
+              Pratique formas presente/passado, afirmativo/negativo com adjetivos <strong class="text-[#1f2430]">い</strong> e <strong class="text-[#1f2430]">な</strong> (incluindo a exceção crítica <strong class="text-[#b3392c]">いい / よい</strong>). Respostas ágeis com feedback imediato de conjugação.
+            </p>
+<!-- Preview tags -->
+<div class="flex flex-wrap gap-1.5 mt-space-sm">
+<span class="px-2 py-0.5 rounded bg-[#e6dec9] text-[#2c344d] font-label-sm text-label-sm">〜くない</span>
+<span class="px-2 py-0.5 rounded bg-[#e6dec9] text-[#2c344d] font-label-sm text-label-sm">〜かった</span>
+<span class="px-2 py-0.5 rounded bg-[#e6dec9] text-[#2c344d] font-label-sm text-label-sm">〜くなかった</span>
+<span class="px-2 py-0.5 rounded bg-[#e6dec9] text-[#2c344d] font-label-sm text-label-sm">〜じゃない</span>
+<span class="px-2 py-0.5 rounded bg-[#e6dec9] text-[#2c344d] font-label-sm text-label-sm">〜でした</span>
+</div>
+
+</div>
+
+<!-- Bottom bar -->
+<div class="relative z-10 pt-space-md mt-space-md flex items-center justify-between">
+<div class="flex items-center gap-2 text-[#4d493c] font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-[#b3392c]"></span>
+<span>Adjetivos い e な</span>
+</div>
+
+<span class="inline-flex items-center gap-2 px-4 py-2 rounded bg-[#b3392c] hover:bg-[#992f24] text-white font-body-sm text-body-sm font-medium shadow-md transition-all group-hover:shadow-lg">
+<span>Iniciar treino</span>
+<span class="material-symbols-outlined text-[16px] transition-transform group-hover:translate-x-1">arrow_forward</span>
+</span>
+</div>
+
+</a>
+<!-- CARD 2: FORMA TE -->
+<a href="./te-form/" data-path="forma-te" class="relative flex flex-col justify-between rounded-xl bg-[#efe7d6] text-[#1f2430] p-space-md shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden group">
+<div class="absolute -right-3 -bottom-5 w-28 h-28 rounded-full border-2 border-[#b3392c]/20 flex items-center justify-center pointer-events-none select-none rotate-[-4deg]">
+<span class="font-headline-lg text-[56px] text-[#b3392c]/25 font-semibold">て</span>
+</div>
+
+<div class="relative z-10">
+<div class="flex items-center justify-between gap-space-sm mb-space-sm">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#e6dec9] text-[#2c344d] font-label-sm text-label-sm font-medium">
+                Conjugação Verbal
+              </span>
+<span class="font-label-sm text-label-sm text-[#5d4200]">N5 / N4</span>
+</div>
+
+<div class="mt-1 mb-space-sm">
+<ruby class="font-headline-md text-headline-md font-bold text-[#1f2430]">
+                動詞<rt class="font-label-sm text-[10px] text-[#5d4200]">どうし</rt>
+</ruby>
+<span class="font-headline-md text-headline-md font-bold text-[#1f2430]">のて</span>
+<ruby class="font-headline-md text-headline-md font-bold text-[#1f2430]">
+                形<rt class="font-label-sm text-[10px] text-[#5d4200]">けい</rt>
+</ruby>
+<h3 class="font-headline-sm text-headline-sm text-[#2a1c00] font-semibold mt-1">
+                Forma て — て形
+              </h3>
+</div>
+
+<p class="font-body-sm text-body-sm text-[#343025] leading-relaxed">
+              Treine a transição imediata para a forma て em verbos Godan, Ichidan e irregulares (<strong class="text-[#1f2430]">する / くる</strong>). Fixação por terminação de raiz: <em class="text-[#2c344d] font-label-sm">〜って, 〜んで, 〜いて</em>.
+            </p>
+</div>
+
+<div class="relative z-10 pt-space-md mt-space-md flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-[#4d493c]">Godan, Ichidan e irregulares</span>
+<span class="inline-flex items-center gap-1.5 font-label-md text-label-md text-[#2a1c00] hover:text-[#b3392c] transition-colors font-semibold group-hover:translate-x-0.5">
+<span>Iniciar treino</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</span>
+</div>
+
+</a>
+<!-- CARD 3: CONTADORES -->
+<a href="./counters/" data-path="contadores-josuushi" class="relative flex flex-col justify-between rounded-xl bg-[#efe7d6] text-[#1f2430] p-space-md shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden group">
+<div class="absolute -right-3 -bottom-5 w-28 h-28 rounded-full border-2 border-[#b3392c]/20 flex items-center justify-center pointer-events-none select-none rotate-[2deg]">
+<span class="font-headline-lg text-[56px] text-[#b3392c]/25 font-semibold">数</span>
+</div>
+
+<div class="relative z-10">
+<div class="flex items-center justify-between gap-space-sm mb-space-sm">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#e6dec9] text-[#2c344d] font-label-sm text-label-sm font-medium">
+                Vocabulário &amp; Leituras
+              </span>
+<span class="font-label-sm text-label-sm text-[#5d4200]">Rendaku (連濁)</span>
+</div>
+
+<div class="mt-1 mb-space-sm">
+<ruby class="font-headline-md text-headline-md font-bold text-[#1f2430]">
+                助数詞<rt class="font-label-sm text-[10px] text-[#5d4200]">じょすうし</rt>
+</ruby>
+<span class="font-headline-md text-headline-md font-bold text-[#1f2430]">の</span>
+<ruby class="font-headline-md text-headline-md font-bold text-[#1f2430]">
+                読<rt class="font-label-sm text-[10px] text-[#5d4200]">よ</rt>
+</ruby>
+<span class="font-headline-md text-headline-md font-bold text-[#1f2430]">み</span>
+<ruby class="font-headline-md text-headline-md font-bold text-[#1f2430]">
+                方<rt class="font-label-sm text-[10px] text-[#5d4200]">かた</rt>
+</ruby>
+<h3 class="font-headline-sm text-headline-sm text-[#2a1c00] font-semibold mt-1">
+                Treino de Contadores — 助数詞
+              </h3>
+</div>
+
+<p class="font-body-sm text-body-sm text-[#343025] leading-relaxed">
+              Domine contadores como 本 (hon), 枚 (mai), 匹 (hiki), 冊 (satsu) e alterações sonoras (rendaku) como <em class="text-[#2c344d] font-label-sm">いっぽん, さんぼん, ろっぽん</em>.
+            </p>
+</div>
+
+<div class="relative z-10 pt-space-md mt-space-md flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-[#4d493c]">15 categorias</span>
+<span class="inline-flex items-center gap-1.5 font-label-md text-label-md text-[#2a1c00] hover:text-[#b3392c] transition-colors font-semibold group-hover:translate-x-0.5">
+<span>Iniciar treino</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</span>
+</div>
+
+</a>
+<!-- CARD 4: DIAS DO MÊS -->
+<a href="./calendar/" data-path="dias-hinichi" class="relative flex flex-col justify-between rounded-xl bg-[#efe7d6] text-[#1f2430] p-space-md shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden group">
+<div class="absolute -right-3 -bottom-5 w-28 h-28 rounded-full border-2 border-[#b3392c]/20 flex items-center justify-center pointer-events-none select-none rotate-[-3deg]">
+<span class="font-headline-lg text-[56px] text-[#b3392c]/25 font-semibold">日</span>
+</div>
+
+<div class="relative z-10">
+<div class="flex items-center justify-between gap-space-sm mb-space-sm">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#e6dec9] text-[#2c344d] font-label-sm text-label-sm font-medium">
+                Leituras Especiais
+              </span>
+<span class="font-label-sm text-label-sm text-[#5d4200]">Irregulares</span>
+</div>
+
+<div class="mt-1 mb-space-sm">
+<div class="font-headline-md text-headline-md font-bold text-[#1f2430] truncate">
+                日付・ついたち〜
+              </div>
+
+<h3 class="font-headline-sm text-headline-sm text-[#2a1c00] font-semibold mt-1">
+                Dias do Mês — 日にち
+              </h3>
+</div>
+
+<p class="font-body-sm text-body-sm text-[#343025] leading-relaxed">
+              Memorize as leituras irregulares essenciais dos dias 1 ao 10 (ついたち, ふつか...), 14 (じゅうよっか), 20 (はつか) e 24 (にじゅうよっか) através de drills rápidos de teclado.
+            </p>
+</div>
+
+<div class="relative z-10 pt-space-md mt-space-md flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-[#4d493c]">1 a 31 do calendário</span>
+<span class="inline-flex items-center gap-1.5 font-label-md text-label-md text-[#2a1c00] hover:text-[#b3392c] transition-colors font-semibold group-hover:translate-x-0.5">
+<span>Iniciar treino</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</span>
+</div>
+
+</a>
+<!-- CARD 5: RASTRO DE LEITURA (KANA) -->
+<a href="./speed-reader/" data-path="rastro-de-leitura-kana" class="relative flex flex-col justify-between rounded-xl bg-[#efe7d6] text-[#1f2430] p-space-md shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden group">
+<div class="absolute -right-3 -bottom-5 w-28 h-28 rounded-full border-2 border-[#b3392c]/20 flex items-center justify-center pointer-events-none select-none rotate-[3deg]">
+<span class="font-headline-lg text-[56px] text-[#b3392c]/25 font-semibold">読</span>
+</div>
+
+<div class="relative z-10">
+<div class="flex items-center justify-between gap-space-sm mb-space-sm">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#e6dec9] text-[#2c344d] font-label-sm text-label-sm font-medium">
+                Agilidade &amp; Precisão
+              </span>
+<span class="font-label-sm text-label-sm text-[#5d4200]">Velocidade</span>
+</div>
+
+<div class="mt-1 mb-space-sm">
+<div class="font-headline-md text-headline-md font-bold text-[#1f2430]">
+                速読・タイピング仮名
+              </div>
+
+<h3 class="font-headline-sm text-headline-sm text-[#2a1c00] font-semibold mt-1">
+                Rastro de Leitura — 仮名
+              </h3>
+</div>
+
+<p class="font-body-sm text-body-sm text-[#343025] leading-relaxed">
+              Exercite fluidez de leitura e digitação em kana com ritmo visual em frases curtas de alta frequência. Elimine pausas mentais na conversão fonética.
+            </p>
+</div>
+
+<div class="relative z-10 pt-space-md mt-space-md flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-[#4d493c]">Frases N5 de ritmo</span>
+<span class="inline-flex items-center gap-1.5 font-label-md text-label-md text-[#2a1c00] hover:text-[#b3392c] transition-colors font-semibold group-hover:translate-x-0.5">
+<span>Iniciar treino</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</span>
+</div>
+
+</a>
+</div>
+
+<!-- SECONDARY BENTO / QUICK DRILL ACCELERATOR -->
+<section class="mt-space-xl grid grid-cols-1 lg:grid-cols-12 gap-space-md">
+<!-- Left: Metodologia e Dicas de Teclado -->
+<div class="lg:col-span-8 rounded-xl bg-surface-container-lowest p-space-md lg:p-space-lg shadow-lg flex flex-col justify-between">
+<div class="space-y-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[20px]">psychology</span>
+<h3 class="font-headline-sm text-headline-sm text-primary-fixed">Princípio da Prática Deliberada</h3>
+</div>
+
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl leading-relaxed">
+              A fluência na morfologia japonesa não vem da leitura passiva de tabelas de gramática, mas da produção ativa sob pressão de tempo. Cada módulo força o cérebro a recuperar terminações até que a conjugação se torne reflexo motor.
+            </p>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm pt-space-md mt-space-md">
+<div class="p-3 rounded bg-surface-container-low flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-tertiary">01. Rápida Produção</span>
+<span class="font-body-sm text-body-sm text-secondary-fixed">2 a 4 segundos por resposta para bloquear tradução mental.</span>
+</div>
+
+<div class="p-3 rounded bg-surface-container-low flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-tertiary">02. Correção Imediata</span>
+<span class="font-body-sm text-secondary-fixed">Visualização instantânea de erros com a grafia correta em sumi ink.</span>
+</div>
+
+<div class="p-3 rounded bg-surface-container-low flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-tertiary">03. Repetição Focada</span>
+<span class="font-body-sm text-secondary-fixed">Pratique exceções e formas irregulares com os filtros de cada módulo.</span>
+</div>
+
+</div>
+
+</div>
+
+<!-- Right: Visual Atmosphere / Reference Widget -->
+<div class="lg:col-span-4 rounded-xl bg-surface-container-low p-space-md shadow-lg flex flex-col justify-between relative overflow-hidden">
+<div class="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-surface-container-high/40 blur-2xl pointer-events-none"></div>
+
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider font-semibold">Tabela Auxiliar</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">Consulta Rápida</span>
+</div>
+
+<h4 class="font-headline-sm text-headline-sm text-primary-fixed">Tabela de Kana</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Consulte os sons básicos (五十音) em hiragana e katakana.
+            </p>
+</div>
+
+<!-- Mini visual Kana grid mockup -->
+<div class="my-space-sm py-2 px-3 rounded bg-surface-container-lowest grid grid-cols-5 gap-1.5 text-center font-headline-sm text-primary-fixed text-sm">
+<span class="p-1 rounded bg-surface-container-low/60 hover:bg-tertiary-container hover:text-tertiary transition-colors cursor-default">あ</span>
+<span class="p-1 rounded bg-surface-container-low/60 hover:bg-tertiary-container hover:text-tertiary transition-colors cursor-default">い</span>
+<span class="p-1 rounded bg-surface-container-low/60 hover:bg-tertiary-container hover:text-tertiary transition-colors cursor-default">う</span>
+<span class="p-1 rounded bg-surface-container-low/60 hover:bg-tertiary-container hover:text-tertiary transition-colors cursor-default">え</span>
+<span class="p-1 rounded bg-surface-container-low/60 hover:bg-tertiary-container hover:text-tertiary transition-colors cursor-default">お</span>
+<span class="p-1 rounded bg-surface-container-low/60 hover:bg-tertiary-container hover:text-tertiary transition-colors cursor-default">か</span>
+<span class="p-1 rounded bg-surface-container-low/60 hover:bg-tertiary-container hover:text-tertiary transition-colors cursor-default">き</span>
+<span class="p-1 rounded bg-surface-container-low/60 hover:bg-tertiary-container hover:text-tertiary transition-colors cursor-default">く</span>
+<span class="p-1 rounded bg-surface-container-low/60 hover:bg-tertiary-container hover:text-tertiary transition-colors cursor-default">け</span>
+<span class="p-1 rounded bg-surface-container-low/60 hover:bg-tertiary-container hover:text-tertiary transition-colors cursor-default">こ</span>
+</div>
+
+<a class="w-full py-2 rounded bg-tertiary hover:bg-tertiary-fixed text-on-tertiary font-body-sm text-body-sm font-semibold text-center transition-all flex items-center justify-center gap-1 shadow-sm" data-path="tabela-de-kana" href="./kana/">
+<span>Abrir Tabela de Kana</span>
+<span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</a>
+</div>
+
+</section>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+<footer class="w-full bg-surface-container-lowest border-t border-tertiary/20 py-space-xl"><div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin flex flex-col md:flex-row items-center justify-between gap-space-lg"><div class="flex flex-col items-center md:items-start gap-1"><div class="flex items-center gap-2"><span class="font-headline-sm text-headline-sm text-tertiary">日本語ラボ</span><span class="font-body-sm text-body-sm text-secondary">— Nihongo Lab</span></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center md:text-left">Estudo prático e deliberado da língua japonesa • Estruturado para lusófonos</p></div>
+<div class="flex items-center gap-space-lg font-label-md text-label-md"><a class="text-tertiary hover:underline flex items-center gap-1" data-path="tabela-de-kana" href="./kana/"><span>Tabela de Kana (五十音)</span><span class="material-symbols-outlined text-[14px]">north_east</span></a><span class="text-outline-variant">•</span><span class="text-on-surface-variant">N5 ~ N3 Sistema Guiado</span></div>
+</div>
+</footer>
+<dialog id="help-reference" aria-labelledby="help-title"><div class="dialog-heading"><h2 id="help-title">Atalhos de teclado</h2><button type="button" data-close aria-label="Fechar ajuda">×</button></div>
+<p>1 — Adjetivos<br>2 — Forma て<br>3 — Contadores<br>4 — Dias do mês<br>5 — Rastro de Leitura</p><p>? — Abrir esta ajuda<br>Esc — Fechar ajuda</p></dialog><script src="home.js"></script></body></html>
