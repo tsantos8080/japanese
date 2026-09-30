@@ -14,6 +14,7 @@
   const help = $('keyboard-help');
   const navigation = $('kana-navigation');
 
+  const analytics = window.NihongoAnalytics?.create('kana', () => ({mode: script, category: selected.group}));
   function renderStrokeSketch(entry) {
     const sketch = $('stroke-sketch');
     sketch.replaceChildren();
@@ -118,7 +119,8 @@
   }
 
   // Receive the clicked entry directly: selection updates never determine another card's audio.
-  function play(entry) {
+  function play(entry, source) {
+    analytics?.track('kana_audio_click', {source, audio_support: window.speechSynthesis && typeof window.SpeechSynthesisUtterance === 'function' ? 'available' : 'unavailable'});
     const synth = window.speechSynthesis;
     if (!synth || typeof window.SpeechSynthesisUtterance !== 'function') {
       $('audio-status').textContent = 'Síntese de voz indisponível neste navegador.';
@@ -148,7 +150,8 @@
     function select() {
       inspect(entry);
       refresh();
-      if (autoVoice) play(entry);
+      analytics?.start();
+      if (autoVoice) play(entry, 'card');
     }
     element.addEventListener('click', select);
     element.addEventListener('keydown', event => {
@@ -162,7 +165,7 @@
       event.stopPropagation();
       inspect(entry);
       refresh();
-      play(entry);
+      play(entry, 'icon');
     });
   });
   function setScript(mode) { script = mode; inspect(selected); refresh(); }
@@ -189,11 +192,11 @@
   }
   $('audioGlobalToggle').addEventListener('click', toggleAudio);
   $('header-audio-toggle').addEventListener('click', toggleAudio);
-  $('play-inspector').addEventListener('click', () => play(selected));
+  $('play-inspector').addEventListener('click', () => play(selected, 'inspector'));
   for (let i = 1; i <= 2; i++) $('example-' + i).addEventListener('click', () => {
     const word = selected.examples?.[(i - 1) * 2] || '';
     const reading = (word.match(/\(([^)]+)\)/)?.[1] || word).split('/')[0].trim();
-    if (reading) play({hira: reading, kata: reading});
+    if (reading) play({hira: reading, kata: reading}, 'example');
   });
   $('help-button').addEventListener('click', () => help.showModal());
   $('close-help').addEventListener('click', () => help.close());
@@ -208,7 +211,7 @@
     if (event.key === '/') { event.preventDefault(); $('kanaSearchInput').focus(); }
     if (event.key.toLowerCase() === 'r') { event.preventDefault(); $('toggleRomaji').checked = !$('toggleRomaji').checked; refresh(); }
     if (event.key.toLowerCase() === 't') { event.preventDefault(); setScript(modes[(modes.indexOf(script) + 1) % modes.length]); }
-    if (event.key === ' ' && !event.target.closest('button,a,[role="button"]')) { event.preventDefault(); play(selected); }
+    if (event.key === ' ' && !event.target.closest('button,a,[role="button"]')) { event.preventDefault(); play(selected, 'keyboard'); }
     if (event.key === '?') { event.preventDefault(); help.showModal(); }
   });
   inspect(selected, true);

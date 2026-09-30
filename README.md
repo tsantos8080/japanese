@@ -94,3 +94,20 @@ Consulta de Hiragana e Katakana com 46 caracteres básicos, 25 sonorizados e 15 
 * [ ] Configurar a publicidade antes de ativá-la, caso seja desejada.
 
 SRS, XP, radicais, frases em kanji/furigana, novas métricas e calendário com mês/ano são expansões opcionais, sem compromisso de implementação. Contas de usuário estão fora do escopo.
+
+## Analytics
+
+Todas as páginas usam o GA4 `G-W1SDFKSFH6`. Os módulos carregam o helper compartilhado `analytics.js` e registram:
+
+| Evento | Quando é enviado |
+| --- | --- |
+| `practice_start` | Primeira entrada não vazia, resposta, dica aberta, questão pulada ou interação com um card/áudio de Kana; uma vez por carregamento do módulo. |
+| `answer_submit` | Resposta não vazia validada em Adjetivos, Forma て, Contadores ou Dias; uma vez por questão, com `result` igual a `correct` ou `incorrect`. |
+| `hint_open` | Dica revelada pelo usuário, com `hint_type` igual a `rule`, `class` ou `romaji`. Dicas exibidas automaticamente não contam. |
+| `question_skip` | Botão de pular usado numa questão ainda não respondida; na Leitura, avançar uma frase incompleta. Não conta após o tempo acabar. |
+| `phrase_complete` | Frase de Leitura concluída, com `duration_seconds`, `character_count`, `error_count` e `accuracy` (percentual). |
+| `kana_audio_click` | Pronúncia solicitada, com `source` (`card`, `icon`, `inspector`, `example` ou `keyboard`) e `audio_support` (`available` ou `unavailable`). Não comprova reprodução audível. |
+
+Os eventos incluem `module`, `mode` e `category`; as conjugações também incluem `form`. `category` identifica a classe de adjetivo/verbo, contador, leitura regular/irregular, tipo de frase ou bloco de Kana. Reiniciar exercícios não cria outro `practice_start` no mesmo carregamento. Não são enviados respostas digitadas, buscas, palavras, frases ou eventos por tecla. A prática continua funcionando se o analytics estiver bloqueado ou indisponível.
+
+Para conferir a integração, use o relatório **Tempo real** do GA4 após interagir com os módulos. Para segmentar os relatórios, cadastre dimensões personalizadas de escopo **Evento** para `module`, `mode`, `category`, `form`, `result`, `hint_type`, `source` e `audio_support`. Os valores numéricos de `phrase_complete` podem ser cadastrados como métricas personalizadas de escopo Evento (segundos para duração; unidades padrão para os demais). As visualizações de página continuam sendo registradas pela configuração padrão do Google tag.

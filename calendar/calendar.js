@@ -4,6 +4,7 @@
   const input = $('drill-input');
   let currentDay, locked = false, correct = 0, wrong = 0, streak = 0, drill = 0;
   const seen = new Set();
+  const analytics = window.NihongoAnalytics?.create('calendar', () => ({mode: 'free', category: exceptions.includes(currentDay) ? 'irregular' : 'regular'}));
   function pool() {
     const ranges = [...document.querySelectorAll('input[name="day-range"]:checked')].map(el => el.value.split('-').map(Number));
     return Array.from({length:31}, (_,i) => i+1).filter(day => ranges.some(([a,b]) => day >= a && day <= b) && (!$('day-exceptions').checked || exceptions.includes(day)));
@@ -52,6 +53,7 @@
     updateStats();
     input.focus({preventScroll:true});
   }
+  input.addEventListener('input', () => { if (input.value.trim()) analytics?.start(); });
   function check() {
     if (locked) return;
     const raw = input.value.trim().toLowerCase().replace(/\s/g, '');
@@ -59,6 +61,7 @@
     const data = daysData[currentDay];
     const kana = window.wanakana ? window.wanakana.toHiragana(raw) : raw;
     const ok = kana === data.hiragana || data.romaji.includes(raw);
+    analytics?.track('answer_submit', {result: ok ? 'correct' : 'incorrect'});
     locked = true; seen.add(currentDay);
     if (ok) { correct++; streak++; } else { wrong++; streak = 0; }
     updateStats();
@@ -74,6 +77,7 @@
   function toggleHint() {
     $('hint-box').hidden = !$('hint-box').hidden;
     $('btn-show-hint').setAttribute('aria-expanded', String(!$('hint-box').hidden));
+    if (!$('hint-box').hidden) analytics?.track('hint_open', {hint_type: 'rule'});
   }
   // Keep raw romaji until validation so all existing long-vowel variants remain accepted.
   document.querySelectorAll('input[name="day-range"]').forEach(el => el.addEventListener('change', () => {
@@ -83,7 +87,7 @@
   $('day-exceptions').addEventListener('change', nextQuestion);
   $('btn-verify').addEventListener('click', check);
   $('btn-next-day').addEventListener('click', nextQuestion);
-  $('btn-skip').addEventListener('click', nextQuestion);
+  $('btn-skip').addEventListener('click', () => { if (!locked) analytics?.track('question_skip'); nextQuestion(); });
   $('btn-show-hint').addEventListener('click', toggleHint);
   $('btn-reset-session').addEventListener('click', () => { correct = wrong = streak = drill = 0; seen.clear(); nextQuestion(); });
   const table = $('full-table');

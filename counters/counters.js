@@ -5,6 +5,7 @@
   const pick = values => values[Math.floor(Math.random()*values.length)];
   const mode = () => $('practice-mode').value;
   const selected = () => [...document.querySelectorAll('input[name="counter"]:checked')].map(el=>el.value);
+  const analytics = window.NihongoAnalytics?.create('counters', () => ({mode: mode(), category: current?.counter.id}));
   function updateStats() {
     const total = correct+wrong;
     $('correct-count').textContent = correct; $('wrong-count').textContent = wrong;
@@ -23,7 +24,8 @@
     }
     return `Contador ${c.kanji || c.hira} (${c.meaning}). Leitura de ${current.n}: ${current.answer}.`;
   }
-  function setHint(visible) {
+  function setHint(visible, userInitiated = false) {
+    if (visible && userInitiated && $('caixa-dica').hidden) analytics?.track('hint_open', {hint_type: 'rule'});
     $('toggle-rendaku').checked = visible; $('caixa-dica').hidden = !visible;
     $('btn-dica').setAttribute('aria-expanded',String(visible));
   }
@@ -59,12 +61,14 @@
     updateStats(); if(mode()!=='choice')input.focus({preventScroll:true});
   }
   function expired() { return mode()==='timed' && deadline && Date.now()>=deadline; }
+  input.addEventListener('input', () => { if (input.value.trim()) analytics?.start(); });
   function check(choice) {
     if (locked || expired()) return;
     const raw = choice || input.value.trim().toLowerCase().replace(/\s/g,'');
     if(!raw)return;
     const normalized = window.wanakana ? window.wanakana.toHiragana(raw) : raw;
     const ok = normalized===current.answer;
+    analytics?.track('answer_submit', {result: ok ? 'correct' : 'incorrect'});
     locked=true;if(ok){correct++;streak++;}else{wrong++;streak=0;}
     input.disabled=true;$('btn-verificar').disabled=true;
     $('choices').querySelectorAll('button').forEach(button=>button.disabled=true);
@@ -98,9 +102,9 @@
   $('reset').addEventListener('click',reset);
   $('btn-verificar').addEventListener('click',()=>check());
   $('next').addEventListener('click',()=>{if(!expired())nextQuestion();});
-  $('skip').addEventListener('click',()=>{if(!expired())nextQuestion();});
-  $('btn-dica').addEventListener('click',()=>setHint(!$('toggle-rendaku').checked));
-  $('toggle-rendaku').addEventListener('change',()=>setHint($('toggle-rendaku').checked));
+  $('skip').addEventListener('click',()=>{if(!expired()){if(!locked)analytics?.track('question_skip');nextQuestion();}});
+  $('btn-dica').addEventListener('click',()=>setHint(!$('toggle-rendaku').checked, true));
+  $('toggle-rendaku').addEventListener('change',()=>setHint($('toggle-rendaku').checked, true));
   $('btn-toggle-tabela').addEventListener('click',()=>$('secao-tabela').scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'}));
   counters.forEach(c=>{const section=document.createElement('section');const title=document.createElement('h3');title.textContent=`${c.kanji||c.hira} — ${c.meaning} (${c.min}–${c.max})`;section.append(title);for(let n=1;n<=Math.min(10,c.max);n++){const p=document.createElement('p');p.textContent=`${n}: ${c.reading(n)}`;section.append(p);}$('reference-content').append(section);});
   const reference=$('reference-dialog');$('all-reference').addEventListener('click',()=>reference.showModal());$('close-reference').addEventListener('click',()=>reference.close());
@@ -117,7 +121,7 @@
   $('close-help').addEventListener('click', () => help.close());
   document.addEventListener('keydown', event => {
     if (help.open || reference.open || event.repeat || event.isComposing || event.defaultPrevented) return;
-    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'h') { event.preventDefault(); setHint(!$('toggle-rendaku').checked); return; }
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'h') { event.preventDefault(); setHint(!$('toggle-rendaku').checked, true); return; }
     if (event.ctrlKey || event.metaKey || event.altKey) return;
     if (mode() === 'choice' && /^[1-4]$/.test(event.key) && !expired()) { const button = $('choices').children[Number(event.key)-1]; if(button) { event.preventDefault(); button.click(); } }
     if (event.key === 'Enter' && event.target === input) { event.preventDefault(); if (!expired()) locked ? nextQuestion() : check(); }

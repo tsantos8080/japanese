@@ -2,6 +2,7 @@
   const $ = id => document.getElementById(id);
   const answer = $('verbInput');
   let current, previous, locked = false, correct = 0, wrong = 0, streak = 0, drill = 0;
+  const analytics = window.NihongoAnalytics?.create('te-form', () => ({mode: 'free', category: current?.g, form: 'te'}));
   function updateStats() {
     const total = correct + wrong;
     $('correctCounter').textContent = correct;
@@ -49,12 +50,14 @@
     setHint($('toggleHint').checked);
     answer.focus({ preventScroll: true });
   }
+  answer.addEventListener('input', () => { if (answer.value.trim()) analytics?.start(); });
   function check() {
     if (locked) return;
     const raw = answer.value.trim();
     if (!raw) { answer.focus(); return; }
     const normalized = window.wanakana ? window.wanakana.toHiragana(raw.toLowerCase()) : raw;
     const ok = normalized.replace(/\s/g, '') === current.te || raw === current.kanji;
+    analytics?.track('answer_submit', {result: ok ? 'correct' : 'incorrect'});
     locked = true;
     if (ok) { correct++; streak++; } else { wrong++; streak = 0; }
     updateStats();
@@ -69,7 +72,8 @@
     $('feedbackBanner').hidden = false;
     $('nextVerbBtn').focus({ preventScroll: true });
   }
-  function setHint(visible) {
+  function setHint(visible, userInitiated = false) {
+    if (visible && userInitiated && $('ruleHintBox').hidden) analytics?.track('hint_open', {hint_type: 'rule'});
     $('toggleHint').checked = visible;
     $('ruleHintBox').hidden = !visible;
     $('toggleHintAction').setAttribute('aria-expanded', String(visible));
@@ -80,12 +84,12 @@
     nextQuestion();
   }));
   $('focusSelect').addEventListener('change', nextQuestion);
-  $('toggleHint').addEventListener('change', () => setHint($('toggleHint').checked));
-  $('toggleHintAction').addEventListener('click', () => setHint(!$('toggleHint').checked));
+  $('toggleHint').addEventListener('change', () => setHint($('toggleHint').checked, true));
+  $('toggleHintAction').addEventListener('click', () => setHint(!$('toggleHint').checked, true));
   $('clearInputBtn').addEventListener('click', () => { if (!locked) { answer.value = ''; answer.focus(); } });
   $('verifyBtn').addEventListener('click', check);
   $('nextVerbBtn').addEventListener('click', nextQuestion);
-  $('skipBtn').addEventListener('click', nextQuestion);
+  $('skipBtn').addEventListener('click', () => { if (!locked) analytics?.track('question_skip'); nextQuestion(); });
   $('reset').addEventListener('click', () => { correct = wrong = streak = drill = 0; previous = null; updateStats(); nextQuestion(); });
   $('furiganaBtn').addEventListener('click', () => {
     const hide = document.body.classList.toggle('hide-furigana');
@@ -113,7 +117,7 @@
   $('close-help').addEventListener('click', () => help.close());
   document.addEventListener('keydown', event => {
     if (help.open || event.repeat || event.isComposing || event.defaultPrevented) return;
-    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'h') { event.preventDefault(); setHint(!$('toggleHint').checked); return; }
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'h') { event.preventDefault(); setHint(!$('toggleHint').checked, true); return; }
     if (event.ctrlKey || event.metaKey || event.altKey) return;
     if (event.key === 'Enter' && event.target === answer) { event.preventDefault(); locked ? nextQuestion() : check(); }
     if (event.key === 'Escape') closeMenu();

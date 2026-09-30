@@ -3,6 +3,7 @@
   const forms = ['Presente Afirmativo', 'Presente Negativo', 'Passado Afirmativo', 'Passado Negativo'];
   let current, previous, formIndex, locked = false, correct = 0, wrong = 0, streak = 0, drill = 0;
   const answer = $('drill-input');
+  const analytics = window.NihongoAnalytics?.create('adjectives', () => ({mode: 'free', category: current?.type, form: ['present_affirmative', 'present_negative', 'past_affirmative', 'past_negative'][formIndex]}));
   function conjugate(adj, index) {
     if (adj.type === 'na') return adj.kana + ['です', 'じゃないです', 'でした', 'じゃなかったです'][index];
     const stem = adj.exception ? 'よ' : adj.kana.slice(0, -1);
@@ -62,6 +63,7 @@
     renderHint();
     answer.focus({ preventScroll: true });
   }
+  answer.addEventListener('input', () => { if (answer.value.trim()) analytics?.start(); });
   function check() {
     if (locked) return;
     const raw = answer.value.trim();
@@ -69,6 +71,7 @@
     const normalized = window.wanakana ? window.wanakana.toHiragana(raw) : raw;
     const expected = conjugate(current, formIndex);
     const ok = normalized.replace(/\s/g, '') === expected;
+    analytics?.track('answer_submit', {result: ok ? 'correct' : 'incorrect'});
     locked = true;
     if (ok) { correct++; streak++; } else { wrong++; streak = 0; }
     updateStats();
@@ -86,6 +89,7 @@
   function toggleHint() {
     $('hint-box').hidden = !$('hint-box').hidden;
     $('toggle-hint-btn').setAttribute('aria-expanded', String(!$('hint-box').hidden));
+    if (!$('hint-box').hidden) analytics?.track('hint_open', {hint_type: 'rule'});
   }
   if (window.wanakana) window.wanakana.bind(answer, { IMEMode: 'toHiragana' });
   document.querySelectorAll('input[name="adjective-type"], input[name="adjective-focus"]').forEach(input => {
@@ -94,9 +98,9 @@
       nextQuestion();
     });
   });
-  $('toggle-hint-class').addEventListener('change', event => { $('class-hint-badge').hidden = !event.target.checked; });
+  $('toggle-hint-class').addEventListener('change', event => { $('class-hint-badge').hidden = !event.target.checked; if (event.target.checked) analytics?.track('hint_open', {hint_type: 'class'}); });
   $('submit').addEventListener('click', check);
-  $('skip').addEventListener('click', nextQuestion);
+  $('skip').addEventListener('click', () => { if (!locked) analytics?.track('question_skip'); nextQuestion(); });
   $('next').addEventListener('click', nextQuestion);
   $('toggle-hint-btn').setAttribute('aria-controls', 'hint-box');
   $('toggle-hint-btn').addEventListener('click', toggleHint);

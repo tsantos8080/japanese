@@ -3,6 +3,7 @@
   const input = $('typing-input');
   let mode = 'all', phrase, chunks, index = 0, pending = '', keys = 0, errors = 0, started = 0, finished = false, elapsed = 0;
   let sessionPhrases = 0, sessionKana = 0, sessionKeys = 0, sessionErrors = 0, showRomaji = false, lastEntry = 0, intervals = [];
+  const analytics = window.NihongoAnalytics?.create('speed-reader', () => ({mode, category: phrase?.type}));
   function updateMetrics() {
     const seconds = started ? (finished ? elapsed : performance.now() - started) / 1000 : 0;
     const kana = chunks.slice(0,index).reduce((sum,c) => sum + c.kana.length,0);
@@ -47,6 +48,7 @@
   }
   function complete() {
     finished = true; elapsed = performance.now()-started;
+    analytics?.track('phrase_complete', {duration_seconds: Math.round(elapsed / 1000), character_count: phrase.kana.length, error_count: errors, accuracy: Math.round((keys-errors)/keys*100)});
     sessionPhrases++; sessionKana += phrase.kana.length; sessionKeys += keys; sessionErrors += errors;
     $('session-phrases').textContent = `${sessionPhrases} Frases Concluídas`;
     $('session-kana').textContent = sessionKana;
@@ -56,6 +58,7 @@
   }
   function accept(char) {
     if (finished || !char) return;
+    analytics?.start();
     const now = performance.now(); if (!started) started = now;
     if (lastEntry) {
       intervals.push(now-lastEntry); intervals = intervals.slice(-50);
@@ -82,9 +85,10 @@
   input.addEventListener('compositionend', event => { for (const char of event.data || '') accept(char); input.value = pending; });
   input.addEventListener('paste', event => { event.preventDefault(); for(const char of event.clipboardData.getData('text')) accept(char); });
   $('restart').addEventListener('click',()=>load(phrase));
-  $('next').addEventListener('click',nextQuestion);
+  function advance() { if (!finished) analytics?.track('question_skip'); nextQuestion(); }
+  $('next').addEventListener('click',advance);
   $('toggle-romaji').setAttribute('aria-pressed','false');
-  $('toggle-romaji').addEventListener('click',()=>{showRomaji=!showRomaji;$('toggle-romaji').setAttribute('aria-pressed',String(showRomaji));render();});
+  $('toggle-romaji').addEventListener('click',()=>{showRomaji=!showRomaji;if(showRomaji)analytics?.track('hint_open', {hint_type: 'romaji'});$('toggle-romaji').setAttribute('aria-pressed',String(showRomaji));render();});
   document.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener('click',()=>{mode=button.dataset.mode;document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));nextQuestion();}));
   const help = $('keyboard-help');
   $('typing-guide-button').addEventListener('click',()=>help.showModal());
@@ -97,7 +101,7 @@
   document.addEventListener('keydown',event=>{
     if(help.open||event.repeat||event.isComposing||event.ctrlKey||event.metaKey||event.altKey)return;
     if(event.key==='Escape'){closeMenu();if(event.target===input){event.preventDefault();load(phrase);}}
-    if(event.key==='Enter'&&event.target===input){event.preventDefault();nextQuestion();}
+    if(event.key==='Enter'&&event.target===input){event.preventDefault();advance();}
     if(event.key==='?'&&!event.target.closest('input, textarea, select')){event.preventDefault();help.showModal();}
   });
   document.querySelectorAll('.material-symbols-outlined').forEach(icon=>icon.setAttribute('aria-hidden','true'));
