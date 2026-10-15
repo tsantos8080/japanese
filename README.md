@@ -79,6 +79,7 @@ Consulta de Hiragana e Katakana com 46 caracteres básicos, 25 sonorizados e 15 
 
 ### Validação e manutenção
 
+* [ ] Renomear o repositório de `japanese` para `nihongodrills`, alinhando-o ao domínio público. Revisar a publicação no GitHub Pages, o remoto Git e referências ao nome antigo; conferir no Spaceship se os registros DNS precisam de ajuste. Após a troca, validar o domínio personalizado e o acesso ao site e ao `/ads.txt`.
 * [ ] Validar todas as telas em desktop, tablet e celulares reais, incluindo teclado virtual, composição, autocorreção e colagem na Leitura.
 * [ ] Auditar navegação por teclado, leitores de tela e contraste, especialmente os cards de exceção de Kana.
 * [ ] Confirmar a reprodução audível e a disponibilidade de voz japonesa nos navegadores e sistemas de interesse.
@@ -88,12 +89,42 @@ Consulta de Hiragana e Katakana com 46 caracteres básicos, 25 sonorizados e 15 
 
 ### Decisões de produto
 
-* [ ] Definir se haverá histórico local para alimentar as métricas diárias da home, sem contas de usuário.
+* [ ] Pesquisar os recursos e fluxos do [Renshuu](https://www.renshuu.org/) como referência para possíveis melhorias. Identificar o que pode ajudar na prática de japonês deste projeto e priorizar considerando benefício ao estudante, esforço de implementação e o escopo sem contas de usuário. Registrar propostas para avaliação antes de implementar.
+* [ ] Reorganizar a navegação superior para acomodar novos módulos sem acrescentar um link por módulo ao cabeçalho. Avaliar um menu “Módulos” que reúna os exercícios e indique o módulo atual, mantendo acesso à home, idioma e ajuda. Considerar navegação por teclado, leitores de tela e uso no celular; avaliar categorias quando a quantidade de módulos justificar.
+* [ ] Melhorar a visibilidade do feedback de acerto e erro nos exercícios: hoje ele aparece abaixo da área de resposta e pode ficar fora da tela. Avaliar um overlay ou feedback próximo à resposta, mantendo a correção legível sem exigir rolagem e sem atrapalhar a próxima questão. Definir a solução após considerar uso no celular, teclado e leitores de tela.
+* [ ] Implementar progresso diário salvo localmente, sem contas de usuário, para alimentar as métricas da home com exercícios realizados e precisão real. Definir o que conta como exercício concluído e como o progresso muda na virada do dia, preservando os dados ao recarregar a página.
+* [ ] Permitir copiar o histórico de prática em JSON para análise pelo usuário em uma LLM (modelo de linguagem). Oferecer seleção do dia ou de todo o histórico disponível e incluir versão do formato, data, módulo, filtros, questão, resposta digitada, respostas aceitas, resultado e uso de dica, quando aplicável. Planejar esses dados junto ao progresso diário; o histórico fica no navegador, separado do analytics, e o compartilhamento é uma ação explícita do usuário.
 * [ ] Definir o comportamento ao atingir as metas visuais de 25 respostas em Forma て e Contadores.
 * [ ] Definir a cobertura da consulta de Kana: o banco contém combinações que ainda não aparecem como cards, e só あ tem esquema de ordem de traços.
-* [ ] Configurar a publicidade antes de ativá-la, caso seja desejada.
+* [x] Ativar o bloco de publicidade da home e ocultar o contêiner quando o AdSense retornar `unfilled`.
 
 SRS, XP, radicais, frases em kanji/furigana, novas métricas e calendário com mês/ano são expansões opcionais, sem compromisso de implementação. Contas de usuário estão fora do escopo.
+
+## Desenvolvimento e validação
+
+O site é estático, sem etapa de build. Para servi-lo localmente, execute na raiz do repositório:
+
+```sh
+python3 -m http.server 8000
+```
+
+Abra `http://localhost:8000`. As páginas usam recursos externos, como Tailwind, fontes e WanaKana; o site não oferece funcionamento offline completo.
+
+Para executar os testes automatizados de idiomas e analytics, use Node.js:
+
+```sh
+node --test tests/*.test.cjs
+```
+
+Esses testes não comprovam aparência, reprodução de áudio ou veiculação real de anúncios. A publicação usa GitHub Pages, com o domínio personalizado definido em `CNAME`.
+
+## Publicidade
+
+A home carrega o AdSense e solicita um anúncio de display responsivo no bloco `6079369285`. Os módulos não carregam essa integração. O arquivo `ads.txt` fica na raiz do repositório para ser servido em `/ads.txt` no domínio.
+
+O script `ads.js` acompanha o atributo `data-ad-status`: quando recebe `unfilled`, oculta todo o contêiner, incluindo fundo e espaçamento. Outros estados mantêm o contêiner visível. O bloco começa visível para permitir a solicitação do anúncio.
+
+Mudanças de estado são registradas no console com o prefixo `[AdSense]`, sem repetir o mesmo estado consecutivamente. `unfilled` informa que nenhum anúncio foi retornado, mas não revela a causa. Se o script do Google for bloqueado ou não informar um estado, esse tratamento não oculta automaticamente o contêiner. A integração não garante preenchimento em toda visita.
 
 ## Idiomas
 
